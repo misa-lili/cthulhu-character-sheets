@@ -1,273 +1,62 @@
 <script lang="ts">
+	import Checkbox from '$lib/components/Checkbox.svelte'
+	import Number from '$lib/components/Number.svelte'
+	import Text from '$lib/components/Text.svelte'
 	import { t, l, locales, locale } from '$lib/translations'
+	import { onMount } from 'svelte'
 
-	const data = {
-		edition: '7E',
-		era: '20s',
-		//
-		name: '김결정',
-		player: '김학겸',
-		occupation: '기자',
-		age: 18,
-		sex: '남자',
-		residence: '서울',
-		birthplace: '서울',
-		//
-		STR: 70,
-		DEX: 70,
-		POW: 70,
-		CON: 70,
-		APP: 70,
-		EDU: 70,
-		SIZ: 70,
-		INT: 70,
-		MOVE: 70,
-		//
-		currentHP: 70,
-		maxHP: 70,
-		currentMP: 70,
-		maxMP: 70,
-		LUCK: 70,
-		startSAN: 70,
-		currentSAN: 70,
-		insaneSAN: 40,
-		//
-		portraitURL: 'https://i.imgur.com/eXicOco.png',
-		//
-		isTemporaryInsanity: false,
-		isIndefiniteInsanity: false,
-		isMajorWound: false,
-		isUnconscious: false,
-		isDying: false,
-		//
-		skills: {
-			accounting: {
-				value: '',
-				isSuccess: false,
-			},
-			anthropology: {
-				value: '',
-				isSuccess: false,
-			},
-			appraise: {
-				value: '',
-				isSuccess: false,
-			},
-			archaeology: {
-				value: '',
-				isSuccess: false,
-			},
-			art: {
-				value: '',
-				isSuccess: false,
-			},
-			charm: {
-				value: '',
-				isSuccess: false,
-			},
-			climb: {
-				value: '',
-				isSuccess: false,
-			},
-			creditRating: {
-				value: '',
-				isSuccess: false,
-			},
-			cthulhuMythos: {
-				value: '',
-				isSuccess: false,
-			},
-			disguise: {
-				value: '',
-				isSuccess: false,
-			},
-			dodge: {
-				value: '',
-				isSuccess: false,
-			},
-			driveAuto: {
-				value: '',
-				isSuccess: false,
-			},
-			electricalRepair: {
-				value: '',
-				isSuccess: false,
-			},
-			fastTalk: {
-				value: '',
-				isSuccess: false,
-			},
-			fightingBrawl: {
-				value: '',
-				isSuccess: false,
-			},
-			firearmsHandgun: {
-				value: '',
-				isSuccess: false,
-			},
-			firearmsRifle: {
-				value: '',
-				isSuccess: false,
-			},
-			firstAid: {
-				value: '',
-				isSuccess: false,
-			},
-			history: {
-				value: '',
-				isSuccess: false,
-			},
-			intimidate: {
-				value: '',
-				isSuccess: false,
-			},
-			jump: {
-				value: '',
-				isSuccess: false,
-			},
-			languageOwn: {
-				value: '',
-				isSuccess: false,
-			},
-			languageOther: {
-				value: '',
-				isSuccess: false,
-			},
-			law: {
-				value: '',
-				isSuccess: false,
-			},
-			libraryUse: {
-				value: '',
-				isSuccess: false,
-			},
-			listen: {
-				value: '',
-				isSuccess: false,
-			},
-			locksmith: {
-				value: '',
-				isSuccess: false,
-			},
-			mechanicalRepair: {
-				value: '',
-				isSuccess: false,
-			},
-			medicine: {
-				value: '',
-				isSuccess: false,
-			},
-			naturalWorld: {
-				value: '',
-				isSuccess: false,
-			},
-			navigate: {
-				value: '',
-				isSuccess: false,
-			},
-			occult: {
-				value: '',
-				isSuccess: false,
-			},
-			persuade: {
-				value: '',
-				isSuccess: false,
-			},
-			psychoanalysis: {
-				value: '',
-				isSuccess: false,
-			},
-			psychology: {
-				value: '',
-				isSuccess: false,
-			},
-			ride: {
-				value: '',
-				isSuccess: false,
-			},
-			science: {
-				value: '',
-				isSuccess: false,
-			},
-			sleightOfHand: {
-				value: '',
-				isSuccess: false,
-			},
-			spotHidden: {
-				value: '',
-				isSuccess: false,
-			},
-			stealth: {
-				value: '',
-				isSuccess: false,
-			},
-			survival: {
-				value: '',
-				isSuccess: false,
-			},
-			swim: {
-				value: '',
-				isSuccess: false,
-			},
-			throw: {
-				value: '',
-				isSuccess: false,
-			},
-			track: {
-				value: '',
-				isSuccess: false,
-			},
-		},
-		//
-		weapons: [
-			{
-				weapon: '맨손',
-				skill: '근력',
-				damage: '1d3',
-				numberOfAttacks: '1',
-				range: '0',
-				ammo: '0',
-				malfunctions: '0',
-			},
-		],
-		combat: {
-			damageBonus: '',
-			build: '',
-			dodge: '',
-		},
-		myStory: '',
-		backstory: {
-			personalDescription: '',
-			traits: '',
-			ideologyAndBeliefs: '',
-			injuriesAndScars: '',
-			significantPeople: '',
-			phobiasAndManias: '',
-			meaningfulLocations: '',
-			arcaneTomesSpellsAndArtifacts: '',
-			treasuredPossessions: '',
-			encountersWithStrangeEntities: '',
-		},
-		gearAndPossessions: ['', ''],
-		wealth: {
-			spendingLevel: '',
-			cash: '',
-			assets: '',
-		},
-		fellowInvestigators: [{ character: '', player: '' }],
-		note: '',
+	export let data: Character
+
+	$: if (data) {
+		console.log(data)
 	}
 
-	const link = 'https://kit.svelte.dev'
+	$: skills = Object.entries(data.skills).sort((a, b) => {
+		const aKey = $t(a[0])
+		const bKey = $t(b[0])
+		const result = aKey.localeCompare(bKey)
+		return result
+	})
+
+	function addSkill() {
+		const skillName = window.prompt('Skill name')
+		if (!skillName) return
+		data.skills[skillName] = { value: 0, isOccupation: false }
+	}
+
+	function removeSkill(idx: number) {
+		const key = skills[idx][0]
+		const confirm = window.confirm(`Remove skill? ${$t(key)}`)
+		if (!confirm) return
+		delete data.skills[key]
+		data = data
+	}
+
+	function addWeapon() {
+		const weaponName = window.prompt('Weapon name?')
+		if (!weaponName) return
+		data.weapons = [
+			...data.weapons,
+			{
+				weapon: weaponName,
+				skill: 0,
+				damage: '1d3',
+				numberOfAttacks: 1,
+				range: 20,
+				ammo: 0,
+				malfunction: false,
+			},
+		]
+	}
+
+	function removeWeapon(idx: number) {
+		const key = data.weapons[idx].weapon
+		const confirm = window.confirm(`Remove weapon? ${key}`)
+		if (!confirm) return
+		data.weapons.splice(idx, 1)
+		data = data
+	}
 </script>
-
-<select bind:value={$locale}>
-	{#each $locales as value}
-		<option {value}>{$t(`lang.${value}`)}</option>
-	{/each}
-</select>
-
-<br />
 
 <div class="title-bar">
 	<div class="title-bar-text">Cthulhu Character Sheets @misa-lili</div>
@@ -280,59 +69,177 @@
 
 <br />
 
-<div class="field-row">
-	<select>
-		<option selected>7E</option>
-	</select>
-</div>
+<fieldset>
+	<legend>{$t('environment')}</legend>
+	<div class="field-row">
+		<select bind:value={$locale}>
+			{#each $locales as value}
+				<option {value}>{$l(value, value)}</option>
+			{/each}
+		</select>
+	</div>
 
-<div class="field-row">
-	<select>
-		<option selected>20s</option>
-		<option>Now</option>
-	</select>
-</div>
+	<div class="field-row">
+		<select>
+			<option selected>7E</option>
+		</select>
+	</div>
 
-<br />
-<div class="field-row">
-	<label>{$t('name')}</label>
-	<input type="text" value={data.name} />
-</div>
-<div class="field-row">
-	<label>player</label>
-	<input type="text" value={data.player} />
-</div>
-<div class="field-row">
-	<label>occupation</label>
-	<input type="text" value={data.occupation} />
-</div>
-<div class="field-row">
-	<label>age</label>
-	<input type="number" value={data.age} />
-</div>
-<div class="field-row">
-	<label>sex</label>
-	<input type="text" value={data.sex} />
-</div>
-<div class="field-row">
-	<label>residence</label>
-	<input type="text" value={data.residence} />
-</div>
-<div class="field-row">
-	<label>birthplace</label>
-	<input type="text" value={data.birthplace} />
-</div>
+	<div class="field-row">
+		<select>
+			<option selected>20s</option>
+			<option>Now</option>
+		</select>
+	</div>
+</fieldset>
 
 <br />
 
-<div class="field-row">
-	<label>STR</label>
-	<input type="number" value={data.STR} />
-</div>
+<fieldset>
+	<legend>{$t('investigator')}</legend>
+	<Text key="name" value={data.name} />
+	<Text key="player" value={data.player} />
+	<Text key="occupation" value={data.occupation} />
+	<Text key="age" value={data.age} />
+	<Text key="sex" value={data.sex} />
+	<Text key="residence" value={data.residence} />
+	<Text key="birthplace" value={data.birthplace} />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('portrait')}</legend>
+	<img id="portrait" src={data.portraitURL} style="width:100%" />
+	<Text key="portraitURL" bind:value={data.portraitURL} />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('characteristics')}</legend>
+	<Number key="STR" bind:value={data.characteristics.STR} />
+	<Number key="CON" bind:value={data.characteristics.CON} />
+	<Number key="POW" bind:value={data.characteristics.POW} />
+	<Number key="DEX" bind:value={data.characteristics.DEX} />
+	<Number key="APP" bind:value={data.characteristics.APP} />
+	<Number key="SIZ" bind:value={data.characteristics.SIZ} />
+	<Number key="INT" bind:value={data.characteristics.INT} />
+	<Number key="EDU" bind:value={data.characteristics.EDU} />
+	<Number key="MOV" readonly bind:value={data.characteristics.MOV} />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('status')}</legend>
+	<Checkbox key="isMajorWound" bind:value={data.isMajorWound} />
+	<Checkbox key="isUnconscious" bind:value={data.isUnconscious} />
+	<Checkbox key="isDying" bind:value={data.isDying} />
+	<Checkbox key="isTemporaryInsanity" bind:value={data.isTemporaryInsanity} />
+	<Checkbox key="isIndefiniteInsanity" bind:value={data.isIndefiniteInsanity} />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('skills')}</legend>
+	{#each skills as [key, set], idx}
+		<div style="display: flex; align-items: center;">
+			<div class="field-row">
+				<input type="checkbox" id={idx} bind:checked={set.isSuccess} />
+				<label for={idx}><span style="opacity:0">|</span></label>
+			</div>
+			<div class="field-row">
+				<Number key={$t(key)} bind:value={set.value} />
+				<Number value={(set.value / 2).toFixed(0)} readonly />
+				<Number value={(set.value / 5).toFixed(0)} readonly />
+			</div>
+			<div>
+				<div class="title-bar-controls">
+					<button aria-label="Close" on:click={() => removeSkill(idx)} />
+				</div>
+			</div>
+		</div>
+	{/each}
+	<br />
+	<button on:click={addSkill}>스킬 추가</button>
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('weapons')}</legend>
+	<div class="sunken-panel" style="height: 120px; width: 335px;">
+		<table class="interactive">
+			<thead>
+				<tr>
+					<th>{$t('weapon')}</th>
+					<th>{$t('skill')}</th>
+					<th>{$t('damage')}</th>
+					<th>{$t('numberOfAttacks')}</th>
+					<th>{$t('range')}</th>
+					<th>{$t('ammo')}</th>
+					<th>{$t('malfunction')}</th>
+					<th>{$t('remove')}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each data.weapons as weapon, idx}
+					<tr>
+						<td>{weapon.weapon}</td>
+						<td>
+							<Number bind:value={weapon.skill} />
+						</td>
+						<td>
+							<Text bind:value={weapon.damage} --width="40px" />
+						</td>
+						<td>
+							<Number bind:value={weapon.numberOfAttacks} />
+						</td>
+						<td>
+							<Number bind:value={weapon.range} />
+						</td>
+						<td>
+							<Number bind:value={weapon.ammo} />
+						</td>
+						<td><Checkbox bind:value={weapon.malfunction} /></td>
+						<td>
+							<div class="title-bar-controls">
+								<button aria-label="Close" on:click={() => removeWeapon(idx)} />
+							</div>
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+
+	<br />
+	<button on:click={addWeapon}>무기 추가</button>
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('combat')}</legend>
+	<Number key={$t('damageBonus')} readonly />
+	<Number key={$t('build')} readonly />
+	<Number key={$t('dodge')} readonly />
+</fieldset>
 
 <style>
 	:global(body) {
 		background: #dfdfdf;
+	}
+
+	:global(legend) {
+		background: none;
+	}
+
+	:global(input[type='number']:read-only) {
+		background-color: #e0e0e0;
+		cursor: not-allowed;
 	}
 
 	.zoom {

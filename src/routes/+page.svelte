@@ -1,14 +1,25 @@
 <script lang="ts">
+	import LZString from 'lz-string'
 	import Checkbox from '$lib/components/Checkbox.svelte'
 	import Number from '$lib/components/Number.svelte'
 	import Text from '$lib/components/Text.svelte'
+	import Textarea from '$lib/components/Textarea.svelte'
 	import { t, l, locales, locale } from '$lib/translations'
 	import { onMount } from 'svelte'
 
 	export let data: Character
 
-	$: if (data) {
-		console.log(data)
+	onMount(() => {
+		document.addEventListener('change', () => {
+			console.log(data.name)
+			history.replaceState({}, '', `?data=${encode(data)}`)
+		})
+	})
+
+	function encode(obj: object) {
+		const text = JSON.stringify(obj)
+		const encoded = LZString.compressToEncodedURIComponent(text)
+		return encoded
 	}
 
 	$: skills = Object.entries(data.skills).sort((a, b) => {
@@ -56,6 +67,26 @@
 		data.weapons.splice(idx, 1)
 		data = data
 	}
+
+	function addFellow() {
+		const fellowName = window.prompt('Fellow name?')
+		if (!fellowName) return
+		data.fellowInvestigators = [
+			...data.fellowInvestigators,
+			{
+				character: fellowName,
+				player: '',
+			},
+		]
+	}
+
+	function removeFellow(idx: number) {
+		const key = data.fellowInvestigators[idx].character
+		const confirm = window.confirm(`Remove fellow? ${key}`)
+		if (!confirm) return
+		data.fellowInvestigators.splice(idx, 1)
+		data = data
+	}
 </script>
 
 <div class="title-bar">
@@ -97,13 +128,13 @@
 
 <fieldset>
 	<legend>{$t('investigator')}</legend>
-	<Text key="name" value={data.name} />
-	<Text key="player" value={data.player} />
-	<Text key="occupation" value={data.occupation} />
-	<Text key="age" value={data.age} />
-	<Text key="sex" value={data.sex} />
-	<Text key="residence" value={data.residence} />
-	<Text key="birthplace" value={data.birthplace} />
+	<Text key="name" bind:value={data.name} />
+	<Text key="player" bind:value={data.player} />
+	<Text key="occupation" bind:value={data.occupation} />
+	<Text key="age" bind:value={data.age} />
+	<Text key="sex" bind:value={data.sex} />
+	<Text key="residence" bind:value={data.residence} />
+	<Text key="birthplace" bind:value={data.birthplace} />
 </fieldset>
 
 <br />
@@ -163,7 +194,7 @@
 		</div>
 	{/each}
 	<br />
-	<button on:click={addSkill}>스킬 추가</button>
+	<button on:click={addSkill}>{$t('addSkill')}</button>
 </fieldset>
 
 <br />
@@ -216,7 +247,7 @@
 	</div>
 
 	<br />
-	<button on:click={addWeapon}>무기 추가</button>
+	<button on:click={addWeapon}>{$t('addWeapon')}</button>
 </fieldset>
 
 <br />
@@ -226,6 +257,75 @@
 	<Number key={$t('damageBonus')} readonly />
 	<Number key={$t('build')} readonly />
 	<Number key={$t('dodge')} readonly />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('myStory')}</legend>
+	<Textarea bind:value={data.myStory} />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('backstory')}</legend>
+	<Textarea key="personalDescription" bind:value={data.backstory.personalDescription} />
+	<Textarea key="traits" bind:value={data.backstory.traits} />
+	<Textarea key="ideologyAndBeliefs" bind:value={data.backstory.ideologyAndBeliefs} />
+	<Textarea key="injuriesAndScars" bind:value={data.backstory.injuriesAndScars} />
+	<Textarea key="significantPeople" bind:value={data.backstory.significantPeople} />
+	<Textarea key="phobiasAndManias" bind:value={data.backstory.phobiasAndManias} />
+	<Textarea key="meaningfulLocations" bind:value={data.backstory.meaningfulLocations} />
+	<Textarea
+		key="arcaneTomesSpellsAndArtifacts"
+		bind:value={data.backstory.arcaneTomesSpellsAndArtifacts}
+	/>
+	<Textarea key="treasuredPossessions" bind:value={data.backstory.treasuredPossessions} />
+	<Textarea
+		key="encountersWithStrangeEntities"
+		bind:value={data.backstory.encountersWithStrangeEntities}
+	/>
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('gearAndPossessions')}</legend>
+	<Textarea bind:value={data.gearAndPossessions} />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('wealth')}</legend>
+	<Textarea key="spendingLevel" bind:value={data.backstory.spendingLevel} />
+	<Textarea key="cash" bind:value={data.backstory.cash} />
+	<Textarea key="assets" bind:value={data.backstory.assets} />
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('fellowInvestigators')}</legend>
+	{#each data.fellowInvestigators as fellow, idx}
+		<div class="field-row">
+			<Text key="character" bind:value={fellow.character} />
+			<Text key="player" bind:value={fellow.player} />
+			<div class="title-bar-controls">
+				<button aria-label="Close" on:click={() => removeFellow(idx)} />
+			</div>
+		</div>
+	{/each}
+	<br />
+	<button on:click={addFellow}>{$t('addFellow')}</button>
+</fieldset>
+
+<br />
+
+<fieldset>
+	<legend>{$t('note')}</legend>
+	<Textarea rows="8" bind:value={data.note} />
 </fieldset>
 
 <style>

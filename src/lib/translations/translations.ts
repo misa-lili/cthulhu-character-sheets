@@ -228,5 +228,8 @@ export default {
 		character: '캐릭터',
 		note: '노트',
 		remove: '삭제',
+		addSkill: '기술 추가',
+		addWeapon: '무기 추가',
+		addFellow: '동료 추가',
 	},
 }

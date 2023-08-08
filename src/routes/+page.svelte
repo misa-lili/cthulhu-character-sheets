@@ -11,7 +11,6 @@
 
 	onMount(() => {
 		document.addEventListener('change', () => {
-			console.log(data.name)
 			history.replaceState({}, '', `?data=${encode(data)}`)
 		})
 	})
@@ -182,7 +181,7 @@
 				<label for={idx}><span style="opacity:0">|</span></label>
 			</div>
 			<div class="field-row">
-				<Number key={$t(key)} bind:value={set.value} />
+				<Number {key} bind:value={set.value} />
 				<Number value={(set.value / 2).toFixed(0)} readonly />
 				<Number value={(set.value / 5).toFixed(0)} readonly />
 			</div>
@@ -218,7 +217,7 @@
 			<tbody>
 				{#each data.weapons as weapon, idx}
 					<tr>
-						<td>{weapon.weapon}</td>
+						<td>{$t(weapon.weapon)}</td>
 						<td>
 							<Number bind:value={weapon.skill} />
 						</td>

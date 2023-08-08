@@ -232,7 +232,7 @@ export const load = (({ url }) => {
 			},
 			weapons: [
 				{
-					weapon: '맨손',
+					weapon: 'unarmed',
 					skill: 0,
 					damage: '1d3',
 					numberOfAttacks: 1,

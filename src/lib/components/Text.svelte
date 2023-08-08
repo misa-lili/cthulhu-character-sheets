@@ -8,7 +8,7 @@
 </script>
 
 <div class="row">
-	<label for={uuid}>{$t(key)}</label>
+	<label for={uuid}>{key ? $t(key) : ''}</label>
 	<input id={uuid} type="text" bind:value />
 </div>
 

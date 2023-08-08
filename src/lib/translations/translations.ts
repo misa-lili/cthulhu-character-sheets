@@ -1,7 +1,6 @@
-import lang from './lang.json'
-
 export default {
 	en: {
+		ko: 'Korean',
 		en: 'English',
 		edition: 'edition',
 		era: 'era',
@@ -115,7 +114,11 @@ export default {
 		note: 'note',
 	},
 	ko: {
+		en: '영어',
 		ko: '한국어',
+		environment: '환경',
+		investigator: '탐사자',
+		portrait: '초상화',
 		edition: '에디션',
 		era: '시대',
 		name: '이름',
@@ -231,5 +234,6 @@ export default {
 		addSkill: '기술 추가',
 		addWeapon: '무기 추가',
 		addFellow: '동료 추가',
+		unarmed: '비무장',
 	},
 }

@@ -9,7 +9,7 @@
 </script>
 
 <div class="field-row-stacked">
-	<label for={uuid}>{$t(key)}</label>
+	<label for={uuid}>{key ? $t(key) : ''}</label>
 	<textarea id={uuid} {rows} bind:value />
 </div>
 

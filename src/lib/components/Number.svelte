@@ -13,7 +13,7 @@
 </script>
 
 <div class="row">
-	<label for={uuid} on:click={roll100}>{$t(key)}</label>
+	<label for={uuid} on:click={roll100}>{key ? $t(key) : ''}</label>
 	<input id={uuid} type="number" bind:value {readonly} />
 </div>
 

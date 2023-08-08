@@ -341,6 +341,17 @@
 		cursor: not-allowed;
 	}
 
+	/* Chrome, Safari, Edge, Opera */
+	:global(::-webkit-outer-spin-button, input::-webkit-inner-spin-button) {
+		-webkit-appearance: none;
+	}
+
+	/* Firefox */
+	:global(input[type='number']) {
+		-moz-appearance: textfield;
+		padding-left: 4px;
+	}
+
 	.zoom {
 		transform-origin: 0 0;
 		transform: scale(1.2);

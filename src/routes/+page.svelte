@@ -157,12 +157,26 @@
 	<Number key="INT" bind:value={data.characteristics.INT} />
 	<Number key="EDU" bind:value={data.characteristics.EDU} />
 	<Number key="MOV" readonly bind:value={data.characteristics.MOV} />
+	<Number key="LUCK" bind:value={data.LUCK} />
 </fieldset>
 
 <br />
 
 <fieldset>
 	<legend>{$t('status')}</legend>
+	<div style="display: flex; align-items: center; gap: 4px;">
+		<Number key="currentHP" bind:value={data.currentHP} />
+		<Number key="maxHP" bind:value={data.maxHP} readonly />
+	</div>
+	<div style="display: flex; align-items: center; gap: 4px;">
+		<Number key="currentMP" bind:value={data.currentMP} />
+		<Number key="maxMP" bind:value={data.maxMP} readonly />
+	</div>
+	<div style="display: flex; align-items: center; gap: 4px;">
+		<Number key="startSAN" bind:value={data.startSAN} readonly />
+		<Number key="currentSAN" bind:value={data.currentSAN} />
+		<Number key="insaneSAN" bind:value={data.insaneSAN} readonly />
+	</div>
 	<Checkbox key="isMajorWound" bind:value={data.isMajorWound} />
 	<Checkbox key="isUnconscious" bind:value={data.isUnconscious} />
 	<Checkbox key="isDying" bind:value={data.isDying} />

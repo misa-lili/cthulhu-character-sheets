@@ -40,7 +40,7 @@ export const load = (({ url }) => {
 			currentSAN: 70,
 			insaneSAN: 40,
 			//
-			portraitURL: 'https://i.imgur.com/eXicOco.png',
+			portraitURL: '',
 			//
 			isTemporaryInsanity: false,
 			isIndefiniteInsanity: false,

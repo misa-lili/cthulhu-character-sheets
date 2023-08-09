@@ -148,7 +148,9 @@
 </Fieldset>
 
 <Fieldset legend={$t('portrait')}>
-	<img id="portrait" src={data.portraitURL} style="width:100%" />
+	{#if data.portraitURL}
+		<img id="portrait" src={data.portraitURL} style="width:100%" />
+	{/if}
 	<Text key={$t('portraitURL')} bind:value={data.portraitURL} />
 </Fieldset>
 
@@ -204,16 +206,16 @@
 </Fieldset>
 
 <Fieldset legend={$t('weapons')}>
-	<table class="table text-xs">
+	<table class="table text-[8px] tracking-tighter">
 		<thead>
 			<tr>
 				<th>{$t('weapon')}</th>
-				<th class="w-9">{$t('skill')}</th>
+				<th class="w-8">{$t('skill')}</th>
 				<th class="w-14">{$t('damage')}</th>
-				<th class="w-9">{$t('numberOfAttacks')}</th>
-				<th class="w-9">{$t('range')}</th>
-				<th class="w-9">{$t('ammo')}</th>
-				<th class="w-9">{$t('malfunctions')}</th>
+				<th class="w-8">{$t('numberOfAttacks')}</th>
+				<th class="w-8">{$t('range')}</th>
+				<th class="w-8">{$t('ammo')}</th>
+				<th class="w-8">{$t('malfunction')}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -221,7 +223,11 @@
 				<tr>
 					<td on:click={() => removeWeapon(idx)}>
 						<div
-							class="w-full h-[34px] border border-black border-solid rounded flex items-center justify-center p-2 leading-none"
+							class="
+								w-full h-[34px] border border-black border-solid rounded
+								flex items-center justify-center
+								px-0.5 leading-none overflow-hidden
+							"
 						>
 							{$t(weapon.weapon)}
 						</div>
@@ -253,8 +259,10 @@
 </Fieldset>
 
 <Fieldset legend={$t('combat')}>
-	<Number key={$t('damageBonus')} />
-	<Number key={$t('build')} />
+	<Row>
+		<Number key={$t('damageBonus')} />
+		<Number key={$t('build')} />
+	</Row>
 	<Number key={$t('dodge')} withHints />
 </Fieldset>
 
@@ -312,8 +320,8 @@
 	<Textarea rows="8" bind:value={data.note} />
 </Fieldset>
 
-<div class="text-right">
+<div class="text-center">
 	<a href="https://github.com/misa-lili/cthulhu-character-sheets">github</a>
 </div>
 
-<Fab value="ROLL" fixed right bottom on:click={roll} />
+<Fab value={$t('ROLL')} fixed right bottom on:click={roll} />

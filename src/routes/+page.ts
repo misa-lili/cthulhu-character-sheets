@@ -266,7 +266,7 @@ export const load = (({ url }) => {
 				cash: '',
 				assets: '',
 			},
-			fellowInvestigators: [{ character: '', player: '' }],
+			fellowInvestigators: [],
 			note: '',
 		}
 	}

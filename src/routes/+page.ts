@@ -8,6 +8,7 @@ export const load = (({ url }) => {
 		return decode(data)
 	} catch (error) {
 		return {
+			language: 'ko',
 			edition: '7E',
 			era: '20s',
 			//

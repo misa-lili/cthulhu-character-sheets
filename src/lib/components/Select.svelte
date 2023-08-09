@@ -7,7 +7,7 @@
 
 <div class="flex flex-col">
 	<label>{key}</label>
-	<select bind:value={selected}>
+	<select bind:value={selected} on:change>
 		{#each items as item}
 			<option value={item.value}>{item.display}</option>
 		{/each}

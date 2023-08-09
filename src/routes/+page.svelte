@@ -17,12 +17,12 @@
 	export let data: Character
 
 	onMount(() => {
+		$locale = data.language
 		document.addEventListener('change', replaceUrl)
 	})
 
 	function replaceUrl() {
-		console.log('replaceUrl')
-		console.log(data.skills)
+		console.log(data)
 		history.replaceState({}, '', `?data=${encode(data)}`)
 	}
 
@@ -124,7 +124,10 @@
 	<Select
 		key={$t('language')}
 		items={$locales.map((s) => ({ display: $t(s), value: s }))}
-		bind:selected={$locale}
+		bind:selected={data.language}
+		on:change={(event) => {
+			$locale = event.target.value
+		}}
 	/>
 	<Select
 		key={$t('edition')}
@@ -187,7 +190,7 @@
 	{#each skills as [key, set], idx}
 		<Row>
 			<Row cols="1">
-				<Checkbox type="checkbox" bind:value={set.isSuccess} />
+				<Checkbox bind:value={set.isSuccess} />
 			</Row>
 			<Row cols="5">
 				<span class="pl-1" on:click={() => removeSkill(idx)}>{$t(key)}</span>
@@ -210,7 +213,7 @@
 				<th class="w-9">{$t('numberOfAttacks')}</th>
 				<th class="w-9">{$t('range')}</th>
 				<th class="w-9">{$t('ammo')}</th>
-				<th class="w-9">{$t('malfunction')}</th>
+				<th class="w-9">{$t('malfunctions')}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -252,7 +255,7 @@
 <Fieldset legend={$t('combat')}>
 	<Number key={$t('damageBonus')} />
 	<Number key={$t('build')} />
-	<Number key={$t('dodge')} />
+	<Number key={$t('dodge')} withHints />
 </Fieldset>
 
 <Fieldset legend={$t('myStory')}>

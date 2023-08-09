@@ -9,6 +9,7 @@ declare global {
 	}
 
 	interface Character {
+		language: string
 		edition: string
 		era: string
 		name: string

@@ -113,7 +113,8 @@
 		const d8 = Math.floor(Math.random() * 8) + 1
 		const d6 = Math.floor(Math.random() * 6) + 1
 		const d4 = Math.floor(Math.random() * 4) + 1
-		const text = `1d10x10=${d10x10}\n1d10=${d10}\n1D10x10_extra=${d10x10_extra}\n1d10x10_extra2=${d10x10_extra2}\n1d20=${d20}\n1d8=${d8}\n1d6=${d6}\n1d4=${d4}`
+		const d3 = Math.floor(Math.random() * 3) + 1
+		const text = `1d10x10=${d10x10}\n1d10=${d10}\n1d10x10_extra=${d10x10_extra}\n1d10x10_extra2=${d10x10_extra2}\n1d20=${d20}\n1d8=${d8}\n1d6=${d6}\n1d4=${d4}\n1d3=${d3}`
 		alert(text)
 	}
 </script>

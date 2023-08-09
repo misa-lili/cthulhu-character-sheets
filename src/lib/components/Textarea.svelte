@@ -4,13 +4,13 @@
 	export let rows = 2
 </script>
 
-<div class="flex flex-col my-6">
+<div class="flex flex-col">
 	<label>{key}</label>
-	<textarea {rows} bind:value />
+	<textarea {rows} bind:value autocomplete="off" />
 </div>
 
 <style>
 	textarea {
-		@apply border border-black border-solid rounded p-4;
+		@apply border border-black border-solid rounded p-2;
 	}
 </style>

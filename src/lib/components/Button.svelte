@@ -6,7 +6,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded p-2 cursor-pointer;
+		@apply border border-black border-solid rounded p-2 cursor-pointer w-full;
 	}
 
 	input:hover {

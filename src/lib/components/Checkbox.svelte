@@ -3,7 +3,7 @@
 	export let value: boolean = false
 </script>
 
-<div class="flex items-center gap-4 my-4">
+<div class={`flex items-center ${key ? 'gap-4' : ''}`}>
 	<input type="checkbox" bind:checked={value} />
 	<label>{key}</label>
 </div>

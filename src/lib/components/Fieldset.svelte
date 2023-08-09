@@ -4,7 +4,9 @@
 
 <fieldset>
 	<legend>{legend}</legend>
-	<slot />
+	<div class="flex flex-col gap-4">
+		<slot />
+	</div>
 </fieldset>
 
 <style>

@@ -9,7 +9,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded-full w-16 h-16 bg-white m-2 cursor-pointer;
+		@apply border-2 border-black/30 border-solid rounded-full w-16 h-16 bg-white m-2 cursor-pointer;
 	}
 
 	input:hover {

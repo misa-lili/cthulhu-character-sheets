@@ -11,6 +11,8 @@
 	import Fab from '$lib/components/Fab.svelte'
 	import Button from '$lib/components/Button.svelte'
 	import Select from '$lib/components/Select.svelte'
+	import Row from '$lib/components/Row.svelte'
+	import Card from '$lib/components/Card.svelte'
 
 	export let data: Character
 
@@ -19,6 +21,8 @@
 	})
 
 	function replaceUrl() {
+		console.log('replaceUrl')
+		console.log(data.skills)
 		history.replaceState({}, '', `?data=${encode(data)}`)
 	}
 
@@ -100,22 +104,35 @@
 		replaceUrl()
 	}
 
-	function roll100() {
-		alert(`1d100: ${Math.floor(Math.random() * 100) + 1}`)
+	function roll() {
+		const d10x10 = Math.floor(Math.random() * 10) * 10
+		const d10 = Math.floor(Math.random() * 10)
+		const d10x10_extra = Math.floor(Math.random() * 10) * 10
+		const d10x10_extra2 = Math.floor(Math.random() * 10) * 10
+		const d20 = Math.floor(Math.random() * 20) + 1
+		const d8 = Math.floor(Math.random() * 8) + 1
+		const d6 = Math.floor(Math.random() * 6) + 1
+		const d4 = Math.floor(Math.random() * 4) + 1
+		const text = `1d10x10=${d10x10}\n1d10=${d10}\n1D10x10_extra=${d10x10_extra}\n1d10x10_extra2=${d10x10_extra2}\n1d20=${d20}\n1d8=${d8}\n1d6=${d6}\n1d4=${d4}`
+		alert(text)
 	}
 </script>
 
 <Title>Cthulhu Character Sheets @misa-lili</Title>
 
-<br />
-
 <Fieldset legend={$t('environment')}>
-	<Select values={$locales} bind:selected={$locale} />
-	<Select values={['7E']} bind:selected={data.edition} />
-	<Select values={['20s']} bind:selected={data.era} />
+	<Select
+		key={$t('language')}
+		items={$locales.map((s) => ({ display: $t(s), value: s }))}
+		bind:selected={$locale}
+	/>
+	<Select
+		key={$t('edition')}
+		items={[{ display: $t('7E'), value: '7E' }]}
+		bind:selected={data.edition}
+	/>
+	<Select key={$t('era')} items={[{ display: $t('20s'), value: '20s' }]} bind:selected={data.era} />
 </Fieldset>
-
-<br />
 
 <Fieldset legend={$t('investigator')}>
 	<Text key={$t('name')} bind:value={data.name} />
@@ -127,14 +144,10 @@
 	<Text key={$t('birthplace')} bind:value={data.birthplace} />
 </Fieldset>
 
-<br />
-
 <Fieldset legend={$t('portrait')}>
 	<img id="portrait" src={data.portraitURL} style="width:100%" />
 	<Text key={$t('portraitURL')} bind:value={data.portraitURL} />
 </Fieldset>
-
-<br />
 
 <Fieldset legend={$t('characteristics')}>
 	<Number key={$t('STR')} bind:value={data.characteristics.STR} withHints />
@@ -149,22 +162,20 @@
 	<Number key={$t('LUCK')} bind:value={data.LUCK} />
 </Fieldset>
 
-<br />
-
 <Fieldset legend={$t('status')}>
-	<div style="display: flex; align-items: center; gap: 4px;">
+	<Row>
 		<Number key={$t('currentHP')} bind:value={data.currentHP} />
 		<Number key={$t('maxHP')} bind:value={data.maxHP} readonly />
-	</div>
-	<div style="display: flex; align-items: center; gap: 4px;">
+	</Row>
+	<Row>
 		<Number key={$t('currentMP')} bind:value={data.currentMP} />
 		<Number key={$t('maxMP')} bind:value={data.maxMP} readonly />
-	</div>
-	<div style="display: flex; align-items: center; gap: 4px;">
+	</Row>
+	<Row>
 		<Number key={$t('startSAN')} bind:value={data.startSAN} readonly />
 		<Number key={$t('currentSAN')} bind:value={data.currentSAN} />
 		<Number key={$t('insaneSAN')} bind:value={data.insaneSAN} readonly />
-	</div>
+	</Row>
 	<Checkbox key={$t('isMajorWound')} bind:value={data.isMajorWound} />
 	<Checkbox key={$t('isUnconscious')} bind:value={data.isUnconscious} />
 	<Checkbox key={$t('isDying')} bind:value={data.isDying} />
@@ -172,95 +183,81 @@
 	<Checkbox key={$t('isIndefiniteInsanity')} bind:value={data.isIndefiniteInsanity} />
 </Fieldset>
 
-<br />
-
 <Fieldset legend={$t('skills')}>
 	{#each skills as [key, set], idx}
-		<div style="display: flex; align-items: center;">
-			<div class="field-row">
-				<Checkbox type="checkbox" bind:checked={set.isSuccess} />
-			</div>
-			<div class="field-row">
-				<Number key={$t(key)} bind:value={set.value} withHints />
-			</div>
-			<div>
-				<div class="title-bar-controls">
-					<button aria-label="Close" on:click={() => removeSkill(idx)} />
-				</div>
-			</div>
-		</div>
+		<Row>
+			<Row cols="1">
+				<Checkbox type="checkbox" bind:value={set.isSuccess} />
+			</Row>
+			<Row cols="5">
+				<span class="pl-1" on:click={() => removeSkill(idx)}>{$t(key)}</span>
+			</Row>
+			<Row cols="6">
+				<Number bind:value={set.value} withHints />
+			</Row>
+		</Row>
 	{/each}
-	<br />
 	<Button on:click={addSkill} value={$t('addSkill')} />
 </Fieldset>
 
-<br />
-<!-- 
 <Fieldset legend={$t('weapons')}>
-	<div class="sunken-panel" style="height: 120px; width: 335px;">
-		<table class="interactive">
-			<thead>
+	<table class="table text-xs">
+		<thead>
+			<tr>
+				<th>{$t('weapon')}</th>
+				<th class="w-9">{$t('skill')}</th>
+				<th class="w-14">{$t('damage')}</th>
+				<th class="w-9">{$t('numberOfAttacks')}</th>
+				<th class="w-9">{$t('range')}</th>
+				<th class="w-9">{$t('ammo')}</th>
+				<th class="w-9">{$t('malfunction')}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each data.weapons as weapon, idx}
 				<tr>
-					<th>{$t('weapon')}</th>
-					<th>{$t('skill')}</th>
-					<th>{$t('damage')}</th>
-					<th>{$t('numberOfAttacks')}</th>
-					<th>{$t('range')}</th>
-					<th>{$t('ammo')}</th>
-					<th>{$t('malfunction')}</th>
-					<th>{$t('remove')}</th>
+					<td on:click={() => removeWeapon(idx)}>
+						<div
+							class="w-full h-[34px] border border-black border-solid rounded flex items-center justify-center p-2 leading-none"
+						>
+							{$t(weapon.weapon)}
+						</div>
+					</td>
+					<td>
+						<Number bind:value={weapon.skill} />
+					</td>
+					<td>
+						<Text bind:value={weapon.damage} />
+					</td>
+					<td>
+						<Number bind:value={weapon.numberOfAttacks} />
+					</td>
+					<td>
+						<Number bind:value={weapon.range} />
+					</td>
+					<td>
+						<Number bind:value={weapon.ammo} />
+					</td>
+					<td>
+						<Checkbox bind:value={weapon.malfunction} />
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				{#each data.weapons as weapon, idx}
-					<tr>
-						<td>{$t(weapon.weapon)}</td>
-						<td>
-							<Number bind:value={weapon.skill} />
-						</td>
-						<td>
-							<Text bind:value={weapon.damage} --width="40px" />
-						</td>
-						<td>
-							<Number bind:value={weapon.numberOfAttacks} />
-						</td>
-						<td>
-							<Number bind:value={weapon.range} />
-						</td>
-						<td>
-							<Number bind:value={weapon.ammo} />
-						</td>
-						<td><Checkbox bind:value={weapon.malfunction} /></td>
-						<td>
-							<div class="title-bar-controls">
-								<button aria-label="Close" on:click={() => removeWeapon(idx)} />
-							</div>
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+			{/each}
+		</tbody>
+	</table>
 
-	<br />
-	<button on:click={addWeapon}>{$t('addWeapon')}</button>
-</Fieldset> -->
-
-<br />
-
-<Fieldset legend={$t('combat')}>
-	<Number key={$t('damageBonus')} readonly />
-	<Number key={$t('build')} readonly />
-	<Number key={$t('dodge')} readonly />
+	<Button on:click={addWeapon} value={$t('addWeapon')} />
 </Fieldset>
 
-<br />
+<Fieldset legend={$t('combat')}>
+	<Number key={$t('damageBonus')} />
+	<Number key={$t('build')} />
+	<Number key={$t('dodge')} />
+</Fieldset>
 
 <Fieldset legend={$t('myStory')}>
 	<Textarea bind:value={data.myStory} />
 </Fieldset>
-
-<br />
 
 <Fieldset legend={$t('backstory')}>
 	<Textarea key={$t('personalDescription')} bind:value={data.backstory.personalDescription} />
@@ -281,13 +278,9 @@
 	/>
 </Fieldset>
 
-<br />
-
 <Fieldset legend={$t('gearAndPossessions')}>
 	<Textarea bind:value={data.gearAndPossessions} />
 </Fieldset>
-
-<br />
 
 <Fieldset legend={$t('wealth')}>
 	<Textarea key={$t('spendingLevel')} bind:value={data.backstory.spendingLevel} />
@@ -295,26 +288,29 @@
 	<Textarea key={$t('assets')} bind:value={data.backstory.assets} />
 </Fieldset>
 
-<br />
-
 <Fieldset legend={$t('fellowInvestigators')}>
 	{#each data.fellowInvestigators as fellow, idx}
-		<div class="field-row">
-			<Text key={$t('character')} bind:value={fellow.character} />
-			<Text key={$t('player')} bind:value={fellow.player} />
-			<div class="title-bar-controls">
-				<Button on:click={() => removeFellow(idx)} value={$t('removeFellow')} />
-			</div>
-		</div>
+		<Card>
+			<Row>
+				<Text
+					key={$t('character')}
+					bind:value={fellow.character}
+					readonly
+					on:click={() => removeFellow(idx)}
+				/>
+				<Text key={$t('player')} bind:value={fellow.player} />
+			</Row>
+		</Card>
 	{/each}
-	<br />
 	<Button on:click={addFellow} value={$t('addFellow')} />
 </Fieldset>
-
-<br />
 
 <Fieldset legend={$t('note')}>
 	<Textarea rows="8" bind:value={data.note} />
 </Fieldset>
 
-<Fab value="ROLL" fixed right bottom on:click={roll100} />
+<div class="text-right">
+	<a href="https://github.com/misa-lili/cthulhu-character-sheets">github</a>
+</div>
+
+<Fab value="ROLL" fixed right bottom on:click={roll} />

@@ -1,13 +1,21 @@
 <script lang="ts">
-	export let values: any[] = []
-	export let value = values[0] || null
+	export let key: string = ''
+	export let items: { display: string; value: any }[] = []
+	export let value = null
 	export let selected = ''
 </script>
 
-<div>
+<div class="flex flex-col">
+	<label>{key}</label>
 	<select bind:value={selected}>
-		{#each values as value}
-			<option>{value}</option>
+		{#each items as item}
+			<option value={item.value}>{item.display}</option>
 		{/each}
 	</select>
 </div>
+
+<style>
+	select {
+		@apply border border-black border-solid rounded p-2;
+	}
+</style>

@@ -1,8 +1,9 @@
 export default {
 	en: {
-		ko: 'Korean',
+		ko: '한국어',
 		en: 'English',
 		edition: 'edition',
+		language: 'Language',
 		era: 'era',
 		name: 'name',
 		player: 'player',
@@ -114,9 +115,12 @@ export default {
 		note: 'note',
 	},
 	ko: {
-		en: '영어',
+		en: 'English',
 		ko: '한국어',
 		environment: '환경',
+		'7E': '7판',
+		'20s': '1920년대',
+		language: 'Language',
 		investigator: '탐사자',
 		portrait: '초상화',
 		edition: '에디션',
@@ -227,7 +231,7 @@ export default {
 		spendingLevel: '지출 수준',
 		cash: '현금',
 		assets: '자산',
-		fellowInvestigators: '동료 조사관',
+		fellowInvestigators: '동료 탐사자들',
 		character: '캐릭터',
 		note: '노트',
 		remove: '삭제',

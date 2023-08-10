@@ -16,7 +16,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded p-2;
+		@apply border border-black border-solid rounded p-2 cursor-pointer;
 		width: var(--width, 2rem);
 		height: var(--height, 2rem);
 	}

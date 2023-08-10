@@ -37,7 +37,7 @@ declare global {
 		LUCK: number
 		startSAN: number
 		currentSAN: number
-		insaneSAN: number
+		maxSAN: number
 		portraitURL: string
 		isTemporaryInsanity: boolean
 		isIndefiniteInsanity: boolean

@@ -8,11 +8,31 @@
 <div class="flex flex-col w-full">
 	<label class="pl-0.5">{key}</label>
 	<div class="flex w-full gap-1">
-		<input type="number" bind:value {readonly} autocomplete="off" min="0" max="99" />
+		<input
+			class="w-full h-10"
+			class:bg-transparent={!readonly}
+			class:bg-gray-100={readonly}
+			type="number"
+			bind:value
+			{readonly}
+			autocomplete="off"
+			min="0"
+			max="99"
+		/>
 		{#if withHints}
-			<div class="flex items-center justify-between gap-1">
-				<input type="number" value={(value / 2).toFixed(0)} readonly />
-				<input type="number" value={(value / 5).toFixed(0)} readonly />
+			<div class="flex flex-col text-sm">
+				<input
+					class="w-10 h-5 bg-green-500/10"
+					type="number"
+					value={(value / 2).toFixed(0)}
+					readonly
+				/>
+				<input
+					class="w-10 h-5 bg-red-500/10"
+					type="number"
+					value={(value / 5).toFixed(0)}
+					readonly
+				/>
 			</div>
 		{/if}
 	</div>
@@ -20,10 +40,10 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded w-full p-2 h-10 bg-transparent;
+		@apply border border-black border-solid rounded p-2;
 	}
 
 	input:read-only {
-		@apply bg-black/20;
+		@apply cursor-not-allowed;
 	}
 </style>

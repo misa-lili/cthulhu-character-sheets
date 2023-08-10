@@ -30,6 +30,8 @@ export const load = (({ url }) => {
 				SIZ: 70,
 				INT: 80,
 				MOV: 8,
+				MOVPlus: 0,
+				MOVMinus: 0,
 			},
 			//
 			currentHP: 70,
@@ -39,7 +41,7 @@ export const load = (({ url }) => {
 			LUCK: 70,
 			startSAN: 70,
 			currentSAN: 70,
-			insaneSAN: 40,
+			maxSAN: 40,
 			//
 			portraitURL: '',
 			//
@@ -234,18 +236,17 @@ export const load = (({ url }) => {
 			weapons: [
 				{
 					weapon: 'unarmed',
-					skill: 0,
-					damage: '1d3',
-					numberOfAttacks: 1,
+					skill: 60,
+					damage: '1d3+db',
 					range: 0,
+					numberOfAttacks: 1,
 					ammo: 0,
 					malfunction: false,
 				},
 			],
 			combat: {
-				damageBonus: '',
-				build: '',
-				dodge: '',
+				damageBonus: 0,
+				build: 0,
 			},
 			myStory: '',
 			backstory: {

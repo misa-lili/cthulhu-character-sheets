@@ -152,6 +152,7 @@
 		}
 
 		data.portraitURL = body.message.data.link
+		replaceUrl()
 	}
 </script>
 

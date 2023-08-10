@@ -16,6 +16,10 @@ export default {
 	],
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
+		fontFamily: {
+			sans: ['Noto Sans KR', 'sans-serif'],
+			serif: ['Noto Serif KR', 'serif'],
+		},
 		extend: {
 			flexBasis: {
 				'12/12': '100%',

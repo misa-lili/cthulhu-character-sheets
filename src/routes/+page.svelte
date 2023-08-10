@@ -125,7 +125,7 @@
 
 	async function share() {
 		const param = encode(data)
-		const response = await fetch(`/api/shortenUrl?data=${param}`, { method: 'POST' })
+		const response = await fetch(`/api/v1/shortenUrl?data=${param}`, { method: 'POST' })
 		const body = await response.json()
 
 		if (body.status !== 200) {
@@ -140,7 +140,7 @@
 		const formdata = new FormData()
 		formdata.append('image', files[0])
 
-		const response = await fetch(`/api/uploadImage`, {
+		const response = await fetch(`/api/v1/uploadImage`, {
 			method: 'POST',
 			body: formdata,
 		})

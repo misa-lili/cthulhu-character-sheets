@@ -1,7 +1,7 @@
 import { DynamoDBClient, GetItemCommand, PutItemCommand } from '@aws-sdk/client-dynamodb'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 
-export function getFromUrls(key: string) {
+export async function getFromUrls(key: string) {
 	const client = new DynamoDBClient({ region: 'ap-northeast-2' })
 	const command = new GetItemCommand({
 		TableName: 'urls',

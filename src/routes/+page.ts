@@ -1,14 +1,12 @@
-import LZString from 'lz-string'
+import { decompress } from '$lib/utils/LZString'
 import type { PageLoad } from './$types'
 
 export const load = (({ url }) => {
 	try {
 		// TODO: path 에서 가져오는 알고리즘을 만들어야 함
-		const path = url.pathname
-		console.log({ path })
 		const data = url.searchParams.get('data')
 		if (!data) throw new Error('No data found in URL')
-		return decode(data)
+		return decompress(data)
 	} catch (error) {
 		return {
 			language: 'en',
@@ -275,13 +273,3 @@ export const load = (({ url }) => {
 		}
 	}
 }) satisfies PageLoad
-
-function decode(text: string) {
-	try {
-		const decoded = LZString.decompressFromEncodedURIComponent(text)
-		const obj = JSON.parse(decoded)
-		return obj
-	} catch (error: any) {
-		throw error
-	}
-}

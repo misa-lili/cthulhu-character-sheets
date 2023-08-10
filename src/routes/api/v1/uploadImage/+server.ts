@@ -1,8 +1,8 @@
 import { putToImages } from '$lib/database/orm.js'
 import { json } from '@sveltejs/kit'
+import type { RequestHandler } from './$types'
 
-/** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
+export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const formData = await request.formData()
 		const file = formData.get('image') as File

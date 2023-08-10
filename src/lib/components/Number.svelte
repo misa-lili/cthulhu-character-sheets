@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex flex-col w-full">
-	<label>{key}</label>
+	<label class="pl-0.5">{key}</label>
 	<div class="flex w-full gap-1">
 		<input type="number" bind:value {readonly} autocomplete="off" min="0" max="99" />
 		{#if withHints}
@@ -20,7 +20,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded w-full p-2;
+		@apply border border-black border-solid rounded w-full p-2 h-10;
 	}
 
 	input:read-only {

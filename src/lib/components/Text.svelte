@@ -5,13 +5,13 @@
 </script>
 
 <div class="flex flex-col">
-	<label>{key}</label>
+	<label class="pl-0.5">{key}</label>
 	<input type="text" bind:value autocomplete="off" {readonly} on:click />
 </div>
 
 <style>
 	input {
-		@apply border border-black border-solid rounded p-2 w-full;
+		@apply border border-black border-solid rounded p-2 w-full h-10;
 	}
 
 	input:read-only {

@@ -3,7 +3,7 @@
 </script>
 
 <fieldset>
-	<legend>{legend}</legend>
+	<legend class="font-bold px-1">{legend}</legend>
 	<div class="flex flex-col gap-4">
 		<slot />
 	</div>

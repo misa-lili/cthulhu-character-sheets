@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex flex-col">
-	<label>{key}</label>
+	<label class="pl-0.5 font-medium">{key}</label>
 	<textarea {rows} bind:value autocomplete="off" />
 </div>
 

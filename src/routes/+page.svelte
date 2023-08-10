@@ -8,7 +8,6 @@
 	import Textarea from '$lib/components/Textarea.svelte'
 	import Fieldset from '$lib/components/Fieldset.svelte'
 	import Title from '$lib/components/Title.svelte'
-	import Fab from '$lib/components/Fab.svelte'
 	import Button from '$lib/components/Button.svelte'
 	import Select from '$lib/components/Select.svelte'
 	import Row from '$lib/components/Row.svelte'
@@ -119,7 +118,7 @@
 	}
 </script>
 
-<Title>Cthulhu Character Sheets @misa-lili</Title>
+<Title>{$t('title')}</Title>
 
 <Fieldset legend={$t('environment')}>
 	<Select
@@ -196,7 +195,9 @@
 				<Checkbox bind:value={set.isSuccess} />
 			</Row>
 			<Row cols="5">
-				<span class="pl-1" on:click={() => removeSkill(idx)}>{$t(key)}</span>
+				<span class="pl-1 font-serif text-sm leading-none" on:click={() => removeSkill(idx)}>
+					{$t(key)}
+				</span>
 			</Row>
 			<Row cols="6">
 				<Number bind:value={set.value} withHints />
@@ -225,7 +226,7 @@
 					<td on:click={() => removeWeapon(idx)}>
 						<div
 							class="
-								w-full h-[34px] border border-black border-solid rounded
+								w-full h-10 border border-black border-solid rounded
 								flex items-center justify-center
 								px-0.5 leading-none overflow-hidden
 							"
@@ -249,7 +250,7 @@
 						<Number bind:value={weapon.ammo} />
 					</td>
 					<td>
-						<Checkbox bind:value={weapon.malfunction} />
+						<Checkbox --width="40px" --height="40px" bind:value={weapon.malfunction} />
 					</td>
 				</tr>
 			{/each}
@@ -321,8 +322,14 @@
 	<Textarea rows="8" bind:value={data.note} />
 </Fieldset>
 
-<div class="text-center">
-	<a href="https://github.com/misa-lili/cthulhu-character-sheets">github</a>
+<div class="text-center font-mono">
+	<a href="https://github.com/misa-lili/cthulhu-character-sheets">Github</a>
 </div>
 
-<Fab value={$t('ROLL')} fixed right bottom on:click={roll} />
+<div class="text-6xl fixed right-0 bottom-0 p-3" on:click={roll}>🎲</div>
+
+<style>
+	:global(heading, legend, label, th, input[type='button']) {
+		@apply font-serif;
+	}
+</style>

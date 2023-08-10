@@ -9,9 +9,8 @@
 	<label class="pl-0.5">{key}</label>
 	<div class="flex w-full gap-1">
 		<input
-			class="w-full h-10"
-			class:bg-transparent={!readonly}
-			class:bg-gray-100={readonly}
+			tabindex={readonly ? -1 : 0}
+			class={`w-full h-10 ${readonly ? 'bg-black/10' : 'bg-transparent'}`}
 			type="number"
 			bind:value
 			{readonly}
@@ -22,12 +21,14 @@
 		{#if withHints}
 			<div class="flex flex-col text-sm">
 				<input
+					tabindex="-1"
 					class="w-10 h-5 bg-green-500/10"
 					type="number"
 					value={(value / 2).toFixed(0)}
 					readonly
 				/>
 				<input
+					tabindex="-1"
 					class="w-10 h-5 bg-red-500/10"
 					type="number"
 					value={(value / 5).toFixed(0)}

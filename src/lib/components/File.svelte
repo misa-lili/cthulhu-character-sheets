@@ -1,8 +1,8 @@
 <script lang="ts">
-	export let value: string = ''
+	export let files: string = ''
 </script>
 
-<input type="button" {value} on:click />
+<input type="file" bind:files on:change />
 
 <style>
 	input {

@@ -13,8 +13,11 @@
 	import Row from '$lib/components/Row.svelte'
 	import Card from '$lib/components/Card.svelte'
 	import Col from '$lib/components/Col.svelte'
+	import File from '$lib/components/File.svelte'
 
 	export let data: Character
+
+	let files: File[] = []
 
 	onMount(() => {
 		$locale = data.language
@@ -22,7 +25,6 @@
 	})
 
 	function replaceUrl() {
-		console.log(data)
 		history.replaceState({}, '', `?data=${encode(data)}`)
 	}
 
@@ -40,16 +42,18 @@
 	})
 
 	function addSkill() {
-		// TODO: already exists
-		const skillName = window.prompt('Skill name')
+		const skillName = window.prompt($t('Skill name?'))
+
 		if (!skillName) return
+		if (data.skills[skillName]) return alert($t('Skill already exists.'))
+
 		data.skills[skillName] = { value: 0, isOccupation: false }
 		replaceUrl()
 	}
 
 	function removeSkill(idx: number) {
 		const key = skills[idx][0]
-		const confirm = window.confirm(`Remove skill? ${$t(key)}`)
+		const confirm = window.confirm(`${$t('Remove skill?')} ${$t(key)}`)
 		if (!confirm) return
 		delete data.skills[key]
 		data = data
@@ -57,7 +61,7 @@
 	}
 
 	function addWeapon() {
-		const weaponName = window.prompt('Weapon name?')
+		const weaponName = window.prompt($t('Weapon name?'))
 		if (!weaponName) return
 		data.weapons = [
 			...data.weapons,
@@ -76,7 +80,7 @@
 
 	function removeWeapon(idx: number) {
 		const key = data.weapons[idx].weapon
-		const confirm = window.confirm(`Remove weapon? ${key}`)
+		const confirm = window.confirm(`${$t('Remove weapon?')} ${$t(key)}`)
 		if (!confirm) return
 		data.weapons.splice(idx, 1)
 		data = data
@@ -84,7 +88,7 @@
 	}
 
 	function addFellow() {
-		const fellowName = window.prompt('Fellow name?')
+		const fellowName = window.prompt($t('Fellow name?'))
 		if (!fellowName) return
 		data.fellowInvestigators = [
 			...data.fellowInvestigators,
@@ -98,7 +102,7 @@
 
 	function removeFellow(idx: number) {
 		const key = data.fellowInvestigators[idx].character
-		const confirm = window.confirm(`Remove fellow? ${key}`)
+		const confirm = window.confirm(`${$t('Remove fellow?')} ${$t(key)}`)
 		if (!confirm) return
 		data.fellowInvestigators.splice(idx, 1)
 		data = data
@@ -117,6 +121,37 @@
 		const d3 = Math.floor(Math.random() * 3) + 1
 		const text = `1d10x10=${d10x10}\n1d10=${d10}\n1d10x10_extra=${d10x10_extra}\n1d10x10_extra2=${d10x10_extra2}\n1d20=${d20}\n1d8=${d8}\n1d6=${d6}\n1d4=${d4}\n1d3=${d3}`
 		alert(text)
+	}
+
+	async function share() {
+		const param = encode(data)
+		const response = await fetch(`/api/bitly?data=${param}`, { method: 'POST' })
+		const body = await response.json()
+
+		if (body.status !== 200) {
+			window.prompt('Copy & Share', `https://ccs.misalili.com/?data=${param}`)
+			return
+		}
+		window.prompt('Copy & Share', body.message.link)
+	}
+
+	async function upload() {
+		const formdata = new FormData()
+		formdata.append('image', files[0])
+
+		const response = await fetch(`/api/imgur`, {
+			method: 'POST',
+			body: formdata,
+		})
+
+		const body = await response.json()
+		if (body.status !== 200) {
+			alert($t('Failed to upload image.'))
+			console.error(body)
+			return
+		}
+
+		data.portraitURL = body.message.data.link
 	}
 </script>
 
@@ -160,6 +195,7 @@
 		<img id="portrait" src={data.portraitURL} style="width:100%" />
 	{/if}
 	<Text key={$t('portraitURL')} bind:value={data.portraitURL} />
+	<File bind:files on:change={upload} />
 </Fieldset>
 
 <Fieldset legend={$t('characteristics')}>
@@ -215,7 +251,10 @@
 				<Checkbox bind:value={set.isSuccess} />
 			</Row>
 			<Row cols="5">
-				<span class="pl-1 font-serif text-sm leading-none" on:click={() => removeSkill(idx)}>
+				<span
+					class="pl-1 font-serif text-sm leading-none cursor-pointer"
+					on:click={() => removeSkill(idx)}
+				>
 					{$t(key)}
 				</span>
 			</Row>
@@ -249,6 +288,8 @@
 								w-full h-10 border border-black border-solid rounded
 								flex items-center justify-center
 								px-0.5 leading-none overflow-hidden
+								cursor-pointer
+								hover:bg-black/10
 							"
 						>
 							{$t(weapon.weapon)}
@@ -331,6 +372,7 @@
 					key={$t('character')}
 					bind:value={fellow.character}
 					readonly
+					pointer
 					on:click={() => removeFellow(idx)}
 				/>
 				<Text key={$t('player')} bind:value={fellow.player} />
@@ -348,7 +390,10 @@
 	<a href="https://github.com/misa-lili/cthulhu-character-sheets">Github</a>
 </div>
 
-<div class="text-6xl fixed right-0 bottom-0 p-3" on:click={roll}>🎲</div>
+<div class="text-6xl fixed right-0 bottom-0 p-4 flex flex-col gap-4">
+	<div class="cursor-pointer" on:click={share}>🔗</div>
+	<div class="cursor-pointer" on:click={roll}>🎲</div>
+</div>
 
 <style>
 	:global(heading, legend, label, th, input[type='button']) {

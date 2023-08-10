@@ -10,6 +10,6 @@
 	}
 
 	input:hover {
-		@apply bg-gray-200;
+		@apply bg-black/10;
 	}
 </style>

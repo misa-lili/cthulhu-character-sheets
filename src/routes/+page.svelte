@@ -8,11 +8,11 @@
 	import Textarea from '$lib/components/Textarea.svelte'
 	import Fieldset from '$lib/components/Fieldset.svelte'
 	import Title from '$lib/components/Title.svelte'
-	import Fab from '$lib/components/Fab.svelte'
 	import Button from '$lib/components/Button.svelte'
 	import Select from '$lib/components/Select.svelte'
 	import Row from '$lib/components/Row.svelte'
 	import Card from '$lib/components/Card.svelte'
+	import Col from '$lib/components/Col.svelte'
 
 	export let data: Character
 
@@ -40,6 +40,7 @@
 	})
 
 	function addSkill() {
+		// TODO: already exists
 		const skillName = window.prompt('Skill name')
 		if (!skillName) return
 		data.skills[skillName] = { value: 0, isOccupation: false }
@@ -119,7 +120,7 @@
 	}
 </script>
 
-<Title>Cthulhu Character Sheets @misa-lili</Title>
+<Title>{$t('title')}</Title>
 
 <Fieldset legend={$t('environment')}>
 	<Select
@@ -142,8 +143,14 @@
 	<Text key={$t('name')} bind:value={data.name} />
 	<Text key={$t('player')} bind:value={data.player} />
 	<Text key={$t('occupation')} bind:value={data.occupation} />
-	<Text key={$t('age')} bind:value={data.age} />
-	<Text key={$t('sex')} bind:value={data.sex} />
+	<Row>
+		<Row cols="6">
+			<Number key={$t('age')} bind:value={data.age} />
+		</Row>
+		<Row cols="6">
+			<Text key={$t('sex')} bind:value={data.sex} />
+		</Row>
+	</Row>
 	<Text key={$t('residence')} bind:value={data.residence} />
 	<Text key={$t('birthplace')} bind:value={data.birthplace} />
 </Fieldset>
@@ -158,35 +165,47 @@
 <Fieldset legend={$t('characteristics')}>
 	<Number key={$t('STR')} bind:value={data.characteristics.STR} withHints />
 	<Number key={$t('CON')} bind:value={data.characteristics.CON} withHints />
-	<Number key={$t('POW')} bind:value={data.characteristics.POW} withHints />
+	<Number key={$t('SIZ')} bind:value={data.characteristics.SIZ} withHints />
 	<Number key={$t('DEX')} bind:value={data.characteristics.DEX} withHints />
 	<Number key={$t('APP')} bind:value={data.characteristics.APP} withHints />
-	<Number key={$t('SIZ')} bind:value={data.characteristics.SIZ} withHints />
-	<Number key={$t('INT')} bind:value={data.characteristics.INT} withHints />
 	<Number key={$t('EDU')} bind:value={data.characteristics.EDU} withHints />
-	<Number key={$t('MOV')} readonly bind:value={data.characteristics.MOV} withHints />
+	<Number key={$t('INT')} bind:value={data.characteristics.INT} withHints />
+	<Number key={$t('POW')} bind:value={data.characteristics.POW} withHints />
+	<Row>
+		<Number key={$t('MOV')} bind:value={data.characteristics.MOV} />
+		<Number key={$t('MOVPlus')} bind:value={data.characteristics.MOVPlus} />
+		<Number key={$t('MOVMinus')} bind:value={data.characteristics.MOVMinus} />
+	</Row>
 	<Number key={$t('LUCK')} bind:value={data.LUCK} />
 </Fieldset>
 
 <Fieldset legend={$t('status')}>
 	<Row>
 		<Number key={$t('currentHP')} bind:value={data.currentHP} />
-		<Number key={$t('maxHP')} bind:value={data.maxHP} readonly />
+		<Number key={$t('maxHP')} bind:value={data.maxHP} />
 	</Row>
+	<Col>
+		<Checkbox key={$t('isMajorWound')} bind:value={data.isMajorWound} />
+		<Checkbox key={$t('isUnconscious')} bind:value={data.isUnconscious} />
+		<Checkbox key={$t('isDying')} bind:value={data.isDying} />
+	</Col>
 	<Row>
 		<Number key={$t('currentMP')} bind:value={data.currentMP} />
-		<Number key={$t('maxMP')} bind:value={data.maxMP} readonly />
+		<Number key={$t('maxMP')} bind:value={data.maxMP} />
 	</Row>
 	<Row>
-		<Number key={$t('startSAN')} bind:value={data.startSAN} readonly />
+		<Number key={$t('startSAN')} bind:value={data.startSAN} />
 		<Number key={$t('currentSAN')} bind:value={data.currentSAN} />
-		<Number key={$t('insaneSAN')} bind:value={data.insaneSAN} readonly />
+		<Number key={$t('maxSAN')} bind:value={data.maxSAN} />
 	</Row>
-	<Checkbox key={$t('isMajorWound')} bind:value={data.isMajorWound} />
-	<Checkbox key={$t('isUnconscious')} bind:value={data.isUnconscious} />
-	<Checkbox key={$t('isDying')} bind:value={data.isDying} />
-	<Checkbox key={$t('isTemporaryInsanity')} bind:value={data.isTemporaryInsanity} />
-	<Checkbox key={$t('isIndefiniteInsanity')} bind:value={data.isIndefiniteInsanity} />
+	<Row>
+		<Row cols="6">
+			<Checkbox key={$t('isTemporaryInsanity')} bind:value={data.isTemporaryInsanity} />
+		</Row>
+		<Row cols="6">
+			<Checkbox key={$t('isIndefiniteInsanity')} bind:value={data.isIndefiniteInsanity} />
+		</Row>
+	</Row>
 </Fieldset>
 
 <Fieldset legend={$t('skills')}>
@@ -196,7 +215,9 @@
 				<Checkbox bind:value={set.isSuccess} />
 			</Row>
 			<Row cols="5">
-				<span class="pl-1" on:click={() => removeSkill(idx)}>{$t(key)}</span>
+				<span class="pl-1 font-serif text-sm leading-none" on:click={() => removeSkill(idx)}>
+					{$t(key)}
+				</span>
 			</Row>
 			<Row cols="6">
 				<Number bind:value={set.value} withHints />
@@ -209,12 +230,12 @@
 <Fieldset legend={$t('weapons')}>
 	<table class="table text-[8px] tracking-tighter">
 		<thead>
-			<tr>
+			<tr class="text-[8px]">
 				<th>{$t('weapon')}</th>
-				<th class="w-8">{$t('skill')}</th>
+				<!-- <th class="w-8">{$t('skill')}</th> -->
 				<th class="w-14">{$t('damage')}</th>
-				<th class="w-8">{$t('numberOfAttacks')}</th>
 				<th class="w-8">{$t('range')}</th>
+				<th class="w-8">{$t('numberOfAttacks')}</th>
 				<th class="w-8">{$t('ammo')}</th>
 				<th class="w-8">{$t('malfunction')}</th>
 			</tr>
@@ -225,7 +246,7 @@
 					<td on:click={() => removeWeapon(idx)}>
 						<div
 							class="
-								w-full h-[34px] border border-black border-solid rounded
+								w-full h-10 border border-black border-solid rounded
 								flex items-center justify-center
 								px-0.5 leading-none overflow-hidden
 							"
@@ -234,22 +255,24 @@
 						</div>
 					</td>
 					<td>
-						<Number bind:value={weapon.skill} />
-					</td>
-					<td>
 						<Text bind:value={weapon.damage} />
-					</td>
-					<td>
-						<Number bind:value={weapon.numberOfAttacks} />
 					</td>
 					<td>
 						<Number bind:value={weapon.range} />
 					</td>
 					<td>
+						<Number bind:value={weapon.numberOfAttacks} />
+					</td>
+					<td>
 						<Number bind:value={weapon.ammo} />
 					</td>
 					<td>
-						<Checkbox bind:value={weapon.malfunction} />
+						<Checkbox --width="30px" --height="40px" bind:value={weapon.malfunction} />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6" class="text-base">
+						<Number bind:value={weapon.skill} withHints />
 					</td>
 				</tr>
 			{/each}
@@ -264,7 +287,7 @@
 		<Number key={$t('damageBonus')} />
 		<Number key={$t('build')} />
 	</Row>
-	<Number key={$t('dodge')} withHints />
+	<Number key={$t('dodge')} bind:value={data.skills.dodge.value} withHints readonly />
 </Fieldset>
 
 <Fieldset legend={$t('myStory')}>
@@ -321,8 +344,14 @@
 	<Textarea rows="8" bind:value={data.note} />
 </Fieldset>
 
-<div class="text-center">
-	<a href="https://github.com/misa-lili/cthulhu-character-sheets">github</a>
+<div class="text-center font-mono">
+	<a href="https://github.com/misa-lili/cthulhu-character-sheets">Github</a>
 </div>
 
-<Fab value={$t('ROLL')} fixed right bottom on:click={roll} />
+<div class="text-6xl fixed right-0 bottom-0 p-3" on:click={roll}>🎲</div>
+
+<style>
+	:global(heading, legend, label, th, input[type='button']) {
+		@apply font-serif;
+	}
+</style>

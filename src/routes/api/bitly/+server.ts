@@ -6,15 +6,6 @@ export async function POST({ url, fetch }) {
 	const data = url.searchParams.get('data')
 	const long_url = `https://ccs.misalili.com/?data=${data}`
 
-	// const response = await fetch('https://api-ssl.bitly.com/v4/groups', {
-	// 	headers: {
-	// 		Authorization: `Bearer ${BITLY_ACCESS_TOKEN}`,
-	// 	},
-	// })
-
-	// const json = await response.json()
-	// console.log(json)
-
 	const response = await fetch('https://api-ssl.bitly.com/v4/shorten', {
 		method: 'POST',
 		headers: {

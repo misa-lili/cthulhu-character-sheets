@@ -13,8 +13,11 @@
 	import Row from '$lib/components/Row.svelte'
 	import Card from '$lib/components/Card.svelte'
 	import Col from '$lib/components/Col.svelte'
+	import File from '$lib/components/File.svelte'
 
 	export let data: Character
+
+	let files: File[] = []
 
 	onMount(() => {
 		$locale = data.language
@@ -124,13 +127,31 @@
 		const param = encode(data)
 		const response = await fetch(`/api/bitly?data=${param}`, { method: 'POST' })
 		const body = await response.json()
+
 		if (body.status !== 200) {
-			console.error(body)
-			alert(JSON.stringify(body.message))
 			window.prompt('Copy & Share', `https://ccs.misalili.com/?data=${param}`)
 			return
 		}
 		window.prompt('Copy & Share', body.message.link)
+	}
+
+	async function upload() {
+		const formdata = new FormData()
+		formdata.append('image', files[0])
+
+		const response = await fetch(`/api/imgur`, {
+			method: 'POST',
+			body: formdata,
+		})
+
+		const body = await response.json()
+		if (body.status !== 200) {
+			alert($t('Failed to upload image.'))
+			console.error(body)
+			return
+		}
+
+		data.portraitURL = body.message.data.link
 	}
 </script>
 
@@ -174,6 +195,7 @@
 		<img id="portrait" src={data.portraitURL} style="width:100%" />
 	{/if}
 	<Text key={$t('portraitURL')} bind:value={data.portraitURL} />
+	<File bind:files on:change={upload} />
 </Fieldset>
 
 <Fieldset legend={$t('characteristics')}>

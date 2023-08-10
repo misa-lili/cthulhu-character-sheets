@@ -267,5 +267,7 @@ export default {
 		'Remove weapon?': '무기를 삭제하시겠습니까?',
 		'Remove fellow?': '동료를 삭제하시겠습니까?',
 		'Skill already exists.': '같은 이름의 기능이 이미 있습니다.',
+		'upload image': '이미지 업로드',
+		'Failed to upload image.': '이미지 업로드에 실패했습니다.',
 	},
 }

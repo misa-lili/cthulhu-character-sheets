@@ -1,0 +1,43 @@
+{
+	"name": "Cthulhu Character Sheets",
+	"short_name": "CCS",
+	"start_url": "https://ccs.misalili.com",
+	"display": "standalone",
+	"description": "Tool for creating and managing character sheets for the Call of Cthulhu RPG",
+	"lang": "en-US",
+	"dir": "auto",
+	"theme_color": "#ffffff",
+	"background_color": "#ffffff",
+	"orientation": "portrait",
+	"icons": [
+		{
+			"src": "https://ccs.misalili.com/logo512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "https://ccs.misalili.com/logo192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "https://ccs.misalili.com/screenshot.png",
+			"sizes": "750x1334",
+			"type": "image/png",
+			"description": "A screenshot of the sheet"
+		}
+	],
+	"related_applications": [],
+	"prefer_related_applications": false,
+	"shortcuts": [
+		{
+			"name": "CCS",
+			"url": "https://ccs.misalili.com",
+			"description": "Create and manage character sheets for the Call of Cthulhu RPG"
+		}
+	]
+}

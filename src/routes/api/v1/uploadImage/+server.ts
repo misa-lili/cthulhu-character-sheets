@@ -1,4 +1,4 @@
-import { putToImages } from '$lib/database/orm.js'
+import { putToImages } from '$lib/aws/orm'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 

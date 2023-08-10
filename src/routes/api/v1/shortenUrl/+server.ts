@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit'
-import { getFromUrls, putToUrls } from '$lib/database/orm.js'
+import { getFromUrls, putToUrls } from '$lib/aws/orm'
 import { base60Encode } from '$lib/utils/base60'
 import type { RequestHandler } from './$types'
 

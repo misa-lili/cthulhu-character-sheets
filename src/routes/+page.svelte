@@ -24,8 +24,8 @@
 		document.addEventListener('change', replaceUrl)
 	})
 
-	function replaceUrl() {
-		history.replaceState({}, '', `?data=${encode(data)}`)
+	function replaceUrl(key?: string) {
+		history.replaceState({}, '', key ? key : `?data=${encode(data)}`)
 	}
 
 	function encode(obj: object) {
@@ -133,7 +133,9 @@
 			console.warn(body)
 			return
 		}
-		window.prompt('Copy & Share', `https://ccs.misalili.com/${body.message}`)
+		const key = body.message
+		window.prompt('Copy & Share', `https://ccs.misalili.com/${key}`)
+		replaceUrl(key)
 	}
 
 	async function upload() {

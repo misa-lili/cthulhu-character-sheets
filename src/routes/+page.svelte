@@ -120,12 +120,15 @@
 		alert(text)
 	}
 
-	async function shortenURL() {
-		const response = await fetch(`/api/bitly?data=${encode(data)}`, { method: 'POST' })
+	async function share() {
+		const param = encode(data)
+		const response = await fetch(`/api/bitly?data=${param}`, { method: 'POST' })
 		const body = await response.json()
 		if (body.status !== 200) {
 			console.error(body)
 			alert(JSON.stringify(body.message))
+			window.prompt('Copy & Share', `https://ccs.misalili.com/?data=${param}`)
+			return
 		}
 		window.prompt('Copy & Share', body.message.link)
 	}
@@ -366,7 +369,7 @@
 </div>
 
 <div class="text-6xl fixed right-0 bottom-0 p-4 flex flex-col gap-4">
-	<div class="cursor-pointer" on:click={shortenURL}>🔗</div>
+	<div class="cursor-pointer" on:click={share}>🔗</div>
 	<div class="cursor-pointer" on:click={roll}>🎲</div>
 </div>
 

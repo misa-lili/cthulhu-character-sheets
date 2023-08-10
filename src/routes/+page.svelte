@@ -125,33 +125,35 @@
 
 	async function share() {
 		const param = encode(data)
-		const response = await fetch(`/api/bitly?data=${param}`, { method: 'POST' })
+		const response = await fetch(`/api/shortenUrl?data=${param}`, { method: 'POST' })
 		const body = await response.json()
 
 		if (body.status !== 200) {
 			window.prompt('Copy & Share', `https://ccs.misalili.com/?data=${param}`)
+			console.warn(body)
 			return
 		}
-		window.prompt('Copy & Share', body.message.link)
+		window.prompt('Copy & Share', `https://ccs.misalili.com/${body.message}`)
 	}
 
 	async function upload() {
 		const formdata = new FormData()
 		formdata.append('image', files[0])
 
-		const response = await fetch(`/api/imgur`, {
+		const response = await fetch(`/api/uploadImage`, {
 			method: 'POST',
 			body: formdata,
 		})
 
 		const body = await response.json()
+
 		if (body.status !== 200) {
 			alert($t('Failed to upload image.'))
 			console.error(body)
 			return
 		}
 
-		data.portraitURL = body.message.data.link
+		data.portraitURL = body.message
 		replaceUrl()
 	}
 </script>

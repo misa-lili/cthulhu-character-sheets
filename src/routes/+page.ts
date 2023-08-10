@@ -3,12 +3,15 @@ import type { PageLoad } from './$types'
 
 export const load = (({ url }) => {
 	try {
+		// TODO: path 에서 가져오는 알고리즘을 만들어야 함
+		const path = url.pathname
+		console.log({ path })
 		const data = url.searchParams.get('data')
 		if (!data) throw new Error('No data found in URL')
 		return decode(data)
 	} catch (error) {
 		return {
-			language: 'ko',
+			language: 'en',
 			edition: '7E',
 			era: '20s',
 			//
@@ -21,27 +24,27 @@ export const load = (({ url }) => {
 			birthplace: '',
 			//
 			characteristics: {
-				STR: 40,
-				DEX: 50,
-				POW: 50,
-				CON: 50,
-				APP: 60,
-				EDU: 60,
-				SIZ: 70,
-				INT: 80,
-				MOV: 8,
+				STR: 0,
+				DEX: 0,
+				POW: 0,
+				CON: 0,
+				APP: 0,
+				EDU: 0,
+				SIZ: 0,
+				INT: 0,
+				MOV: 0,
 				MOVPlus: 0,
 				MOVMinus: 0,
 			},
 			//
-			currentHP: 70,
-			maxHP: 70,
-			currentMP: 70,
-			maxMP: 70,
-			LUCK: 70,
-			startSAN: 70,
-			currentSAN: 70,
-			maxSAN: 40,
+			currentHP: 0,
+			maxHP: 0,
+			currentMP: 0,
+			maxMP: 0,
+			LUCK: 0,
+			startSAN: 0,
+			currentSAN: 0,
+			maxSAN: 0,
 			//
 			portraitURL: '',
 			//
@@ -53,31 +56,31 @@ export const load = (({ url }) => {
 			//
 			skills: {
 				accounting: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				anthropology: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				appraise: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				archaeology: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				art: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				charm: {
-					value: 15,
+					value: 0,
 					isSuccess: false,
 				},
 				climb: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				creditRating: {
@@ -89,154 +92,154 @@ export const load = (({ url }) => {
 					isSuccess: false,
 				},
 				disguise: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				dodge: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				driveAuto: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				electricalRepair: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				fastTalk: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				fightingBrawl: {
-					value: 25,
+					value: 0,
 					isSuccess: false,
 				},
 				firearmsHandgun: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				firearmsRifle: {
-					value: 25,
+					value: 0,
 					isSuccess: false,
 				},
 				firstAid: {
-					value: 30,
+					value: 0,
 					isSuccess: false,
 				},
 				history: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				intimidate: {
-					value: 15,
+					value: 0,
 					isSuccess: false,
 				},
 				jump: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				languageOwn: {
-					value: 40,
+					value: 0,
 					isSuccess: false,
 				},
 				languageOther: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				law: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				libraryUse: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				listen: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				locksmith: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				mechanicalRepair: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				medicine: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				naturalWorld: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				navigate: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				occult: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				persuade: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				pilot: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				psychoanalysis: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				psychology: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				ride: {
-					value: 5,
+					value: 0,
 					isSuccess: false,
 				},
 				science: {
-					value: 1,
+					value: 0,
 					isSuccess: false,
 				},
 				sleightOfHand: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				spotHidden: {
-					value: 25,
+					value: 0,
 					isSuccess: false,
 				},
 				stealth: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				survival: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 				swim: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				throw: {
-					value: 20,
+					value: 0,
 					isSuccess: false,
 				},
 				track: {
-					value: 10,
+					value: 0,
 					isSuccess: false,
 				},
 			},
 			weapons: [
 				{
 					weapon: 'unarmed',
-					skill: 60,
+					skill: 0,
 					damage: '1d3+db',
 					range: 0,
 					numberOfAttacks: 1,

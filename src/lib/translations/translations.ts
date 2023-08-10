@@ -180,7 +180,7 @@ export default {
 		driveAuto: '자동차 운전',
 		electricalRepair: '전기 수리',
 		fastTalk: '말재주',
-		fightingBrawl: '급접전(격투)',
+		fightingBrawl: '근접전(격투)',
 		firearmsHandgun: '사격(권총)',
 		firearmsRifle: '사격(라이플/산탄총)',
 		firstAid: '응급처치',

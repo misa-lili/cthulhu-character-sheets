@@ -11,7 +11,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded p-2 w-full h-10;
+		@apply border border-black border-solid rounded p-2 w-full h-10 bg-transparent;
 	}
 
 	input:read-only {

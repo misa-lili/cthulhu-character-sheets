@@ -20,10 +20,10 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded w-full p-2 h-10;
+		@apply border border-black border-solid rounded w-full p-2 h-10 bg-transparent;
 	}
 
 	input:read-only {
-		@apply bg-gray-200;
+		@apply bg-black/20;
 	}
 </style>

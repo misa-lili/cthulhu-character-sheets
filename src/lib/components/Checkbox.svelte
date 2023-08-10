@@ -6,7 +6,11 @@
 </script>
 
 <div class={`flex items-center ${key ? 'gap-4' : ''}`}>
-	<input type="checkbox" bind:checked={value} />
+	<input
+		type="checkbox"
+		class="appearance-none default:bg-transparent checked:bg-black"
+		bind:checked={value}
+	/>
 	<label>{key}</label>
 </div>
 

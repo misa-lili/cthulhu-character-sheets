@@ -11,6 +11,6 @@
 
 <style>
 	textarea {
-		@apply border border-black border-solid rounded p-2;
+		@apply border border-black border-solid rounded p-2 bg-transparent;
 	}
 </style>

@@ -124,7 +124,7 @@ export default {
 		note: 'Note',
 	},
 	ko: {
-		title: '크툴루의 부름 캐릭터 시트',
+		title: '크툴루 캐릭터 시트',
 		en: 'English',
 		ko: '한국어',
 		environment: '환경',

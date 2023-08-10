@@ -16,6 +16,6 @@
 
 <style>
 	select {
-		@apply border border-black border-solid rounded p-2 h-10;
+		@apply border border-black border-solid rounded p-2 h-10 bg-transparent;
 	}
 </style>

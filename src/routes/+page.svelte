@@ -23,7 +23,6 @@
 	$: data = initialData
 
 	$: if (isMounted && data && data !== initialData) {
-		console.log('replaceUrl')
 		replaceUrl()
 	}
 

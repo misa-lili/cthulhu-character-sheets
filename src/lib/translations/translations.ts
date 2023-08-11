@@ -269,5 +269,7 @@ export default {
 		'Skill already exists.': '같은 이름의 기능이 이미 있습니다.',
 		'upload image': '이미지 업로드',
 		'Failed to upload image.': '이미지 업로드에 실패했습니다.',
+		'Are you sure you want to reset? This will delete all your data. This action cannot be undone. please backup your url data before continuing.':
+			'정말 초기화 하시겠습니까? 모든 데이터가 삭제됩니다. 이 작업은 되돌릴 수 없습니다. 계속하기 전에 URL 데이터를 백업하십시오.',
 	},
 }

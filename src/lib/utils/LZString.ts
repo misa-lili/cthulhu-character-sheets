@@ -1,11 +1,9 @@
 import LZString from 'lz-string'
 
+export function compress(obj: object) {
+	return LZString.compressToEncodedURIComponent(JSON.stringify(obj))
+}
+
 export function decompress(text: string) {
-	try {
-		const decompress = LZString.decompressFromEncodedURIComponent(text)
-		const obj = JSON.parse(decompress)
-		return obj
-	} catch (error) {
-		throw error
-	}
+	return JSON.parse(LZString.decompressFromEncodedURIComponent(text))
 }

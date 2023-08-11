@@ -14,28 +14,64 @@
 	import Card from '$lib/components/Card.svelte'
 	import Col from '$lib/components/Col.svelte'
 	import File from '$lib/components/File.svelte'
+	import { initialData } from '$lib/models/data'
+	import { page } from '$app/stores'
+	import { compress, decompress } from '$lib/utils/LZString'
 
-	export let data: Character
+	let isMounted = false
+	let data: Character
+	$: data = initialData
+
+	$: if (isMounted && data && data !== initialData) {
+		console.log('replaceUrl')
+		replaceUrl()
+	}
 
 	let files: File[] = []
 
 	onMount(() => {
+		isMounted = true
+		loadData()
 		$locale = data.language
-		document.addEventListener('change', replaceUrl)
 	})
 
+	function loadData() {
+		try {
+			const paramData = $page.url.searchParams.get('data')
+			if (paramData) {
+				data = decompress(paramData)
+				if (data === null) throw new Error('Invalid data search param.')
+			} else {
+				initData()
+			}
+		} catch (error) {
+			console.warn(error instanceof Error ? error.message : error)
+			initData()
+		}
+	}
+
+	function initData() {
+		data = initialData
+		history.replaceState({}, '', '/')
+	}
+
+	function initWithConfirm() {
+		const confirm = window.confirm(
+			$t(
+				'Are you sure you want to reset? This will delete all your data. This action cannot be undone. please backup your url data before continuing.',
+			),
+		)
+		if (!confirm) return
+		initData()
+	}
+
 	function replaceUrl() {
-		history.replaceState({}, '', `?data=${encode(data)}`)
+		const encoded = compress(data)
+		history.replaceState({}, '', `?data=${encoded}`)
 	}
 
 	function replaceUrlByKey(key: string) {
 		history.replaceState({}, '', key)
-	}
-
-	function encode(obj: object) {
-		const text = JSON.stringify(obj)
-		const encoded = LZString.compressToEncodedURIComponent(text)
-		return encoded
 	}
 
 	$: skills = Object.entries(data.skills).sort((a, b) => {
@@ -52,7 +88,6 @@
 		if (data.skills[skillName]) return alert($t('Skill already exists.'))
 
 		data.skills[skillName] = { value: 0, isOccupation: false }
-		replaceUrl()
 	}
 
 	function removeSkill(idx: number) {
@@ -61,7 +96,6 @@
 		if (!confirm) return
 		delete data.skills[key]
 		data = data
-		replaceUrl()
 	}
 
 	function addWeapon() {
@@ -79,7 +113,6 @@
 				malfunction: false,
 			},
 		]
-		replaceUrl()
 	}
 
 	function removeWeapon(idx: number) {
@@ -88,7 +121,6 @@
 		if (!confirm) return
 		data.weapons.splice(idx, 1)
 		data = data
-		replaceUrl()
 	}
 
 	function addFellow() {
@@ -101,7 +133,6 @@
 				player: '',
 			},
 		]
-		replaceUrl()
 	}
 
 	function removeFellow(idx: number) {
@@ -110,7 +141,6 @@
 		if (!confirm) return
 		data.fellowInvestigators.splice(idx, 1)
 		data = data
-		replaceUrl()
 	}
 
 	function roll() {
@@ -128,7 +158,7 @@
 	}
 
 	async function share() {
-		const param = encode(data)
+		const param = compress(data)
 		const response = await fetch(`/api/v1/shortenUrl?data=${param}`, { method: 'POST' })
 		const body = await response.json()
 
@@ -160,7 +190,6 @@
 		}
 
 		data.portraitURL = body.message
-		replaceUrl()
 	}
 </script>
 
@@ -400,6 +429,7 @@
 </div>
 
 <div class="text-6xl fixed right-0 bottom-0 p-4 flex flex-col gap-4">
+	<div class="cursor-pointer" on:click={initWithConfirm}>🆕</div>
 	<div class="cursor-pointer" on:click={share}>🔗</div>
 	<div class="cursor-pointer" on:click={roll}>🎲</div>
 </div>

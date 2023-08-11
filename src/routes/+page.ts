@@ -7,7 +7,9 @@ export const load = (({ url }) => {
 	try {
 		const data = url.searchParams.get('data')
 		if (!data) return initialData
-		return decompress(data)
+		const decompressed = decompress(data)
+		if (!decompressed) return initialData
+		return decompressed
 	} catch (error) {
 		throw redirect(302, '/')
 	}

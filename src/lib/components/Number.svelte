@@ -3,6 +3,9 @@
 	export let value: number = 0
 	export let readonly: boolean = false
 	export let withHints: boolean = false
+
+	$: half = Math.floor(value / 2)
+	$: fifth = Math.floor(value / 5)
 </script>
 
 <div class="flex flex-col w-full">
@@ -20,20 +23,8 @@
 		/>
 		{#if withHints}
 			<div class="flex flex-col text-sm">
-				<input
-					tabindex="-1"
-					class="w-10 h-5 bg-green-500/10"
-					type="number"
-					value={(value / 2).toFixed(0)}
-					readonly
-				/>
-				<input
-					tabindex="-1"
-					class="w-10 h-5 bg-red-500/10"
-					type="number"
-					value={(value / 5).toFixed(0)}
-					readonly
-				/>
+				<input tabindex="-1" class="w-10 h-5 bg-green-500/10" type="number" value={half} readonly />
+				<input tabindex="-1" class="w-10 h-5 bg-red-500/10" type="number" value={fifth} readonly />
 			</div>
 		{/if}
 	</div>

@@ -6,7 +6,9 @@
 </script>
 
 <div class="flex flex-col">
-	<label class="pl-0.5">{key}</label>
+	{#if key}
+		<label class="pl-0.5">{key}</label>
+	{/if}
 	<input
 		tabindex={readonly ? -1 : 0}
 		type="text"
@@ -30,5 +32,10 @@
 
 	input:read-only {
 		@apply bg-black/10;
+	}
+
+	label {
+		font-size: var(--font-size--label, 0.875rem);
+		height: var(--height--label, 1.25rem);
 	}
 </style>

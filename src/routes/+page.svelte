@@ -351,7 +351,7 @@
 </Fieldset>
 
 <Fieldset legend={$t('weapons')}>
-	<div class="flex text-center text-xs">
+	<div class="flex text-center text-xs font-medium">
 		<div class="flex-grow">{$t('weapon')}</div>
 		<div class="w-[40px]">{$t('skill')}</div>
 		<div class="w-[60px]">{$t('damage')}</div>
@@ -423,13 +423,19 @@
 <Fieldset legend={$t('combat')}>
 	<Row>
 		<Row cols="4">
-			<Number label key={$t('damageBonus')} />
+			<Number --font-size--label="0.75rem" key={$t('damageBonus')} />
 		</Row>
 		<Row cols="4">
-			<Number key={$t('build')} />
+			<Number --font-size--label="0.75rem" key={$t('build')} />
 		</Row>
 		<Row cols="4">
-			<Number key={$t('_dodge')} bind:value={data.skills.dodge.value} withHints readonly />
+			<Number
+				--font-size--label="0.75rem"
+				key={$t('_dodge')}
+				bind:value={data.skills.dodge.value}
+				withHints
+				readonly
+			/>
 		</Row>
 	</Row>
 </Fieldset>

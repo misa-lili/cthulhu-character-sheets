@@ -12,7 +12,9 @@
 </script>
 
 <div class="flex flex-col w-full">
-	<label class="pl-0.5 overflow-visible">{key}</label>
+	{#if key}
+		<label class="pl-0.5 overflow-visible">{key}</label>
+	{/if}
 	<div class="flex w-full">
 		<input
 			tabindex={readonly ? -1 : 0}
@@ -61,5 +63,10 @@
 		padding-left: var(--padding-left--hint, 0.45rem);
 		padding-right: var(--padding-right--hint, 0rem);
 		text-align: var(--text-align--hint, left);
+	}
+
+	label {
+		font-size: var(--font-size--label, 0.875rem);
+		height: var(--height--label, 1.25rem);
 	}
 </style>

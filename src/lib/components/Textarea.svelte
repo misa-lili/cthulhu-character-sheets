@@ -4,13 +4,13 @@
 	export let rows = 2
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col w-full">
 	<label class="pl-0.5 font-medium">{key}</label>
-	<textarea {rows} bind:value autocomplete="off" />
+	<span {rows} autocomplete="off" role="textbox" contenteditable bind:innerText={value} />
 </div>
 
 <style>
-	textarea {
-		@apply border border-black border-solid rounded p-2 bg-transparent;
+	span {
+		@apply border border-black border-solid rounded p-2 bg-transparent w-full;
 	}
 </style>

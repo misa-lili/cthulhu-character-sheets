@@ -236,14 +236,23 @@
 </Fieldset>
 
 <Fieldset legend={$t('characteristics')}>
-	<Number key={$t('STR')} bind:value={data.characteristics.STR} withHints />
-	<Number key={$t('CON')} bind:value={data.characteristics.CON} withHints />
-	<Number key={$t('SIZ')} bind:value={data.characteristics.SIZ} withHints />
-	<Number key={$t('DEX')} bind:value={data.characteristics.DEX} withHints />
-	<Number key={$t('APP')} bind:value={data.characteristics.APP} withHints />
-	<Number key={$t('EDU')} bind:value={data.characteristics.EDU} withHints />
-	<Number key={$t('INT')} bind:value={data.characteristics.INT} withHints />
-	<Number key={$t('POW')} bind:value={data.characteristics.POW} withHints />
+	<Row>
+		<Number key={$t('STR')} bind:value={data.characteristics.STR} withHints />
+		<Number key={$t('CON')} bind:value={data.characteristics.CON} withHints />
+	</Row>
+
+	<Row>
+		<Number key={$t('SIZ')} bind:value={data.characteristics.SIZ} withHints />
+		<Number key={$t('DEX')} bind:value={data.characteristics.DEX} withHints />
+	</Row>
+	<Row>
+		<Number key={$t('APP')} bind:value={data.characteristics.APP} withHints />
+		<Number key={$t('EDU')} bind:value={data.characteristics.EDU} withHints />
+	</Row>
+	<Row>
+		<Number key={$t('INT')} bind:value={data.characteristics.INT} withHints />
+		<Number key={$t('POW')} bind:value={data.characteristics.POW} withHints />
+	</Row>
 	<Row>
 		<Number key={$t('MOV')} bind:value={data.characteristics.MOV} />
 		<Number key={$t('MOVPlus')} bind:value={data.characteristics.MOVPlus} />

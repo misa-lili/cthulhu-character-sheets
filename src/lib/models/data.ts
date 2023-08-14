@@ -21,8 +21,8 @@ export const initialData = {
 		SIZ: 0,
 		INT: 0,
 		MOV: 0,
-		MOVPlus: 0,
-		MOVMinus: 0,
+		MOVPlus: null,
+		MOVMinus: null,
 	},
 	//
 	currentHP: 0,

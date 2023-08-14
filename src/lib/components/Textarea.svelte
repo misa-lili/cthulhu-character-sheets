@@ -11,6 +11,6 @@
 
 <style>
 	span {
-		@apply border border-black border-solid rounded p-2 bg-transparent w-full;
+		@apply border border-black border-solid rounded p-2 bg-transparent w-full text-sm font-light;
 	}
 </style>

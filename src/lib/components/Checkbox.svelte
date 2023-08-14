@@ -3,9 +3,11 @@
 	export let value: boolean = false
 	export let height: number = 8
 	export let width: number = 8
+	export let textSize: string = 'text-base'
+	export let gap: string = 'gap-4'
 </script>
 
-<div class={`flex items-center ${key ? 'gap-4' : ''}`}>
+<div class={`${textSize} flex items-center ${key ? gap : ''}`}>
 	<input
 		type="checkbox"
 		class="appearance-none default:bg-transparent checked:bg-black"

@@ -20,7 +20,12 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded p-2 w-full h-10 bg-transparent;
+		@apply border border-black border-solid rounded py-2 bg-transparent font-light;
+		font-size: var(--font-size, 0.875rem);
+		line-height: var(--line-height, 1.25rem);
+		width: var(--width, 100%);
+		height: var(--height, 2.5rem);
+		padding-left: var(--padding-left, 0.45rem);
 	}
 
 	input:read-only {

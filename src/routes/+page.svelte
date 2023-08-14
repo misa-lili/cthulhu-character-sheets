@@ -65,6 +65,7 @@
 	}
 
 	function replaceUrl() {
+		console.log('replace-url')
 		const encoded = compress(data)
 		history.replaceState({}, '', `?data=${encoded}`)
 	}
@@ -238,27 +239,39 @@
 <Fieldset legend={$t('characteristics')}>
 	<Row>
 		<Number key={$t('STR')} bind:value={data.characteristics.STR} withHints />
-		<Number key={$t('CON')} bind:value={data.characteristics.CON} withHints />
+		<Number key={$t('DEX')} bind:value={data.characteristics.DEX} withHints />
+		<Number key={$t('INT')} bind:value={data.characteristics.INT} withHints />
 	</Row>
 
 	<Row>
-		<Number key={$t('SIZ')} bind:value={data.characteristics.SIZ} withHints />
-		<Number key={$t('DEX')} bind:value={data.characteristics.DEX} withHints />
-	</Row>
-	<Row>
+		<Number key={$t('CON')} bind:value={data.characteristics.CON} withHints />
 		<Number key={$t('APP')} bind:value={data.characteristics.APP} withHints />
-		<Number key={$t('EDU')} bind:value={data.characteristics.EDU} withHints />
-	</Row>
-	<Row>
-		<Number key={$t('INT')} bind:value={data.characteristics.INT} withHints />
 		<Number key={$t('POW')} bind:value={data.characteristics.POW} withHints />
 	</Row>
 	<Row>
-		<Number key={$t('MOV')} bind:value={data.characteristics.MOV} />
-		<Number key={$t('MOVPlus')} bind:value={data.characteristics.MOVPlus} />
-		<Number key={$t('MOVMinus')} bind:value={data.characteristics.MOVMinus} />
+		<Number key={$t('SIZ')} bind:value={data.characteristics.SIZ} withHints />
+		<Number key={$t('EDU')} bind:value={data.characteristics.EDU} withHints />
+		<Row>
+			<Number key={$t('MOV')} bind:value={data.characteristics.MOV} />
+			<Col>
+				<div style="height:24px" />
+				<Number
+					--width="32px"
+					--height="20px"
+					textSize="text-xs"
+					placeholder="+1"
+					bind:value={data.characteristics.MOVPlus}
+				/>
+				<Number
+					--width="32px"
+					--height="20px"
+					textSize="text-xs"
+					placeholder="-1"
+					bind:value={data.characteristics.MOVMinus}
+				/>
+			</Col>
+		</Row>
 	</Row>
-	<Number key={$t('LUCK')} bind:value={data.LUCK} />
 </Fieldset>
 
 <Fieldset legend={$t('status')}>
@@ -266,14 +279,26 @@
 		<Number key={$t('currentHP')} bind:value={data.currentHP} />
 		<Number key={$t('maxHP')} bind:value={data.maxHP} />
 	</Row>
-	<Col>
-		<Checkbox key={$t('isMajorWound')} bind:value={data.isMajorWound} />
-		<Checkbox key={$t('isUnconscious')} bind:value={data.isUnconscious} />
-		<Checkbox key={$t('isDying')} bind:value={data.isDying} />
-	</Col>
 	<Row>
-		<Number key={$t('currentMP')} bind:value={data.currentMP} />
-		<Number key={$t('maxMP')} bind:value={data.maxMP} />
+		<Row cols="4">
+			<Checkbox
+				textSize="text-xs"
+				gap="gap-2"
+				key={$t('isMajorWound')}
+				bind:value={data.isMajorWound}
+			/>
+		</Row>
+		<Row cols="4">
+			<Checkbox
+				textSize="text-xs"
+				gap="gap-2"
+				key={$t('isUnconscious')}
+				bind:value={data.isUnconscious}
+			/>
+		</Row>
+		<Row cols="4">
+			<Checkbox textSize="text-xs" gap="gap-2" key={$t('isDying')} bind:value={data.isDying} />
+		</Row>
 	</Row>
 	<Row>
 		<Number key={$t('startSAN')} bind:value={data.startSAN} />
@@ -282,11 +307,24 @@
 	</Row>
 	<Row>
 		<Row cols="6">
-			<Checkbox key={$t('isTemporaryInsanity')} bind:value={data.isTemporaryInsanity} />
+			<Checkbox
+				textSize="text-xs"
+				key={$t('isTemporaryInsanity')}
+				bind:value={data.isTemporaryInsanity}
+			/>
 		</Row>
 		<Row cols="6">
-			<Checkbox key={$t('isIndefiniteInsanity')} bind:value={data.isIndefiniteInsanity} />
+			<Checkbox
+				textSize="text-xs"
+				key={$t('isIndefiniteInsanity')}
+				bind:value={data.isIndefiniteInsanity}
+			/>
 		</Row>
+	</Row>
+	<Row>
+		<Number key={$t('LUCK')} bind:value={data.LUCK} />
+		<Number key={$t('currentMP')} bind:value={data.currentMP} />
+		<Number key={$t('maxMP')} bind:value={data.maxMP} />
 	</Row>
 </Fieldset>
 
@@ -296,7 +334,7 @@
 			<Row cols="1">
 				<Checkbox bind:value={set.isSuccess} />
 			</Row>
-			<Row cols="5">
+			<Row cols="10">
 				<span
 					class="pl-1 font-serif text-sm leading-none cursor-pointer"
 					on:click={() => removeSkill(idx)}
@@ -304,8 +342,8 @@
 					{$t(key)}
 				</span>
 			</Row>
-			<Row cols="6">
-				<Number bind:value={set.value} withHints />
+			<Row cols="1">
+				<Number --width="32px" textSize="text-xs" bind:value={set.value} withHints />
 			</Row>
 		</Row>
 	{/each}
@@ -313,68 +351,87 @@
 </Fieldset>
 
 <Fieldset legend={$t('weapons')}>
-	<table class="table text-[8px] tracking-tighter">
-		<thead>
-			<tr class="text-[8px]">
-				<th>{$t('weapon')}</th>
-				<!-- <th class="w-8">{$t('skill')}</th> -->
-				<th class="w-14">{$t('damage')}</th>
-				<th class="w-8">{$t('range')}</th>
-				<th class="w-8">{$t('numberOfAttacks')}</th>
-				<th class="w-8">{$t('ammo')}</th>
-				<th class="w-8">{$t('malfunction')}</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each data.weapons as weapon, idx}
-				<tr>
-					<td on:click={() => removeWeapon(idx)}>
-						<div
-							class="
-								w-full h-10 border border-black border-solid rounded
-								flex items-center justify-center
-								px-0.5 leading-none overflow-hidden
-								cursor-pointer
-								hover:bg-black/10
-							"
-						>
-							{$t(weapon.weapon)}
-						</div>
-					</td>
-					<td>
-						<Text bind:value={weapon.damage} />
-					</td>
-					<td>
-						<Number bind:value={weapon.range} />
-					</td>
-					<td>
-						<Number bind:value={weapon.numberOfAttacks} />
-					</td>
-					<td>
-						<Number bind:value={weapon.ammo} />
-					</td>
-					<td>
-						<Checkbox --width="30px" --height="40px" bind:value={weapon.malfunction} />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="6" class="text-base">
-						<Number bind:value={weapon.skill} withHints />
-					</td>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
+	<div class="flex text-center text-xs">
+		<div class="flex-grow">{$t('weapon')}</div>
+		<div class="w-[40px]">{$t('skill')}</div>
+		<div class="w-[60px]">{$t('damage')}</div>
+		<div class="w-5 hover:cursor-help" title={$t('range')}>r</div>
+		<div class="w-5 hover:cursor-help" title={$t('numberOfAttacks')}>#</div>
+		<div class="w-5 hover:cursor-help" title={$t('ammo')}>a</div>
+		<div class="w-5 hover:cursor-help" title={$t('malfunction')}>m</div>
+	</div>
+	{#each data.weapons as weapon, idx}
+		<div class="flex justify-between text-xs">
+			<div class="flex-grow self-center" on:click={() => removeWeapon(idx)}>
+				{$t(weapon.weapon)}
+			</div>
+			<div>
+				<Number
+					textPosition="text-center"
+					--padding-left="0"
+					--padding-right="0"
+					--width="20px"
+					--width--hint="20px"
+					--padding-left--hint="2px"
+					textSize="text-xs"
+					bind:value={weapon.skill}
+					withHints
+				/>
+			</div>
+			<div>
+				<Text --width="60px" --font-size="11px" bind:value={weapon.damage} />
+			</div>
+			<div>
+				<Number
+					textPosition="text-center"
+					--padding-left="0"
+					--padding-right="0"
+					--width="20px"
+					textSize="text-xs"
+					bind:value={weapon.range}
+				/>
+			</div>
+			<div>
+				<Number
+					textPosition="text-center"
+					--padding-left="0"
+					--padding-right="0"
+					--width="20px"
+					textSize="text-xs"
+					bind:value={weapon.numberOfAttacks}
+				/>
+			</div>
+			<div>
+				<Number
+					textPosition="text-center"
+					--padding-left="0"
+					--padding-right="0"
+					--width="20px"
+					textSize="text-xs"
+					bind:value={weapon.ammo}
+				/>
+			</div>
+			<div>
+				<Checkbox --width="20px" --height="40px" bind:value={weapon.malfunction} />
+			</div>
+		</div>
+	{/each}
 
 	<Button on:click={addWeapon} value={$t('addWeapon')} />
 </Fieldset>
 
 <Fieldset legend={$t('combat')}>
 	<Row>
-		<Number key={$t('damageBonus')} />
-		<Number key={$t('build')} />
+		<Row cols="4">
+			<Number label key={$t('damageBonus')} />
+		</Row>
+		<Row cols="4">
+			<Number key={$t('build')} />
+		</Row>
+		<Row cols="4">
+			<Number key={$t('_dodge')} bind:value={data.skills.dodge.value} withHints readonly />
+		</Row>
 	</Row>
-	<Number key={$t('dodge')} bind:value={data.skills.dodge.value} withHints readonly />
 </Fieldset>
 
 <Fieldset legend={$t('myStory')}>
@@ -436,7 +493,7 @@
 	<a href="https://github.com/misa-lili/cthulhu-character-sheets">Github</a>
 </div>
 
-<div class="text-6xl fixed right-0 bottom-0 p-4 flex flex-col gap-4">
+<div class="text-5xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2">
 	<div class="cursor-pointer" on:click={initWithConfirm}>🆕</div>
 	<div class="cursor-pointer" on:click={share}>🔗</div>
 	<div class="cursor-pointer" on:click={roll}>🎲</div>

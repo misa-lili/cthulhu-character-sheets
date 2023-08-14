@@ -162,12 +162,12 @@
 		const body = await response.json()
 
 		if (body.status !== 200) {
-			window.prompt('Copy & Share', `https://ccs.misalili.com/?data=${param}`)
+			window.prompt('Copy & Share', `${$page.url.host}/?data=${param}`)
 			console.warn(body)
 			return
 		}
 		const key = body.message
-		window.prompt('Copy & Share', `https://ccs.misalili.com/${key}`)
+		window.prompt('Copy & Share', `${$page.url.host}/${key}`)
 		replaceUrlByKey(key)
 	}
 

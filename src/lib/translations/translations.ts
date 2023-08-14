@@ -227,7 +227,7 @@ export default {
 		track: '추적 (10%)',
 		weapons: '무기',
 		weapon: '무기',
-		skill: '기술',
+		skill: '기능',
 		damage: '피해',
 		numberOfAttacks: '공격 수',
 		range: '거리',

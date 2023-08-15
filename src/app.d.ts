@@ -8,7 +8,7 @@ declare global {
 		// interface Platform {}
 	}
 
-	interface Character {
+	interface Sheet {
 		language: string
 		edition: string
 		era: string
@@ -29,6 +29,8 @@ declare global {
 			SIZ: number
 			INT: number
 			MOV: number
+			MOVPlus: string | null
+			MOVMinus: string | null
 		}
 		currentHP: number
 		maxHP: number
@@ -52,7 +54,7 @@ declare global {
 		}
 		weapons: {
 			weapon: string
-			skill: string
+			skill: number
 			damage: string
 			numberOfAttacks: number
 			range: number
@@ -60,9 +62,8 @@ declare global {
 			malfunction: boolean
 		}[]
 		combat: {
-			damageBonus: string
-			build: string
-			dodge: string
+			damageBonus: number
+			build: number
 		}
 		myStory: string
 		backstory: {
@@ -77,7 +78,7 @@ declare global {
 			treasuredPossessions: string
 			encountersWithStrangeEntities: string
 		}
-		gearAndPossessions: string[]
+		gearAndPossessions: string
 		wealth: {
 			spendingLevel: string
 			cash: string

@@ -1,4 +1,4 @@
-export const initialData = {
+export const initialData: Sheet = {
 	language: 'en',
 	edition: '7E',
 	era: '20s',

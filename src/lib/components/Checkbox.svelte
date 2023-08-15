@@ -1,10 +1,13 @@
 <script lang="ts">
+	import exp from 'constants'
+
 	export let key: string = ''
 	export let value: boolean = false
 	export let height: number = 8
 	export let width: number = 8
 	export let textSize: string = 'text-base'
 	export let gap: string = 'gap-4'
+	export let disabled: boolean = false
 </script>
 
 <div class={`${textSize} flex items-center ${key ? gap : ''}`}>
@@ -12,6 +15,7 @@
 		type="checkbox"
 		class="appearance-none default:bg-transparent checked:bg-black"
 		bind:checked={value}
+		{disabled}
 	/>
 	<label>{key}</label>
 </div>
@@ -21,5 +25,9 @@
 		@apply border border-black border-solid rounded p-2 cursor-pointer;
 		width: var(--width, 2rem);
 		height: var(--height, 2rem);
+	}
+
+	input:disabled {
+		@apply cursor-not-allowed;
 	}
 </style>

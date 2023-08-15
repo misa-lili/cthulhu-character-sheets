@@ -1,4 +1,4 @@
-import { putToImages } from '$lib/aws/orm'
+import { putToImages } from '$lib/server/aws/orm'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
@@ -9,7 +9,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		const ext = file.type.split('/')[1]
 		const key = crypto.randomUUID()
 
-		await putToImages(key, file)
+		await putToImages('misalili-images', key, file)
 
 		const url = `https://misalili-images.s3.ap-northeast-2.amazonaws.com/${key}.${ext}`
 

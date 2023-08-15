@@ -31,7 +31,7 @@
 	}
 
 	input:read-only {
-		@apply bg-black/10;
+		@apply bg-black/5 cursor-not-allowed;
 	}
 
 	label {

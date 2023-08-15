@@ -18,7 +18,7 @@
 	<div class="flex w-full">
 		<input
 			tabindex={readonly ? -1 : 0}
-			class={`${textSize} ${textPosition} ${readonly ? 'bg-black/10' : 'bg-transparent'}`}
+			class={`${textSize} ${textPosition} ${readonly ? 'bg-black/5' : 'bg-transparent'}`}
 			type="number"
 			bind:value
 			{placeholder}
@@ -36,12 +36,18 @@
 			<div class="flex flex-col text-xs">
 				<input
 					tabindex="-1"
-					class="misa-hint bg-green-500/10"
+					class="misa-hint !bg-green-500/10"
 					type="number"
 					value={half}
 					readonly
 				/>
-				<input tabindex="-1" class="misa-hint bg-red-500/10" type="number" value={fifth} readonly />
+				<input
+					tabindex="-1"
+					class="misa-hint !bg-red-500/10"
+					type="number"
+					value={fifth}
+					readonly
+				/>
 			</div>
 		{/if}
 	</div>
@@ -54,6 +60,10 @@
 		width: var(--width, 100%);
 		padding-left: var(--padding-left, 0.45rem);
 		padding-right: var(--padding-right, 0rem);
+	}
+
+	input:read-only {
+		@apply bg-black/5 cursor-not-allowed;
 	}
 
 	.misa-hint {

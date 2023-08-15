@@ -3,13 +3,14 @@
 	export let items: { display: string; value: any }[] = []
 	export let value = null
 	export let selected = ''
+	export let disabled = false
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col w-full">
 	{#if key}
 		<label class="pl-0.5">{key}</label>
 	{/if}
-	<select bind:value={selected} on:change>
+	<select bind:value={selected} on:change {disabled}>
 		{#each items as item}
 			<option value={item.value}>{item.display}</option>
 		{/each}
@@ -18,7 +19,13 @@
 
 <style>
 	select {
-		@apply border border-black border-solid rounded p-2 h-10 bg-transparent font-light;
+		@apply border border-black border-solid rounded p-2 h-10 bg-transparent font-light cursor-pointer;
+		font-size: var(--font-size, 0.875rem);
+		line-height: var(--line-height, 1.25rem);
+	}
+
+	select:disabled {
+		@apply bg-black/5 cursor-not-allowed;
 	}
 
 	label {

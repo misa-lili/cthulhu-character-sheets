@@ -1,8 +1,9 @@
 <script lang="ts">
 	export let files: string = ''
+	export let disabled: boolean = false
 </script>
 
-<input type="file" bind:files on:change />
+<input type="file" bind:files on:change {disabled} />
 
 <style>
 	input {
@@ -10,6 +11,10 @@
 	}
 
 	input:hover {
-		@apply bg-black/10;
+		@apply bg-black/5;
+	}
+
+	input:disabled {
+		@apply bg-black/5 cursor-not-allowed;
 	}
 </style>

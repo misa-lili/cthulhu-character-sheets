@@ -185,7 +185,7 @@
 			return alert($t('You have to set password first. Please try again.'))
 		}
 
-		if (id === 'new') {
+		if (isNew) {
 			const value = compress(sheet)
 			const response = await fetch(`/api/v1/sheets?value=${value}&pw=${pw}`, { method: 'POST' })
 			const body = await response.json()
@@ -202,6 +202,11 @@
 			if (body.ok) return alert($t('Saved!'))
 			else return alert($t('Failed to save.'))
 		}
+	}
+
+	function share() {
+		const url = `${window.location.origin}/${id}`
+		window.prompt($t('Copy this URL to share.'), url)
 	}
 
 	async function upload() {
@@ -260,7 +265,7 @@
 			/>
 		</Row>
 	</Row>
-	{#if isOwner && id !== 'new'}
+	{#if isOwner && !isNew}
 		<Row>
 			<Button id="btn--change-pw" value={$t('Change Password')} on:click={changePW} />
 		</Row>
@@ -616,14 +621,17 @@
 <div class="text-5xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2">
 	{#if isGuest}
 		<div class="cursor-pointer" on:click={signIn}>🔒</div>
-	{:else if isOwner && id !== 'new'}
+	{:else if isOwner && !isNew}
 		<div class="cursor-pointer" on:click={signOut}>🔓</div>
 	{/if}
-	{#if id !== 'new'}
+	{#if !isNew}
 		<div class="cursor-pointer" on:click={newSheet}>🆕</div>
 	{/if}
 	{#if isOwner}
 		<div class="cursor-pointer" on:click={save}>💾</div>
+	{/if}
+	{#if !isNew}
+		<div class="cursor-pointer" on:click={share}>🔗</div>
 	{/if}
 	<div class="cursor-pointer" on:click={roll}>🎲</div>
 </div>

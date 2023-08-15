@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { io } from 'socket.io-client'
 	import LZString from 'lz-string'
 	import { t, l, locales, locale } from '$lib/translations'
 	import { onMount } from 'svelte'
@@ -19,10 +20,31 @@
 	import { compress, decompress } from '$lib/utils/LZString'
 	import { goto } from '$app/navigation'
 	import type { PageData } from './$types'
+	import Chatbox from '$lib/mixins/Chatbox.svelte'
 	export let data: PageData
 
-	let sheet: Sheet = initialData
-	$: sheet = data.message
+	const socket = io()
+	const uuid = crypto.randomUUID()
+
+	socket.on('edit sheet', (msg) => {
+		console.log('on edit sheet')
+		if (msg.uuid === uuid) return
+		if (msg.id === 'new') return
+		if (msg.id === id) setSheet(msg.sheet)
+	})
+
+	function setSheet(s) {
+		sheet = s
+	}
+
+	let previousSheet: Sheet = initialData
+	let sheet: Sheet = data.message
+
+	function emitSheet() {
+		if (isGuest) return
+		if (id === 'new') return
+		socket.emit('edit sheet', { uuid, id, sheet })
+	}
 
 	let files: File[] = []
 
@@ -84,6 +106,7 @@
 			),
 		)
 		if (!confirm) return
+		sheet = initialData
 		goto('/')
 	}
 
@@ -199,8 +222,10 @@
 			const response = await fetch(`/api/v1/sheets?key=${id}&value=${value}`, { method: 'PUT' })
 			const body = await response.json()
 			console.log(body)
-			if (body.ok) return alert($t('Saved!'))
-			else return alert($t('Failed to save.'))
+			if (body.ok) {
+				emitSheet()
+				return alert($t('Saved!'))
+			} else return alert($t('Failed to save.'))
 		}
 	}
 
@@ -635,6 +660,8 @@
 	{/if}
 	<div class="cursor-pointer" on:click={roll}>🎲</div>
 </div>
+
+<Chatbox socket {sheet} />
 
 <style>
 	:global(heading, legend, label, th, input[type='button']) {

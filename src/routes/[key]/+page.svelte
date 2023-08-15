@@ -171,14 +171,15 @@
 
 	async function save() {
 		if (isGuest) return
-		let pw
+		let pw1
 		let pw2
 		if (isNew && !pw) {
-			pw = window.prompt($t('New password?'))
-			if (!pw) return alert($t('You have to set password first. Please try again.'))
+			pw1 = window.prompt($t('New password?'))
+			if (!pw1) return alert($t('You have to set password first. Please try again.'))
 			pw2 = window.prompt($t('Again new password?'))
 			if (!pw2) return alert($t('You have to set password first. Please try again.'))
-			if (pw !== pw2) return alert($t('New passwords do not match. Please try again.'))
+			if (pw1 !== pw2) return alert($t('New passwords do not match. Please try again.'))
+			pw = pw1
 		}
 		if (!pw) {
 			return alert($t('You have to set password first. Please try again.'))
@@ -195,7 +196,7 @@
 			} else return alert($t('Failed to save.'))
 		} else {
 			const value = compress(sheet)
-			const response = await fetch(`/api/v1/sheets?key=${key}&value=${value}`, { method: 'PUT' })
+			const response = await fetch(`/api/v1/sheets?key=${id}&value=${value}`, { method: 'PUT' })
 			const body = await response.json()
 			console.log(body)
 			if (body.ok) return alert($t('Saved!'))

@@ -23,9 +23,12 @@
 	import Chatbox from '$lib/mixins/Chatbox.svelte'
 	export let data: PageData
 
+	onMount(() => {
+		if (!isNew) window.localStorage.setItem('id', id)
+	})
+
 	const socket = io()
 	const uuid = crypto.randomUUID()
-
 	socket.on('edit sheet', (msg) => {
 		console.log('on edit sheet')
 		if (msg.uuid === uuid) return
@@ -107,7 +110,7 @@
 		)
 		if (!confirm) return
 		sheet = initialData
-		goto('/')
+		goto('/new')
 	}
 
 	function addSkill() {

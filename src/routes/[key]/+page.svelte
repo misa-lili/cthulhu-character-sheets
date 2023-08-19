@@ -646,7 +646,7 @@
 	</div>
 </Fieldset>
 
-<div class="text-5xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2">
+<div class="text-5xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2 z-50">
 	{#if isGuest}
 		<div class="cursor-pointer" on:click={signIn}>🔒</div>
 	{:else if isOwner && !isNew}

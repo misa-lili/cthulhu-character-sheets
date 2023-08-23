@@ -664,7 +664,7 @@
 	<div class="cursor-pointer" on:click={roll}>🎲</div>
 </div>
 
-<Chatbox socket {sheet} />
+<!-- <Chatbox socket {sheet} /> -->
 
 <style>
 	:global(heading, legend, label, th, input[type='button']) {

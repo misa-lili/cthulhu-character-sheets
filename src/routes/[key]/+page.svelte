@@ -213,7 +213,6 @@
 
 		await uploadBlobsAndReplace()
 
-		console.log(sheet.note)
 		if (isNew) {
 			const value = compress(sheet)
 			const response = await fetch(`/api/v1/sheets?value=${value}&pw=${pw}`, { method: 'POST' })

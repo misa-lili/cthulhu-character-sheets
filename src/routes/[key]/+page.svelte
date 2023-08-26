@@ -214,7 +214,6 @@
 		await uploadBlobsAndReplace()
 
 		console.log(sheet.note)
-
 		if (isNew) {
 			const value = compress(sheet)
 			const response = await fetch(`/api/v1/sheets?value=${value}&pw=${pw}`, { method: 'POST' })
@@ -228,7 +227,6 @@
 			const value = compress(sheet)
 			const response = await fetch(`/api/v1/sheets?key=${id}&value=${value}`, { method: 'PUT' })
 			const body = await response.json()
-			console.log(body)
 			if (body.ok) {
 				emitSheet()
 				return alert($t('Saved!'))
@@ -270,8 +268,7 @@
 	}
 
 	async function uploadBlobsAndReplace() {
-		const blobImgs = Array.from(document.querySelectorAll('div.textarea > img[src^="blob:"]'))
-
+		const blobImgs = Array.from(document.querySelectorAll('img[src^="blob:"]'))
 		for await (const img of blobImgs) {
 			const blob = await fetch(img.src).then((r) => r.blob())
 			const formdata = new FormData()
@@ -296,7 +293,7 @@
 				return
 			}
 
-			img.src = body.message
+			sheet.note = sheet.note.replaceAll(img.src, body.message)
 		}
 	}
 </script>

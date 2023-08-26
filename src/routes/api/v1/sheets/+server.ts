@@ -17,11 +17,11 @@ export const GET: RequestHandler = async ({ url }) => {
 	}
 }
 
-export const POST: RequestHandler = async ({ url, fetch }) => {
+export const POST: RequestHandler = async ({ fetch, request }) => {
 	try {
-		// value: encodedSheet
-		const value = url.searchParams.get('value') || ''
-		const password = url.searchParams.get('pw') || ''
+		const body = await request.json()
+		const value = body.value || ''
+		const password = body.pw || ''
 		const uuid = crypto.randomUUID()
 		const encoded = base60Encode(uuid)
 

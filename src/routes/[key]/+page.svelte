@@ -215,7 +215,10 @@
 
 		if (isNew) {
 			const value = compress(sheet)
-			const response = await fetch(`/api/v1/sheets?value=${value}&pw=${pw}`, { method: 'POST' })
+			const response = await fetch(`/api/v1/sheets`, {
+				method: 'POST',
+				body: JSON.stringify({ value, pw }),
+			})
 			const body = await response.json()
 			if (body.ok) {
 				alert($t('Saved!'))

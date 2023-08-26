@@ -270,7 +270,7 @@
 	}
 
 	async function uploadBlobsAndReplace() {
-		const blobImgs = Array.from(document.querySelectorAll('img[src^="blob:"]'))
+		const blobImgs = Array.from(document.querySelectorAll('div.textarea > img[src^="blob:"]'))
 
 		for await (const img of blobImgs) {
 			const blob = await fetch(img.src).then((r) => r.blob())

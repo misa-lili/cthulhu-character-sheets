@@ -12,13 +12,13 @@
 			contenteditable="true"
 			autocomplete="off"
 			role="textbox"
-			bind:innerText={value}
+			bind:innerHTML={value}
 		/>
 	</div>
 {:else}
 	<div class="flex flex-col w-full">
 		<label class="pl-0.5 font-medium">{key}</label>
-		<div class="textarea" contenteditable="false" autocomplete="off" bind:innerText={value} />
+		<div class="textarea" contenteditable="false" autocomplete="off" bind:innerHTML={value} />
 	</div>
 {/if}
 

@@ -211,6 +211,10 @@
 			return alert($t('You have to set password first. Please try again.'))
 		}
 
+		await uploadBlobsAndReplace()
+
+		console.log(sheet.note)
+
 		if (isNew) {
 			const value = compress(sheet)
 			const response = await fetch(`/api/v1/sheets?value=${value}&pw=${pw}`, { method: 'POST' })
@@ -239,6 +243,7 @@
 
 	async function upload() {
 		if (isGuest) return
+
 		const formdata = new FormData()
 		formdata.append('image', files[0])
 
@@ -246,6 +251,12 @@
 			method: 'POST',
 			body: formdata,
 		})
+
+		if (!response.ok) {
+			alert($t('Failed to upload image.'))
+			console.error(response)
+			return
+		}
 
 		const body = await response.json()
 
@@ -256,6 +267,37 @@
 		}
 
 		sheet.portraitURL = body.message
+	}
+
+	async function uploadBlobsAndReplace() {
+		const blobImgs = Array.from(document.querySelectorAll('img[src^="blob:"]'))
+
+		for await (const img of blobImgs) {
+			const blob = await fetch(img.src).then((r) => r.blob())
+			const formdata = new FormData()
+			formdata.append('image', blob)
+
+			const response = await fetch(`/api/v1/images`, {
+				method: 'POST',
+				body: formdata,
+			})
+
+			if (!response.ok) {
+				alert($t('Failed to upload image.'))
+				console.error(response)
+				return
+			}
+
+			const body = await response.json()
+
+			if (body.status !== 200) {
+				alert($t('Failed to upload image.'))
+				console.error(body)
+				return
+			}
+
+			img.src = body.message
+		}
 	}
 </script>
 

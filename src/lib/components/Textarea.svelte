@@ -6,7 +6,7 @@
 
 {#if !readonly}
 	<div class="flex flex-col w-full">
-		<label class="pl-0.5 font-medium">{key}</label>
+		<label class="pl-0.5 font-medium text-sm">{key}</label>
 		<div
 			class="textarea"
 			contenteditable="true"
@@ -24,10 +24,10 @@
 
 <style>
 	.textarea {
-		@apply border border-black border-solid rounded p-2 bg-transparent w-full text-sm font-light min-h-[2.5rem];
+		@apply bg-black/5 rounded p-2 w-full text-sm font-light min-h-[2.5rem];
 	}
 
 	.textarea[contenteditable='false'] {
-		@apply bg-black/5 cursor-not-allowed;
+		@apply cursor-not-allowed;
 	}
 </style>

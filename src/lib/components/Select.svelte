@@ -19,13 +19,13 @@
 
 <style>
 	select {
-		@apply border border-black border-solid rounded p-2 h-10 bg-transparent font-light cursor-pointer;
+		@apply bg-black/5 rounded p-2 h-10 font-light cursor-pointer;
 		font-size: var(--font-size, 0.875rem);
 		line-height: var(--line-height, 1.25rem);
 	}
 
 	select:disabled {
-		@apply bg-black/5 cursor-not-allowed;
+		@apply cursor-not-allowed;
 	}
 
 	label {

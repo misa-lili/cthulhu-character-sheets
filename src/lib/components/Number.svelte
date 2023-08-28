@@ -31,6 +31,7 @@
 				event.target.value = ''
 				event.target.value = value
 			}}
+			on:change
 		/>
 		{#if withHints}
 			<div class="flex flex-col text-xs">
@@ -55,7 +56,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded py-2 font-light;
+		@apply rounded py-2 font-light bg-black/5;
 		height: var(--height, 2.5rem);
 		width: var(--width, 100%);
 		padding-left: var(--padding-left, 0.45rem);
@@ -63,7 +64,7 @@
 	}
 
 	input:read-only {
-		@apply bg-black/5 cursor-not-allowed;
+		@apply cursor-not-allowed;
 	}
 
 	.misa-hint {

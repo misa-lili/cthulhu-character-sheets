@@ -5,7 +5,7 @@
 	export let pointer = false
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col w-full">
 	{#if key}
 		<label class="pl-0.5">{key}</label>
 	{/if}
@@ -22,7 +22,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded py-2 bg-transparent font-light;
+		@apply rounded py-2 font-light bg-black/5;
 		font-size: var(--font-size, 0.875rem);
 		line-height: var(--line-height, 1.25rem);
 		width: var(--width, 100%);
@@ -31,7 +31,7 @@
 	}
 
 	input:read-only {
-		@apply bg-black/5 cursor-not-allowed;
+		@apply cursor-not-allowed;
 	}
 
 	label {

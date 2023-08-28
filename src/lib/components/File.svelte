@@ -7,7 +7,7 @@
 
 <style>
 	input {
-		@apply border border-black border-solid rounded p-2 cursor-pointer w-full tracking-widest font-light uppercase;
+		@apply rounded p-2 cursor-pointer w-full tracking-widest font-light uppercase;
 	}
 
 	input:hover {

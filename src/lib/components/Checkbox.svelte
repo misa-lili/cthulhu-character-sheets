@@ -16,6 +16,7 @@
 		class="appearance-none default:bg-transparent checked:bg-black"
 		bind:checked={value}
 		{disabled}
+		on:change
 	/>
 	<label>{key}</label>
 </div>

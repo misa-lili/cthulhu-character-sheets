@@ -36,7 +36,9 @@ declare global {
 		maxHP: number
 		currentMP: number
 		maxMP: number
+		startLUCK: number
 		LUCK: number
+		insaneSAN: number
 		startSAN: number
 		currentSAN: number
 		maxSAN: number

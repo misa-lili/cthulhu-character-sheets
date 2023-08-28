@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-	safelist: [{ pattern: /basis-(.*)\/12/ }],
+	safelist: [{ pattern: /basis-(.*)\/12/ }, { pattern: /gap-(.*)/ }],
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {

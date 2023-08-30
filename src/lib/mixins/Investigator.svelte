@@ -9,24 +9,12 @@
 </script>
 
 <Fieldset legend={$t('investigator')}>
-	<Row gap="12">
-		<Row cols="4">
-			<Col>
-				<Text key={$t('name')} bind:value={$sheet.name} readonly={!$isOwner} />
-				<Text key={$t('occupation')} bind:value={$sheet.occupation} readonly={!$isOwner} />
-			</Col>
-		</Row>
-		<Row cols="4">
-			<Col>
-				<Text key={$t('birthplace')} bind:value={$sheet.birthplace} readonly={!$isOwner} />
-				<Text key={$t('residence')} bind:value={$sheet.residence} readonly={!$isOwner} />
-			</Col>
-		</Row>
-		<Row cols="4">
-			<Col>
-				<Text key={$t('sex')} bind:value={$sheet.sex} readonly={!$isOwner} />
-				<Number key={$t('age')} bind:value={$sheet.age} readonly={!$isOwner} />
-			</Col>
-		</Row>
-	</Row>
+	<div class="grid gap-y-3 gap-x-9 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6">
+		<Text key={$t('name')} bind:value={$sheet.name} readonly={!$isOwner} />
+		<Text key={$t('occupation')} bind:value={$sheet.occupation} readonly={!$isOwner} />
+		<Text key={$t('birthplace')} bind:value={$sheet.birthplace} readonly={!$isOwner} />
+		<Text key={$t('residence')} bind:value={$sheet.residence} readonly={!$isOwner} />
+		<Text key={$t('sex')} bind:value={$sheet.sex} readonly={!$isOwner} />
+		<Number key={$t('age')} bind:value={$sheet.age} readonly={!$isOwner} />
+	</div>
 </Fieldset>

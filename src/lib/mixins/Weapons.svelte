@@ -9,6 +9,18 @@
 	import Checkbox from '$lib/components/Checkbox.svelte'
 	import Button from '$lib/components/Button.svelte'
 	import Span from '$lib/components/Span.svelte'
+	import { onMount } from 'svelte'
+
+	$: weapons = $sheet?.weapons.map((weapon) => {
+		if (weapon.name === undefined) {
+			return {
+				...weapon,
+				name: $t(weapon.weapon),
+			}
+		} else {
+			return weapon
+		}
+	})
 
 	function addWeapon() {
 		if (!$isOwner) return
@@ -18,6 +30,7 @@
 			...$sheet.weapons,
 			{
 				weapon: weaponName,
+				name: weaponName,
 				skill: 0,
 				damage: '1d3',
 				numberOfAttacks: 1,
@@ -28,7 +41,24 @@
 		]
 	}
 
-	function removeWeapon(idx: number) {
+	function editWeapon(event: InputEnvet, idx: number) {
+		if (!$isOwner) return
+
+		// const key = $sheet.weapons[idx].weapon
+		const value = (event.target as HTMLInputElement).innerText
+		// const translated = $t(value)
+		$sheet.weapons[idx].name = value
+		$sheet = $sheet
+
+		// if (value !== translated) {
+		// 	$sheet.weapons[idx].weapon = translated
+		// 	;(event.target as HTMLInputElement).innerText = translated
+		// }
+
+		if (value === '') return removeWeapon(event, idx)
+	}
+
+	function removeWeapon(event: InputEvent, idx: number) {
 		if (!$isOwner) return
 		const key = $sheet.weapons[idx].weapon
 		const confirm = window.confirm(`${$t('Remove weapon?')} ${$t(key)}`)
@@ -38,10 +68,10 @@
 	}
 </script>
 
-<Fieldset legend={$t('weapons')}>
-	<div>
-		<table class="table-auto border-collapse">
-			<thead>
+<div class="overflow-x-scroll w-full">
+	<div class="px-4">
+		<table class="table border-collapse">
+			<thead class="text-xs whitespace-nowrap">
 				<tr>
 					<th>{$t('weapon')}</th>
 					<th>{$t('skill')}</th>
@@ -52,11 +82,15 @@
 					<th>{$t('malfunction')}</th>
 				</tr>
 			</thead>
-			<tbody>
-				{#each $sheet.weapons as weapon, idx}
+			<tbody class="text-xs whitespace-nowrap">
+				{#each weapons as weapon, idx (weapon.weapon)}
 					<tr>
-						<td on:click={() => removeWeapon(idx)}>
-							{$t(weapon.weapon)}
+						<td>
+							<Span
+								value={weapon.name}
+								readonly={!$isOwner}
+								on:input={(event) => editWeapon(event, idx)}
+							/>
 						</td>
 						<td>
 							<Span bind:value={weapon.skill} readonly={!$isOwner} />
@@ -93,7 +127,7 @@
 			</tfoot>
 		</table>
 	</div>
-</Fieldset>
+</div>
 
 <style>
 	table {

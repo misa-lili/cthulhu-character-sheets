@@ -4,7 +4,7 @@
 	export let readonly: boolean = false
 	export let withHints: boolean = false
 	export let placeholder: string = ''
-	export let textSize: string = 'text-sm'
+	export let textSize: string = 'text-xs'
 	export let textPosition: string = 'text-left'
 
 	$: half = Math.floor(value / 2)
@@ -13,7 +13,7 @@
 
 <div class="flex flex-col w-full">
 	{#if key}
-		<label class="pl-0.5 overflow-visible">{key}</label>
+		<label class="pl-0.5 pt-1.5 overflow-visible leading-none">{key}</label>
 	{/if}
 	<div class="flex w-full">
 		<input
@@ -56,23 +56,26 @@
 
 <style>
 	input {
-		@apply rounded py-2 font-light bg-black/5;
+		@apply rounded py-2 font-light bg-black/5 text-right overflow-x-scroll;
 		height: var(--height, 2.5rem);
 		width: var(--width, 100%);
+		min-width: 28px;
 		padding-left: var(--padding-left, 0.45rem);
-		padding-right: var(--padding-right, 0rem);
+		padding-right: var(--padding-right, 0.45rem);
 	}
 
 	input:read-only {
-		@apply cursor-not-allowed;
+		@apply cursor-not-allowed text-right overflow-x-scroll;
+		min-width: 28px;
 	}
 
 	.misa-hint {
 		@apply cursor-not-allowed;
 		height: var(--height--hint, 1.25rem);
-		width: var(--width--hint, 2rem);
+		width: var(--width--hint, 28px);
+		min-width: 28px;
 		padding-left: var(--padding-left--hint, 0.45rem);
-		padding-right: var(--padding-right--hint, 0rem);
+		padding-right: var(--padding-right--hint, 0.45rem);
 		text-align: var(--text-align--hint, left);
 	}
 

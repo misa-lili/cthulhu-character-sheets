@@ -11,7 +11,7 @@
 </script>
 
 <Fieldset legend={$t('combat')}>
-	<div class="grid grid-cols-4 gap-12">
+	<div class="grid gap-y-3 gap-x-9 grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4">
 		<Number key={$t('MOV')} bind:value={$sheet.characteristics.MOV} readonly={!$isOwner} />
 		<Number --font-size--label="0.75rem" key={$t('build')} readonly={!$isOwner} />
 		<Number

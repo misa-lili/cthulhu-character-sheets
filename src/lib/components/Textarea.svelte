@@ -6,7 +6,7 @@
 
 {#if !readonly}
 	<div class="flex flex-col w-full">
-		<label class="pl-0.5 font-medium text-sm">{key}</label>
+		<label class="pl-0.5 text-sm">{key}</label>
 		<div
 			class="textarea"
 			contenteditable="true"
@@ -17,7 +17,7 @@
 	</div>
 {:else}
 	<div class="flex flex-col w-full">
-		<label class="pl-0.5 font-medium">{key}</label>
+		<label class="pl-0.5 text-sm">{key}</label>
 		<div class="textarea" contenteditable="false" autocomplete="off" bind:innerHTML={value} />
 	</div>
 {/if}

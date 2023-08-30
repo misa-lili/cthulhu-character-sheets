@@ -7,7 +7,7 @@
 
 <div class="flex flex-col w-full">
 	{#if key}
-		<label class="pl-0.5">{key}</label>
+		<label class="pl-0.5 pt-1.5 overflow-visible leading-none">{key}</label>
 	{/if}
 	<input
 		tabindex={readonly ? -1 : 0}

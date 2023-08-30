@@ -8,15 +8,28 @@
 	import Col from '$lib/components/Col.svelte'
 	import Checkbox from '$lib/components/Checkbox.svelte'
 	import Button from '$lib/components/Button.svelte'
+	import Span from '$lib/components/Span.svelte'
 
-	$: skills = Object.entries($sheet?.skills).sort((a, b) => {
-		const aKey = $t(a[0])
-		const bKey = $t(b[0])
-		const result = aKey.localeCompare(bKey)
-		return result
-	})
-
-	$: colLength = Math.ceil(skills.length / 3)
+	$: skills = Object.entries($sheet?.skills)
+		.sort((a, b) => {
+			const aKey = $t(a[0])
+			const bKey = $t(b[0])
+			const result = aKey.localeCompare(bKey)
+			return result
+		})
+		.map(([key, set]) => {
+			if (set.name === undefined) {
+				return [
+					key,
+					{
+						...set,
+						name: $t(key),
+					},
+				]
+			} else {
+				return [key, set]
+			}
+		})
 
 	function addSkill() {
 		if (!$isOwner) return
@@ -25,7 +38,19 @@
 		if (!skillName) return
 		if ($sheet.skills[skillName]) return alert($t('Skill already exists.'))
 
-		$sheet.skills[skillName] = { value: 0, isOccupation: false }
+		$sheet.skills[skillName] = { name: skillName, value: 0, isOccupation: false }
+	}
+
+	function editSkill(event: InputEvent, idx: number) {
+		if (!$isOwner) return
+
+		const key = skills[idx][0]
+		const value = (event.target as HTMLInputElement).innerText
+
+		if (value === '') return removeSkill(idx)
+
+		$sheet.skills[key].name = value
+		$sheet = $sheet
 	}
 
 	function removeSkill(idx: number) {
@@ -43,34 +68,33 @@
 </script>
 
 <Fieldset legend={$t('skills')}>
-	<div
-		class="grid grid-cols-3 grid-flow-col gap-x-12 gap-y-3"
-		style={`grid-template-rows: repeat(${colLength},minmax(0,1fr));`}
-	>
-		{#each skills as [key, set], idx}
-			<Row>
-				<Row cols="1">
-					<Checkbox bind:value={set.isSuccess} disabled={!$isOwner} on:change={updateSheet} />
-				</Row>
-				<Row cols="10">
-					<span
-						class="pl-1 font-serif text-sm leading-none cursor-pointer"
-						on:click={() => removeSkill(idx)}
-					>
-						{$t(key)}
-					</span>
-				</Row>
-				<Row cols="1">
+	<div class="grid gap-y-1 gap-x-3 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+		{#each skills as [key, set], idx (key)}
+			<div class="flex justify-between items-center gap-1">
+				<Checkbox
+					--width="1rem"
+					--height="1rem"
+					bind:value={set.isSuccess}
+					disabled={!$isOwner}
+					on:change={updateSheet}
+				/>
+				<div
+					class="flex-grow items-center font-serif text-xs leading-none text-left overflow-scroll"
+				>
+					<Span value={set.name} readonly={!$isOwner} on:input={(event) => editSkill(event, idx)} />
+				</div>
+				<div class="w-[56px]">
 					<Number
-						--width="32px"
+						--width="28px"
+						--width--hint="28px"
 						textSize="text-xs"
 						bind:value={set.value}
 						withHints
 						readonly={!$isOwner}
 						on:change={updateSheet}
 					/>
-				</Row>
-			</Row>
+				</div>
+			</div>
 		{/each}
 	</div>
 	<Button on:click={addSkill} value={$t('addSkill')} disabled={!$isOwner} />

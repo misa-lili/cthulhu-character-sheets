@@ -24,6 +24,13 @@
 		$sheet = $sheet
 	}
 
+	function editFellow(event: InputEvent, idx: number) {
+		if (!$isOwner) return
+
+		const value = (event.target as HTMLInputElement).innerText
+		if (value === '') return removeFellow(idx)
+	}
+
 	function removeFellow(idx: number) {
 		if (!$isOwner) return
 		const key = $sheet.fellowInvestigators[idx].character
@@ -35,34 +42,40 @@
 </script>
 
 <Fieldset legend={$t('fellowInvestigators')}>
-	<div>
-		<table>
-			<thead>
-				<tr>
-					<th>{$t('character')}</th>
-					<th>{$t('player')}</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each $sheet.fellowInvestigators as fellow, idx}
+	<div class="overflow-x-scroll w-full">
+		<div class="px-0">
+			<table class="table border-collapse">
+				<thead class="text-xs whitespace-nowrap">
 					<tr>
-						<td on:click={() => removeFellow(idx)}>
-							{fellow.character}
-						</td>
-						<td>
-							<Span bind:value={fellow.player} readonly={!$isOwner} />
+						<th>{$t('character')}</th>
+						<th>{$t('player')}</th>
+					</tr>
+				</thead>
+				<tbody class="text-xs whitespace-nowrap">
+					{#each $sheet.fellowInvestigators as fellow, idx}
+						<tr>
+							<td>
+								<Span
+									bind:value={fellow.character}
+									readonly={!$isOwner}
+									on:input={(event) => editFellow(event, idx)}
+								/>
+							</td>
+							<td>
+								<Span bind:value={fellow.player} readonly={!$isOwner} />
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">
+							<Button on:click={addFellow} value={$t('addFellow')} />
 						</td>
 					</tr>
-				{/each}
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="2">
-						<Button on:click={addFellow} value={$t('addFellow')} />
-					</td>
-				</tr>
-			</tfoot>
-		</table>
+				</tfoot>
+			</table>
+		</div>
 	</div>
 </Fieldset>
 

@@ -8,7 +8,9 @@
 
 <style>
 	input {
-		@apply border border-black/10 border-solid rounded p-2 cursor-pointer w-full tracking-widest font-light uppercase;
+		@apply border border-black/10 border-solid rounded p-1 cursor-pointer w-full tracking-widest font-light uppercase;
+
+		@apply text-black/70 text-xs;
 	}
 
 	input:disabled {

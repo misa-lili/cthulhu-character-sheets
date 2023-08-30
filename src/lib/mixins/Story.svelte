@@ -10,7 +10,9 @@
 </Fieldset>
 
 <Fieldset legend={$t('backstory')}>
-	<div class="grid grid-cols-3 gap-x-12 gap-y-3">
+	<div
+		class="grid grid-flow-row-dense gap-y-3 gap-x-9 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
+	>
 		<Textarea
 			key={$t('personalDescription')}
 			bind:value={$sheet.backstory.personalDescription}

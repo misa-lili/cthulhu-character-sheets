@@ -207,37 +207,33 @@
 <Title>{$t('title')}</Title>
 
 <Fieldset legend={$t('environment')}>
-	<Row gap="12">
-		<Row cols="4">
-			<Select
-				--font-size="0.75rem"
-				key={$t('language')}
-				items={$locales.map((s) => ({ display: $t(s), value: s }))}
-				bind:selected={$sheet.language}
-				on:change={(event) => {
-					$locale = event.target.value
-				}}
-			/>
-		</Row>
-		<Row cols="4">
-			<Select
-				--font-size="0.75rem"
-				key={$t('edition')}
-				items={[{ display: $t('7E'), value: '7E' }]}
-				bind:selected={$sheet.edition}
-				disabled={isGuest}
-			/>
-		</Row>
-		<Row cols="4">
-			<Select
-				--font-size="0.75rem"
-				key={$t('era')}
-				items={[{ display: $t('20s'), value: '20s' }]}
-				bind:selected={$sheet.era}
-				disabled={isGuest}
-			/>
-		</Row>
-	</Row>
+	<div class="grid gap-y-3 gap-x-9 grid-cols-3 sm:grid-cols-3 md:grid-cols-3">
+		<!-- TODO: 언어 바꾸기 전에 세이브 해야함 -->
+		<Select
+			--font-size="0.75rem"
+			key={$t('language')}
+			items={$locales.map((s) => ({ display: $t(s), value: s }))}
+			bind:selected={$sheet.language}
+			on:change={(event) => {
+				$locale = event.target.value
+			}}
+		/>
+		<Select
+			--font-size="0.75rem"
+			key={$t('edition')}
+			items={[{ display: $t('7E'), value: '7E' }]}
+			bind:selected={$sheet.edition}
+			disabled={isGuest}
+		/>
+		<Select
+			--font-size="0.75rem"
+			key={$t('era')}
+			items={[{ display: $t('20s'), value: '20s' }]}
+			bind:selected={$sheet.era}
+			disabled={isGuest}
+		/>
+	</div>
+
 	{#if $isOwner && !isNew}
 		<Row>
 			<Button id="btn--change-pw" value={$t('Change Password')} on:click={changePW} />

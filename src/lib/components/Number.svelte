@@ -56,7 +56,7 @@
 
 <style>
 	input {
-		@apply rounded py-2 font-light bg-black/5 text-right overflow-x-scroll;
+		@apply rounded py-2 font-light bg-black/5 overflow-x-scroll;
 		height: var(--height, 2.5rem);
 		width: var(--width, 100%);
 		min-width: 28px;
@@ -65,7 +65,7 @@
 	}
 
 	input:read-only {
-		@apply cursor-not-allowed text-right overflow-x-scroll;
+		@apply cursor-not-allowed overflow-x-scroll;
 		min-width: 28px;
 	}
 

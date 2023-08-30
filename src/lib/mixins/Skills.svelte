@@ -78,9 +78,7 @@
 					disabled={!$isOwner}
 					on:change={updateSheet}
 				/>
-				<div
-					class="flex-grow items-center font-serif text-xs leading-none text-left overflow-scroll"
-				>
+				<div class="flex-grow items-center font-serif text-xs leading-none text-left">
 					<Span value={set.name} readonly={!$isOwner} on:input={(event) => editSkill(event, idx)} />
 				</div>
 				<div class="w-[56px]">

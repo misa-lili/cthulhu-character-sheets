@@ -34,30 +34,40 @@
 
 		<div class="grid gap-y-3 gap-x-9 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5">
 			<Checkbox
+				--width="1rem"
+				--height="1rem"
 				textSize="text-xs"
 				key={$t('isTemporaryInsanity')}
 				bind:value={$sheet.isTemporaryInsanity}
 				disabled={!$isOwner}
 			/>
 			<Checkbox
+				--width="1rem"
+				--height="1rem"
 				textSize="text-xs"
 				key={$t('isIndefiniteInsanity')}
 				bind:value={$sheet.isIndefiniteInsanity}
 				disabled={!$isOwner}
 			/>
 			<Checkbox
+				--width="1rem"
+				--height="1rem"
 				textSize="text-xs"
 				key={$t('isMajorWound')}
 				bind:value={$sheet.isMajorWound}
 				disabled={!$isOwner}
 			/>
 			<Checkbox
+				--width="1rem"
+				--height="1rem"
 				textSize="text-xs"
 				key={$t('isUnconscious')}
 				bind:value={$sheet.isUnconscious}
 				disabled={!$isOwner}
 			/>
 			<Checkbox
+				--width="1rem"
+				--height="1rem"
 				textSize="text-xs"
 				key={$t('isDying')}
 				bind:value={$sheet.isDying}

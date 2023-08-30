@@ -113,7 +113,13 @@
 							<Span bind:value={weapon.ammo} readonly={!$isOwner} />
 						</td>
 						<td>
-							<input bind:checked={weapon.malfunction} type="checkbox" disabled={!$isOwner} />
+							<Checkbox
+								--width="1rem"
+								--height="1rem"
+								textSize="text-xs"
+								bind:value={weapon.malfunction}
+								disabled={!$isOwner}
+							/>
 						</td>
 					</tr>
 				{/each}

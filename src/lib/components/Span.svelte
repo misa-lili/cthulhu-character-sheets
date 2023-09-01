@@ -6,7 +6,14 @@
 </script>
 
 {#if !readonly}
-	<span {tabindex} contenteditable="true" bind:innerText={value} class={customClass} on:input />
+	<span
+		{tabindex}
+		contenteditable="true"
+		bind:innerText={value}
+		class={customClass}
+		on:input
+		on:blur
+	/>
 {:else}
 	<span contenteditable="false" class={customClass}>{value}</span>
 {/if}

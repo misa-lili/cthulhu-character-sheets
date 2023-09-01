@@ -35,8 +35,6 @@
 	function sortNames(a, b) {
 		const aKey = a[1].isEditable ? $t(a[1].name) : $t(a[0])
 		const bKey = b[1].isEditable ? $t(b[1].name) : $t(b[0])
-		// const aKey = $t(a[0])
-		// const bKey = $t(b[0])
 		const result = aKey.localeCompare(bKey)
 		return result
 	}
@@ -65,6 +63,7 @@
 		const confirm = window.confirm(`${$t('Remove skill?')} ${name}`)
 		if (!confirm) return
 		delete $sheet.skills[key]
+		$sheet = $sheet
 	}
 
 	function checkTranslation(event, key: string) {
@@ -108,12 +107,14 @@
 				<div class="flex-grow items-center font-serif text-xs leading-none text-left">
 					{#if set.isEditable}
 						<span class="bg-slate-200">
-							<!-- TODO: 번역 제발.. -->
 							<Span
 								tabindex={-1}
 								bind:value={set.name}
 								readonly={!$isOwner}
 								on:input={(event) => onInput(event, key)}
+								on:blur={() => {
+									$sheet = $sheet
+								}}
 							/>
 						</span>
 					{:else}

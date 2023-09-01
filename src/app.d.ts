@@ -8,6 +8,24 @@ declare global {
 		// interface Platform {}
 	}
 
+	interface Skill {
+		isEditable: boolean
+		value: number | null
+		name: string
+		isSuccess: boolean
+	}
+
+	interface Weapon {
+		name: string
+		isEditable: boolean
+		skill: number | null
+		damage: string
+		numberOfAttacks: number | null
+		range: number | null
+		ammo: number | null
+		malfunction: boolean
+	}
+
 	interface Sheet {
 		language: string
 		edition: string
@@ -48,25 +66,11 @@ declare global {
 		isMajorWound: boolean
 		isUnconscious: boolean
 		isDying: boolean
+		skillMemo: string
 		skills: {
-			[key: string]: {
-				isEditable: boolean
-				initValue: number
-				value: number | null
-				name: string
-				isSuccess: boolean
-			}
+			[key: string]: Skill
 		}
-		weapons: {
-			name: string
-			isEditable: boolean
-			skill: number | null
-			damage: string
-			numberOfAttacks: number | null
-			range: number | null
-			ammo: number | null
-			malfunction: boolean
-		}[]
+		weapons: Weapon[]
 		combat: {
 			damageBonus: number | null
 			build: number | null

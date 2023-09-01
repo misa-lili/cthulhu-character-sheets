@@ -16,24 +16,21 @@
 		if (!$isOwner) return
 		const weaponName = window.prompt($t('Weapon name?'))
 		if (!weaponName) return
-		$sheet.weapons = [
-			...$sheet.weapons,
-			{
-				name: weaponName,
-				isEditable: true,
-				skill: 0,
-				damage: '1d3',
-				numberOfAttacks: 1,
-				range: '0m',
-				ammo: 0,
-				malfunction: false,
-			},
-		]
+		const weapon: Weapon = {
+			name: weaponName,
+			isEditable: true,
+			skill: 0,
+			damage: '1d3',
+			numberOfAttacks: 1,
+			range: '0m',
+			ammo: 0,
+			malfunction: false,
+		}
+		$sheet.weapons = [...$sheet.weapons, weapon]
 	}
 
 	function editWeapon(event: InputEnvet, idx: number) {
 		if (!$isOwner) return
-		// const value = (event.target as HTMLInputElement).innerText
 		if (value === '') return removeWeapon(event, idx)
 	}
 

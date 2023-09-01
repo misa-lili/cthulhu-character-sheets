@@ -5,7 +5,7 @@
 </script>
 
 {#if !readonly}
-	<div class="flex flex-col w-full">
+	<div class="flex flex-col w-full text-xs">
 		<label class="pl-0.5 text-xs">{key}</label>
 		<div
 			class="textarea"

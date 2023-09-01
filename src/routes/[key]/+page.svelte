@@ -37,22 +37,6 @@
 		if (!isNew) window.localStorage.setItem('id', id)
 	})
 
-	$: if ($locale) {
-		onLocaleChanged()
-	}
-
-	function onLocaleChanged() {
-		const translated = Object.entries($sheet.skills).reduce((acc, [key, set]) => {
-			acc[key] = {
-				...set,
-				name: $t(key),
-			}
-			return acc
-		}, {})
-
-		$sheet.skills = translated
-	}
-
 	const socket = io()
 	const uuid = crypto.randomUUID()
 	socket.on('edit sheet', (msg) => {
@@ -66,7 +50,6 @@
 		$sheet = s
 	}
 
-	let previousSheet: Sheet = initialData
 	$sheet = data.message
 
 	function emitSheet() {

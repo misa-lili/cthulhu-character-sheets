@@ -84,7 +84,7 @@
 				</tr>
 			</thead>
 			<tbody class="text-xs whitespace-nowrap">
-				{#each weapons as weapon, idx (weapon.weapon)}
+				{#each weapons as weapon, idx (idx)}
 					<tr>
 						<td>
 							<Span

@@ -27,6 +27,8 @@
 			<Row>
 				<Number key={$t('currentSAN')} bind:value={$sheet.currentSAN} readonly={!$isOwner} />
 				<Number key={$t('startSAN')} bind:value={$sheet.startSAN} readonly={!$isOwner} />
+			</Row>
+			<Row>
 				<Number key={$t('insaneSAN')} bind:value={$sheet.insaneSAN} readonly={!$isOwner} />
 				<Number key={$t('maxSAN')} bind:value={$sheet.maxSAN} readonly={!$isOwner} />
 			</Row>

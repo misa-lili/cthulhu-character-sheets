@@ -59,7 +59,7 @@
 		@apply rounded bg-black/5 overflow-x-scroll outline-none font-serif;
 		font-size: var(--font-size, 12px);
 		line-height: var(--line-height, 1);
-		width: var(--width);
+		width: var(--width, 100%);
 		height: var(--height, 24px);
 		padding-left: var(--padding-left, 0.45rem);
 		padding-right: var(--padding-right, 0.45rem);

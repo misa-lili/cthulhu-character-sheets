@@ -13,7 +13,7 @@
 		@apply text-black/70 text-xs;
 	}
 
-	input:disabled {
+	input[type='button']:disabled {
 		@apply bg-black/5 cursor-not-allowed;
 	}
 

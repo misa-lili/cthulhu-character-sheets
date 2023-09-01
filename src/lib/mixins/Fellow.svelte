@@ -70,7 +70,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<Button on:click={addFellow} value={$t('addFellow')} />
+							<Button on:click={addFellow} value={$t('addFellow')} disabled={!$isOwner} />
 						</td>
 					</tr>
 				</tfoot>

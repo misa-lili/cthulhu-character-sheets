@@ -3,14 +3,15 @@
 </script>
 
 <fieldset>
-	<legend class="font-medium px-1 text-base uppercase">{legend}</legend>
-	<div class="flex flex-col space-y-3">
-		<slot />
-	</div>
+	<legend class="font-medium text-sm uppercase">{legend}</legend>
+	<slot />
 </fieldset>
 
 <style>
+	legend {
+		@apply pb-2;
+	}
 	fieldset {
-		@apply p-4;
+		@apply pb-2;
 	}
 </style>

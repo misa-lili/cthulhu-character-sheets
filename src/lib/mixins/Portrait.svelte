@@ -36,8 +36,8 @@
 	}
 </script>
 
-<Fieldset legend={$t('portrait')}>
-	<div class="mx-auto max-w-[400px] flex flex-col justify-center items-center content-center">
+<Fieldset>
+	<div class="mx-auto max-w-[300px] flex flex-col justify-center items-center content-center">
 		{#if $sheet.portraitURL}
 			<img id="portrait" src={$sheet.portraitURL} style="width:100%" />
 		{/if}

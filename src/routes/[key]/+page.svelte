@@ -37,6 +37,22 @@
 		if (!isNew) window.localStorage.setItem('id', id)
 	})
 
+	$: if ($locale) {
+		onLocaleChanged()
+	}
+
+	function onLocaleChanged() {
+		const translated = Object.entries($sheet.skills).reduce((acc, [key, set]) => {
+			acc[key] = {
+				...set,
+				name: $t(key),
+			}
+			return acc
+		}, {})
+
+		$sheet.skills = translated
+	}
+
 	const socket = io()
 	const uuid = crypto.randomUUID()
 	socket.on('edit sheet', (msg) => {
@@ -204,11 +220,10 @@
 	}
 </script>
 
-<Title>{$t('title')}</Title>
-
+<Title>{$sheet.name}</Title>
+<!-- 
 <Fieldset legend={$t('environment')}>
 	<div class="grid gap-y-3 gap-x-9 grid-cols-3 sm:grid-cols-3 md:grid-cols-3">
-		<!-- TODO: 언어 바꾸기 전에 세이브 해야함 -->
 		<Select
 			--font-size="0.75rem"
 			key={$t('language')}
@@ -239,7 +254,7 @@
 			<Button id="btn--change-pw" value={$t('Change Password')} on:click={changePW} />
 		</Row>
 	{/if}
-</Fieldset>
+</Fieldset> -->
 
 <Portrait />
 
@@ -275,15 +290,15 @@
 	{:else if $isOwner && !isNew}
 		<div class="cursor-pointer" on:click={signOut}>🔓</div>
 	{/if}
-	{#if !isNew}
+	<!-- {#if !isNew}
 		<div class="cursor-pointer" on:click={newSheet}>🆕</div>
-	{/if}
+	{/if} -->
 	{#if $isOwner}
 		<div class="cursor-pointer" on:click={save}>💾</div>
 	{/if}
-	{#if !isNew}
+	<!-- {#if !isNew}
 		<div class="cursor-pointer" on:click={share}>🔗</div>
-	{/if}
+	{/if} -->
 	<div class="cursor-pointer" on:click={roll}>🎲</div>
 </div>
 

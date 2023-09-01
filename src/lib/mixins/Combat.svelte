@@ -11,16 +11,10 @@
 </script>
 
 <Fieldset legend={$t('combat')}>
-	<div class="grid gap-y-3 gap-x-9 grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4">
+	<div class="grid gap-y-3 gap-x-2 grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4">
 		<Number key={$t('MOV')} bind:value={$sheet.characteristics.MOV} readonly={!$isOwner} />
-		<Number --font-size--label="0.75rem" key={$t('build')} readonly={!$isOwner} />
-		<Number
-			--font-size--label="0.75rem"
-			key={$t('_dodge')}
-			bind:value={$sheet.skills.dodge.value}
-			withHints
-			readonly
-		/>
-		<Text --font-size--label="0.75rem" key={$t('damageBonus')} readonly={!$isOwner} />
+		<Number key={$t('build')} readonly={!$isOwner} />
+		<Number key={$t('_dodge')} bind:value={$sheet.skills.dodge.value} withHints readonly />
+		<Text key={$t('damageBonus')} readonly={!$isOwner} />
 	</div>
 </Fieldset>

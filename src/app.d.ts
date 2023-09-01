@@ -15,33 +15,33 @@ declare global {
 		name: string
 		player: string
 		occupation: string
-		age: number
+		age: number | null
 		sex: string
 		residence: string
 		birthplace: string
 		characteristics: {
-			STR: number
-			DEX: number
-			POW: number
-			CON: number
-			APP: number
-			EDU: number
-			SIZ: number
-			INT: number
-			MOV: number
+			STR: number | null
+			DEX: number | null
+			POW: number | null
+			CON: number | null
+			APP: number | null
+			EDU: number | null
+			SIZ: number | null
+			INT: number | null
+			MOV: number | null
 			MOVPlus: string | null
 			MOVMinus: string | null
 		}
-		currentHP: number
-		maxHP: number
-		currentMP: number
-		maxMP: number
-		startLUCK: number
-		LUCK: number
-		insaneSAN: number
-		startSAN: number
-		currentSAN: number
-		maxSAN: number
+		currentHP: number | null
+		maxHP: number | null
+		currentMP: number | null
+		maxMP: number | null
+		startLUCK: number | null
+		LUCK: number | null
+		insaneSAN: number | null
+		startSAN: number | null
+		currentSAN: number | null
+		maxSAN: number | null
 		portraitURL: string
 		isTemporaryInsanity: boolean
 		isIndefiniteInsanity: boolean
@@ -50,22 +50,24 @@ declare global {
 		isDying: boolean
 		skills: {
 			[key: string]: {
-				value: number
+				initValue: number
+				value: number | null
+				name: string
 				isSuccess: boolean
 			}
 		}
 		weapons: {
 			weapon: string
-			skill: number
+			skill: number | null
 			damage: string
-			numberOfAttacks: number
-			range: number
-			ammo: number
+			numberOfAttacks: number | null
+			range: number | null
+			ammo: number | null
 			malfunction: boolean
 		}[]
 		combat: {
-			damageBonus: number
-			build: number
+			damageBonus: number | null
+			build: number | null
 		}
 		myStory: string
 		backstory: {

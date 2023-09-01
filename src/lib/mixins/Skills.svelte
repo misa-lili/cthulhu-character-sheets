@@ -9,57 +9,41 @@
 	import Checkbox from '$lib/components/Checkbox.svelte'
 	import Button from '$lib/components/Button.svelte'
 	import Span from '$lib/components/Span.svelte'
+	import Textarea from '$lib/components/Textarea.svelte'
+	import NumberDense from '$lib/components/NumberDense.svelte'
 
-	$: skills = Object.entries($sheet?.skills)
-		.sort((a, b) => {
-			const aKey = $t(a[0])
-			const bKey = $t(b[0])
-			const result = aKey.localeCompare(bKey)
-			return result
-		})
-		.map(([key, set]) => {
-			if (set.name === undefined) {
-				return [
-					key,
-					{
-						...set,
-						name: $t(key),
-					},
-				]
-			} else {
-				return [key, set]
-			}
-		})
+	$: sortedSkills = Object.entries($sheet?.skills).sort((a, b) => {
+		const aKey = $t(a[0])
+		const bKey = $t(b[0])
+		const result = aKey.localeCompare(bKey)
+		return result
+	})
 
 	function addSkill() {
-		if (!$isOwner) return
-		const skillName = window.prompt($t('Skill name?'))
-
-		if (!skillName) return
-		if ($sheet.skills[skillName]) return alert($t('Skill already exists.'))
-
-		$sheet.skills[skillName] = { name: skillName, value: 0, isOccupation: false }
+		// if (!$isOwner) return
+		// const skillName = window.prompt($t('Skill name?'))
+		// if (!skillName) return
+		// if ($sheet.skills[skillName]) return alert($t('Skill already exists.'))
+		// $sheet.skills = { key: skillName, name: skillName, value: 0, isOccupation: false }
 	}
 
 	function editSkill(event: InputEvent, idx: number) {
-		if (!$isOwner) return
-
-		const key = skills[idx][0]
-		const value = (event.target as HTMLInputElement).innerText
-
-		if (value === '') return removeSkill(idx)
-
-		$sheet.skills[key].name = value
-		$sheet = $sheet
+		// if (!$isOwner) return
+		// const key = sortedSkills[idx][0]
+		// const value = (event.target as HTMLInputElement).innerText
+		// if (value === '') return removeSkill(idx)
+		// $sheet.skills[key].name = value
+		// $sheet = $sheet
 	}
 
 	function removeSkill(idx: number) {
-		if (!$isOwner) return
-		const key = skills[idx][0]
-		const confirm = window.confirm(`${$t('Remove skill?')} ${$t(key)}`)
-		if (!confirm) return
-		delete $sheet.skills[key]
-		$sheet = $sheet
+		// if (!$isOwner) return
+		// const key = sortedSkills[idx].key
+		// const name = sortedSkills[idx].name
+		// const confirm = window.confirm(`${$t('Remove skill?')} ${name}`)
+		// if (!confirm) return
+		// delete $sheet.skills[key]
+		// $sheet = $sheet
 	}
 
 	function updateSheet() {
@@ -68,29 +52,30 @@
 </script>
 
 <Fieldset legend={$t('skills')}>
-	<div class="grid gap-y-1 gap-x-3 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-		{#each skills as [key, set], idx (key)}
-			<div class="flex justify-between items-center gap-1">
-				<Checkbox
-					--width="1rem"
-					--height="1rem"
-					bind:value={set.isSuccess}
-					disabled={!$isOwner}
-					on:change={updateSheet}
-				/>
-				<div class="flex-grow items-center font-serif text-xs leading-none text-left">
-					<Span value={set.name} readonly={!$isOwner} on:input={(event) => editSkill(event, idx)} />
-				</div>
-				<div class="w-[56px]">
-					<Number
-						--width="28px"
-						--width--hint="28px"
-						textSize="text-xs"
-						bind:value={set.value}
-						withHints
-						readonly={!$isOwner}
+	<!-- <Textarea /> -->
+	<div class="grid gap-y-1 gap-x-9 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+		{#each sortedSkills as [key, set], idx}
+			<div class="flex items-center gap-2">
+				<div>
+					<Checkbox
+						--width="1rem"
+						--height="1rem"
+						bind:value={set.isSuccess}
+						disabled={!$isOwner}
 						on:change={updateSheet}
+						tabindex={-1}
 					/>
+				</div>
+				<div class="flex-grow items-center font-serif text-xs leading-none text-left">
+					<Span
+						tabindex={-1}
+						value={set.name.replace(/\(..\%\)/, '')}
+						readonly={!$isOwner}
+						on:input={(event) => editSkill(event, idx)}
+					/>
+				</div>
+				<div class="text-[10px] leading-none whitespace-nowrap">
+					<NumberDense bind:value={set.value} readonly={!$isOwner} on:input={updateSheet} />
 				</div>
 			</div>
 		{/each}

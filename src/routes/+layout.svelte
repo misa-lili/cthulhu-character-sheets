@@ -6,3 +6,9 @@
 <Container>
 	<slot />
 </Container>
+
+<style>
+	:global(body) {
+		@apply font-serif text-xs;
+	}
+</style>

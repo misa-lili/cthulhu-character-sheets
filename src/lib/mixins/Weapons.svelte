@@ -10,6 +10,7 @@
 	import Button from '$lib/components/Button.svelte'
 	import Span from '$lib/components/Span.svelte'
 	import { onMount } from 'svelte'
+	import NumberDense from '$lib/components/NumberDense.svelte'
 
 	$: weapons = $sheet?.weapons.map((weapon) => {
 		if (weapon.name === undefined) {
@@ -69,7 +70,7 @@
 </script>
 
 <div class="overflow-x-scroll w-full">
-	<div class="px-4">
+	<div>
 		<table class="table border-collapse">
 			<thead class="text-xs whitespace-nowrap">
 				<tr>
@@ -93,12 +94,7 @@
 							/>
 						</td>
 						<td>
-							<Span bind:value={weapon.skill} readonly={!$isOwner} />
-							<span> ( </span>
-							<span class="text-green-500">{Math.floor(weapon.skill / 2)}</span>
-							<span> / </span>
-							<span class="text-red-500">{Math.floor(weapon.skill / 5)}</span>
-							<span> ) </span>
+							<NumberDense bind:value={weapon.skill} readonly={!$isOwner} />
 						</td>
 						<td>
 							<Span bind:value={weapon.damage} readonly={!$isOwner} />
@@ -127,7 +123,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="7">
-						<Button on:click={addWeapon} value={$t('addWeapon')} />
+						<Button on:click={addWeapon} value={$t('addWeapon')} disabled={!$isOwner} />
 					</td>
 				</tr>
 			</tfoot>
@@ -137,7 +133,7 @@
 
 <style>
 	table {
-		@apply text-sm font-normal;
+		@apply font-normal;
 	}
 
 	thead {
@@ -146,7 +142,7 @@
 
 	td,
 	th {
-		@apply px-3 py-1 border;
+		@apply px-2 py-1 border;
 	}
 
 	th {

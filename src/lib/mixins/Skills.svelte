@@ -122,6 +122,9 @@
 							{$t(key)}
 						</span>
 					{/if}
+					{#if set.initValue}
+						<span>({$t(set.initValue)}%)</span>
+					{/if}
 				</div>
 				<div class="text-[10px] leading-none whitespace-nowrap">
 					<NumberDense bind:value={set.value} readonly={!$isOwner} on:input={updateSheet} />

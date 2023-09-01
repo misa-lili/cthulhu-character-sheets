@@ -144,6 +144,7 @@ export default {
 		unarmed: 'Unarmed',
 	},
 	ko: {
+		'DEX/2': '민첩성/2',
 		'language own': '언어 모국어',
 		'language other': '언어 외국어',
 		title: '크툴루 캐릭터 시트',

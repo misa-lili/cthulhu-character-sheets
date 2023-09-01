@@ -11,6 +11,7 @@ declare global {
 	interface Skill {
 		isEditable: boolean
 		value: number | null
+		initValue: number | string | null
 		name: string
 		isSuccess: boolean
 	}

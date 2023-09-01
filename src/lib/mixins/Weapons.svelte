@@ -12,17 +12,6 @@
 	import { onMount } from 'svelte'
 	import NumberDense from '$lib/components/NumberDense.svelte'
 
-	$: weapons = $sheet?.weapons.map((weapon) => {
-		if (weapon.name === undefined) {
-			return {
-				...weapon,
-				name: $t(weapon.weapon),
-			}
-		} else {
-			return weapon
-		}
-	})
-
 	function addWeapon() {
 		if (!$isOwner) return
 		const weaponName = window.prompt($t('Weapon name?'))
@@ -30,12 +19,12 @@
 		$sheet.weapons = [
 			...$sheet.weapons,
 			{
-				weapon: weaponName,
 				name: weaponName,
+				isEditable: true,
 				skill: 0,
 				damage: '1d3',
 				numberOfAttacks: 1,
-				range: 20,
+				range: '0m',
 				ammo: 0,
 				malfunction: false,
 			},
@@ -44,18 +33,7 @@
 
 	function editWeapon(event: InputEnvet, idx: number) {
 		if (!$isOwner) return
-
-		// const key = $sheet.weapons[idx].weapon
-		const value = (event.target as HTMLInputElement).innerText
-		// const translated = $t(value)
-		$sheet.weapons[idx].name = value
-		$sheet = $sheet
-
-		// if (value !== translated) {
-		// 	$sheet.weapons[idx].weapon = translated
-		// 	;(event.target as HTMLInputElement).innerText = translated
-		// }
-
+		// const value = (event.target as HTMLInputElement).innerText
 		if (value === '') return removeWeapon(event, idx)
 	}
 
@@ -84,14 +62,20 @@
 				</tr>
 			</thead>
 			<tbody class="text-xs whitespace-nowrap">
-				{#each weapons as weapon, idx (idx)}
+				{#each $sheet.weapons as weapon, idx (idx)}
 					<tr>
 						<td>
-							<Span
-								value={weapon.name}
-								readonly={!$isOwner}
-								on:input={(event) => editWeapon(event, idx)}
-							/>
+							{#if weapon.isEditable}
+								<Span
+									bind:value={weapon.name}
+									readonly={!$isOwner}
+									on:input={(event) => editWeapon(event, idx)}
+								/>
+							{:else}
+								<span class="cursor-not-allowed">
+									{$t(weapon.name)}
+								</span>
+							{/if}
 						</td>
 						<td>
 							<NumberDense bind:value={weapon.skill} readonly={!$isOwner} />

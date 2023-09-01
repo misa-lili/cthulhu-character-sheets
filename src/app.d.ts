@@ -50,6 +50,7 @@ declare global {
 		isDying: boolean
 		skills: {
 			[key: string]: {
+				isEditable: boolean
 				initValue: number
 				value: number | null
 				name: string
@@ -57,7 +58,8 @@ declare global {
 			}
 		}
 		weapons: {
-			weapon: string
+			name: string
+			isEditable: boolean
 			skill: number | null
 			damage: string
 			numberOfAttacks: number | null

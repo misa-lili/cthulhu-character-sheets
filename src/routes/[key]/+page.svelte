@@ -200,7 +200,7 @@
 
 			$sheet.note = $sheet.note
 				.replaceAll(img.src, body.message)
-				.replaceAll('img', 'img style="max-width:400px"')
+				.replaceAll('img', 'img style="max-width:280px"')
 		}
 	}
 </script>
@@ -214,6 +214,8 @@
 				<div class="cursor-pointer" on:click={signIn}>🔒</div>
 			{:else if $isOwner && !isNew}
 				<div class="cursor-pointer" on:click={signOut}>🔓</div>
+			{:else}
+				<div class="text-2xl opacity-0">🍔</div>
 			{/if}
 		</div>
 	</div>

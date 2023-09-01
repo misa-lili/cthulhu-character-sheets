@@ -13,8 +13,8 @@
 <Fieldset legend={$t('combat')}>
 	<div class="grid gap-y-3 gap-x-2 grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4">
 		<Number key={$t('MOV')} bind:value={$sheet.characteristics.MOV} readonly={!$isOwner} />
-		<Number key={$t('build')} readonly={!$isOwner} />
+		<Number key={$t('build')} bind:value={$sheet.combat.build} readonly={!$isOwner} />
 		<Number key={$t('_dodge')} bind:value={$sheet.skills.dodge.value} withHints readonly />
-		<Text key={$t('damageBonus')} readonly={!$isOwner} />
+		<Text key={$t('damageBonus')} bind:value={$sheet.combat.damageBonus} readonly={!$isOwner} />
 	</div>
 </Fieldset>

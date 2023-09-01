@@ -215,14 +215,29 @@
 				return
 			}
 
-			$sheet.note = $sheet.note.replaceAll(img.src, body.message)
+			$sheet.note = $sheet.note
+				.replaceAll(img.src, body.message)
+				.replaceAll('img', 'img style="max-width:400px"')
 		}
 	}
 </script>
 
-<Title>{$sheet.name}</Title>
-<!-- 
-<Fieldset legend={$t('environment')}>
+<div class="fixed left-1/2 -translate-x-1/2 top-0 w-full max-w-5xl py-1 px-1">
+	<div class="flex justify-between items-center rounded-lg bg-black/10 backdrop-blur-lg px-2">
+		<div class="text-2xl opacity-0">🍔</div>
+		<div>{$sheet.name}</div>
+		<div class="text-2xl">
+			{#if isGuest}
+				<div class="cursor-pointer" on:click={signIn}>🔒</div>
+			{:else if $isOwner && !isNew}
+				<div class="cursor-pointer" on:click={signOut}>🔓</div>
+			{/if}
+		</div>
+	</div>
+</div>
+<div class="h-3" />
+
+<Fieldset>
 	<div class="grid gap-y-3 gap-x-9 grid-cols-3 sm:grid-cols-3 md:grid-cols-3">
 		<Select
 			--font-size="0.75rem"
@@ -254,7 +269,7 @@
 			<Button id="btn--change-pw" value={$t('Change Password')} on:click={changePW} />
 		</Row>
 	{/if}
-</Fieldset> -->
+</Fieldset>
 
 <Portrait />
 
@@ -275,7 +290,7 @@
 <Fellow />
 
 <Fieldset legend={$t('note')}>
-	<Textarea bind:value={$sheet.note} readonly={isGuest} />
+	<Textarea bind:value={$sheet.note} readonly={!$isOwner} />
 </Fieldset>
 
 <Fieldset>
@@ -284,12 +299,7 @@
 	</div>
 </Fieldset>
 
-<div class="text-5xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2 z-50">
-	{#if isGuest}
-		<div class="cursor-pointer" on:click={signIn}>🔒</div>
-	{:else if $isOwner && !isNew}
-		<div class="cursor-pointer" on:click={signOut}>🔓</div>
-	{/if}
+<div class="text-3xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2 z-50">
 	<!-- {#if !isNew}
 		<div class="cursor-pointer" on:click={newSheet}>🆕</div>
 	{/if} -->

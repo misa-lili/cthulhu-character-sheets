@@ -19,9 +19,7 @@
 
 <style>
 	select {
-		@apply bg-black/5 rounded p-2 h-10 font-light cursor-pointer;
-		font-size: var(--font-size, 0.875rem);
-		line-height: var(--line-height, 1.25rem);
+		@apply bg-black/5 rounded p-2 h-[24px] font-light cursor-pointer text-xs;
 	}
 
 	select:disabled {
@@ -29,7 +27,6 @@
 	}
 
 	label {
-		font-size: var(--font-size--label, 0.875rem);
-		height: var(--height--label, 1.25rem);
+		@apply text-xs;
 	}
 </style>

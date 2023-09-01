@@ -8,13 +8,14 @@
 
 <style>
 	input {
-		@apply border border-black/10 border-solid rounded p-1 cursor-pointer w-full tracking-widest font-light uppercase;
+		@apply border border-black/5 border-solid rounded p-1 cursor-pointer w-full tracking-widest font-light uppercase;
 
-		@apply text-black/70 text-xs;
+		@apply text-black/75 text-xs;
 	}
 
 	input[type='button']:disabled {
 		@apply bg-black/5 cursor-not-allowed;
+		@apply text-black/30 text-xs;
 	}
 
 	input:hover {

@@ -10,7 +10,9 @@
 </script>
 
 <Fieldset legend={$t('characteristics')}>
-	<div class="grid gap-y-3 gap-x-12 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8">
+	<div
+		class="grid gap-y-3 gap-x-12 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8"
+	>
 		<NumberDense label={$t('STR')} bind:value={$sheet.characteristics.STR} readonly={!$isOwner} />
 		<NumberDense label={$t('CON')} bind:value={$sheet.characteristics.CON} readonly={!$isOwner} />
 		<NumberDense label={$t('DEX')} bind:value={$sheet.characteristics.DEX} readonly={!$isOwner} />

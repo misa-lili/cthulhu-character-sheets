@@ -53,7 +53,7 @@
 
 <Fieldset legend={$t('skills')}>
 	<!-- <Textarea /> -->
-	<div class="grid gap-y-1 gap-x-9 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+	<div class="grid gap-y-1 gap-x-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 		{#each sortedSkills as [key, set], idx}
 			<div class="flex items-center gap-2">
 				<div>
@@ -80,5 +80,6 @@
 			</div>
 		{/each}
 	</div>
+	<br />
 	<Button on:click={addSkill} value={$t('addSkill')} disabled={!$isOwner} />
 </Fieldset>

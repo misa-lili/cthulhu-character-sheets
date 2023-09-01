@@ -28,6 +28,10 @@
 	}
 
 	.textarea[contenteditable='false'] {
-		@apply cursor-not-allowed;
+		@apply cursor-not-allowed text-xs;
+	}
+
+	.textarea[contenteditable='true'] {
+		@apply text-xs;
 	}
 </style>

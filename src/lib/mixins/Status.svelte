@@ -11,7 +11,7 @@
 
 <Fieldset legend={$t('status')}>
 	<div class="flex flex-col gap-9">
-		<div class="grid gap-y-3 gap-x-9 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
+		<div class="grid gap-y-3 gap-x-9 grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5">
 			<Row>
 				<Number key={$t('currentHP')} bind:value={$sheet.currentHP} readonly={!$isOwner} />
 				<Number key={$t('maxHP')} bind:value={$sheet.maxHP} readonly={!$isOwner} />

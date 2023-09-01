@@ -47,7 +47,7 @@
 			<span class="label">{label}</span>
 		{/if}
 	</div>
-	<div>
+	<div class="border border-black/20 rounded-lg px-1">
 		{#if readonly}
 			<span class="cursor-not-allowed">{value}</span>
 		{:else}
@@ -61,12 +61,10 @@
 				on:input={onInput}
 			/>
 		{/if}
-		<span> / </span>
-		<span class="text-fuchsia-500 text-xs leading-none">
+		<span class="text-fuchsia-500/90 text-xs leading-none">
 			{half}
 		</span>
-		<span> / </span>
-		<span class="text-rose-500 text-xs leading-none">
+		<span class="text-rose-500/90 text-xs leading-none">
 			{fifth}
 		</span>
 	</div>

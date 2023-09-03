@@ -35,19 +35,21 @@
 
 	onMount(() => {
 		if (!isNew) window.localStorage.setItem('id', id)
+
+		document.addEventListener('input', emitSheet)
 	})
 
 	const socket = io()
 	const uuid = crypto.randomUUID()
+
 	socket.on('edit sheet', (msg) => {
-		console.log('on edit $sheet')
 		if (msg.uuid === uuid) return
 		if (msg.id === 'new') return
-		if (msg.id === id) setSheet(msg.$sheet)
+		if (msg.id === id) setSheet(msg.sheet)
 	})
 
 	function setSheet(s) {
-		$sheet = s
+		if ($sheet !== s) $sheet = s
 	}
 
 	$sheet = data.message
@@ -161,7 +163,6 @@
 			const response = await fetch(`/api/v1/sheets?key=${id}&value=${value}`, { method: 'PUT' })
 			const body = await response.json()
 			if (body.ok) {
-				emitSheet()
 				return alert($t('Saved!'))
 			} else return alert($t('Failed to save.'))
 		}
@@ -206,16 +207,29 @@
 </script>
 
 <div class="fixed left-1/2 -translate-x-1/2 top-0 w-full max-w-5xl py-1 px-1">
-	<div class="flex justify-between items-center rounded-lg bg-black/10 backdrop-blur-lg px-2">
-		<div class="text-2xl opacity-0">🍔</div>
-		<div>{$sheet.name}</div>
+	<div
+		class="grid grid-cols-3 w-full justify-between items-center rounded-lg bg-black/10 backdrop-blur-lg px-2"
+	>
 		<div class="text-2xl">
+			{#if !isNew}
+				<div class="cursor-pointer" on:click={newSheet}>🆕</div>
+			{/if}
+		</div>
+		<div class="text-center">{$sheet.name}</div>
+		<div class="text-2xl text-right">
 			{#if isGuest}
-				<div class="cursor-pointer" on:click={signIn}>🔒</div>
-			{:else if $isOwner && !isNew}
-				<div class="cursor-pointer" on:click={signOut}>🔓</div>
-			{:else}
-				<div class="text-2xl opacity-0">🍔</div>
+				<span class="cursor-pointer" on:click={signIn}>🔒</span>
+				<!-- {:else if $isOwner && !isNew}
+				<span class="cursor-pointer" on:click={signOut}>🔓</span> -->
+			{/if}
+			{#if $isOwner && !isNew}
+				<span class="cursor-pointer" on:click={changePW}>🔏</span>
+			{/if}
+			<!-- {#if !isNew}
+				<span class="cursor-pointer" on:click={share}>🔗</span>
+			{/if} -->
+			{#if $isOwner}
+				<span class="cursor-pointer" on:click={save}>💾</span>
 			{/if}
 		</div>
 	</div>
@@ -248,12 +262,6 @@
 			disabled={isGuest}
 		/>
 	</div>
-
-	{#if $isOwner && !isNew}
-		<Row>
-			<Button id="btn--change-pw" value={$t('Change Password')} on:click={changePW} />
-		</Row>
-	{/if}
 </Fieldset>
 
 <Portrait />
@@ -284,16 +292,7 @@
 	</div>
 </Fieldset>
 
-<div class="text-3xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2 z-50">
-	<!-- {#if !isNew}
-		<div class="cursor-pointer" on:click={newSheet}>🆕</div>
-	{/if} -->
-	{#if $isOwner}
-		<div class="cursor-pointer" on:click={save}>💾</div>
-	{/if}
-	<!-- {#if !isNew}
-		<div class="cursor-pointer" on:click={share}>🔗</div>
-	{/if} -->
+<div class="text-5xl fixed right-0 bottom-0 p-4 flex flex-col space-y-2 z-50">
 	<div class="cursor-pointer" on:click={roll}>🎲</div>
 </div>
 

@@ -26,7 +26,6 @@
 					return acc
 				}
 			}
-
 			acc[key] = skill
 			return acc
 		}, {})
@@ -39,12 +38,13 @@
 		return result
 	}
 
-	function addSkill() {
+	function addSkill(group: string | undefined) {
 		if (!$isOwner) return
 		const name = window.prompt($t('Skill name?'))
 		if (!name) return
 		const skill: Skill = {
-			name,
+			type: 'custom',
+			name: group ? `${group} ${name}` : name,
 			initValue: 0,
 			isEditable: true,
 			isSuccess: false,
@@ -53,39 +53,12 @@
 		$sheet.skills[crypto.randomUUID()] = skill
 	}
 
-	function editSkill(event: InputEvent, key: string) {
-		if (!$isOwner) return
-		const value = (event.target as HTMLInputElement).innerText
-		if (value === '') return removeSkill(key)
-	}
-
 	function removeSkill(key: string) {
 		if (!$isOwner) return
 		const name = $sheet.skills[key].name
 		const confirm = window.confirm(`${$t('Remove skill?')} ${name}`)
 		if (!confirm) return
 		delete $sheet.skills[key]
-		$sheet = $sheet
-	}
-
-	function checkTranslation(event, key: string) {
-		if (!$isOwner) return
-		const name = $sheet.skills[key].name
-
-		const translated = $t(name.toLowerCase())
-
-		if (translated !== name.toLowerCase()) {
-			$sheet.skills[key].name = translated
-		}
-	}
-
-	function onInput(event: InputEvent, key: string) {
-		editSkill(event, key)
-		checkTranslation(event, key)
-	}
-
-	function updateSheet() {
-		// TODO: 검증
 		$sheet = $sheet
 	}
 </script>
@@ -102,24 +75,41 @@
 						--height="1rem"
 						bind:value={set.isSuccess}
 						disabled={!$isOwner}
-						on:change={updateSheet}
 						tabindex={-1}
 					/>
 				</div>
 				<div class="flex-grow items-center font-serif text-xs leading-none text-left">
-					{#if set.isEditable}
-						<span class="bg-slate-200">
-							<Span
-								tabindex={-1}
-								bind:value={set.name}
-								readonly={!$isOwner}
-								on:input={(event) => onInput(event, key)}
-								on:blur={() => {
-									$sheet = $sheet
-								}}
-							/>
+					{#if set.type === 'custom'}
+						<div class="flex">
+							<span class="underline">
+								<Span
+									tabindex={-1}
+									bind:value={set.name}
+									readonly={!$isOwner}
+									on:focus={() => {
+										set.backup = set.name
+										set.isFocused = true
+									}}
+									on:blur={(event) => {
+										set.isFocused = false
+										if (set.name === '') set.name = set?.backup ?? key
+									}}
+								/>
+							</span>
+							<span
+								class:hidden={!set?.isFocused}
+								class="cursor-pointer"
+								on:touchstart|preventDefault={() => removeSkill(key)}
+								on:mousedown={() => removeSkill(key)}
+							>
+								🗑️
+							</span>
+						</div>
+					{:else if set.type === 'group'}
+						<span class="cursor-pointer underline italic" on:click={addSkill($t(key) + ' ')}>
+							+{$t(key)}
 						</span>
-					{:else}
+					{:else if set.type === 'common'}
 						<span class="cursor-not-allowed">
 							{$t(key)}
 						</span>
@@ -129,11 +119,11 @@
 					{/if}
 				</div>
 				<div class="text-[10px] leading-none whitespace-nowrap">
-					<NumberDense bind:value={set.value} readonly={!$isOwner} on:input={updateSheet} />
+					<NumberDense bind:value={set.value} readonly={!$isOwner} />
 				</div>
 			</div>
 		{/each}
 	</div>
 	<br />
-	<Button on:click={addSkill} value={$t('addSkill')} disabled={!$isOwner} />
+	<Button on:click={() => addSkill()} value={$t('addSkill')} disabled={!$isOwner} />
 </Fieldset>

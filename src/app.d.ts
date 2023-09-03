@@ -9,7 +9,8 @@ declare global {
 	}
 
 	interface Skill {
-		isEditable: boolean
+		type: 'common' | 'group' | 'custom'
+		name: string
 		value: number | null
 		initValue: number | string | null
 		name: string

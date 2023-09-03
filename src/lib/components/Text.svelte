@@ -38,6 +38,7 @@
 		padding-top: var(--padding-top, 0px);
 		padding-bottom: var(--padding-bottom, 2px);
 		padding-left: var(--padding-left, 10px);
+		padding-right: var(--padding-right, 10px);
 	}
 
 	input:read-only {

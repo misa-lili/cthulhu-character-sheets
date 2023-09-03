@@ -19,7 +19,11 @@
 
 <style>
 	select {
-		@apply bg-black/5 rounded p-2 h-[24px] font-light cursor-pointer text-xs;
+		@apply bg-black/5 rounded h-[24px] font-light cursor-pointer text-xs;
+		padding-top: var(--padding-top, 0px);
+		padding-bottom: var(--padding-bottom, 2px);
+		padding-left: var(--padding-left, 10px);
+		padding-right: var(--padding-right, 10px);
 	}
 
 	select:disabled {

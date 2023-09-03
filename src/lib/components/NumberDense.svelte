@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { autoWidth } from '$lib/directives/autoWidth'
 	import { tabEnter } from '$lib/directives/tabEnter'
 	import { onMount } from 'svelte'
 
@@ -34,9 +35,6 @@
 	function onInput() {
 		if (isNaN(value)) value = ''
 		if (value === null) value = ''
-		if (virtualDom.innerText === 'null') virtualDom.innerText = ''
-
-		inputElement.style.width = virtualDom.clientWidth + 'px'
 	}
 
 	$: half = Math.floor(Number(value) / 2)
@@ -60,6 +58,7 @@
 		{:else}
 			<input
 				use:tabEnter
+				use:autoWidth
 				type="number"
 				class="cursor-pointer focus:cursor-text outline-none min-w-[13px] -mr-[1px]"
 				style="width: 12px;"

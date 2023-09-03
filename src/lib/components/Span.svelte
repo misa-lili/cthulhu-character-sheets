@@ -12,6 +12,7 @@
 		bind:innerText={value}
 		class={customClass}
 		on:input
+		on:focus
 		on:blur
 	/>
 {:else}
@@ -21,6 +22,7 @@
 <style>
 	span[contenteditable='true'] {
 		@apply cursor-pointer outline-none;
+		min-width: var(--min-width, 64px);
 	}
 	span[contenteditable='true']:focus {
 		@apply cursor-text;

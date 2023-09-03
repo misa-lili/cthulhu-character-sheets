@@ -13,12 +13,10 @@ export function autoWidth(
 	virtualDiv.style.font = getComputedStyle(node).font // 폰트 스타일 복사
 	virtualDiv.style.margin = getComputedStyle(node).margin // 마진 스타일 복사
 	virtualDiv.style.padding = getComputedStyle(node).padding // 패딩 스타일 복사
-	virtualDiv.style.paddingRight = '7px'
 
 	document.body.appendChild(virtualDiv)
 
 	function updateWidth(): void {
-		console.log('updateWidth')
 		virtualDiv.textContent = node.value || node.placeholder
 		node.style.width = `${virtualDiv.clientWidth + 2}px` // 잘리는 것을 피하기 위해 +2
 	}

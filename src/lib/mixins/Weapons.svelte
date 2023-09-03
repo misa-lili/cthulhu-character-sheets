@@ -78,16 +78,16 @@
 							<NumberDense bind:value={weapon.skill} readonly={!$isOwner} />
 						</td>
 						<td>
-							<Span bind:value={weapon.damage} readonly={!$isOwner} />
+							<Text bind:value={weapon.damage} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
-							<Span bind:value={weapon.range} readonly={!$isOwner} />
+							<Number bind:value={weapon.range} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
-							<Span bind:value={weapon.numberOfAttacks} readonly={!$isOwner} />
+							<Number bind:value={weapon.numberOfAttacks} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
-							<Span bind:value={weapon.ammo} readonly={!$isOwner} />
+							<Number bind:value={weapon.ammo} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
 							<Checkbox

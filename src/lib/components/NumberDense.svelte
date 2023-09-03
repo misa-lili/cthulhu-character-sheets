@@ -1,25 +1,28 @@
 <script lang="ts">
+	import { tabEnter } from '$lib/directives/tabEnter'
 	import { onMount } from 'svelte'
 
 	export let label: string | null = null
-	export let value = null
+	export let value = '00'
 	export let readonly = true
 
-	let element: HTMLElement
+	let inputElement: HTMLInputElement
+	let virtualDom: HTMLElement
 
 	onMount(() => {
-		if (value == 0 || value == null) value = '00'
-		value = Number(value).toString().padStart(2, '0')
+		onBlur()
+		onInput()
 	})
 
 	function onFocus() {
 		if (readonly) return
+		inputElement.select()
 
-		let range = new Range()
-		range.setStart(element, 0)
-		range.setEnd(element, 1)
-		window.getSelection().removeAllRanges()
-		window.getSelection().addRange(range)
+		// let range = new Range()
+		// range.setStart(inputElement, 0)
+		// range.setEnd(inputElement, 2)
+		// window.getSelection().removeAllRanges()
+		// window.getSelection().addRange(range)
 	}
 
 	function onBlur() {
@@ -30,6 +33,10 @@
 
 	function onInput() {
 		if (isNaN(value)) value = ''
+		if (value === null) value = ''
+		if (virtualDom.innerText === 'null') virtualDom.innerText = ''
+
+		inputElement.style.width = virtualDom.clientWidth + 'px'
 	}
 
 	$: half = Math.floor(Number(value) / 2)
@@ -51,15 +58,20 @@
 		{#if readonly}
 			<span class="cursor-not-allowed">{value}</span>
 		{:else}
-			<span
-				bind:this={element}
-				class="cursor-pointer focus:cursor-text outline-none"
-				contenteditable="true"
-				bind:innerText={value}
+			<input
+				use:tabEnter
+				type="number"
+				class="cursor-pointer focus:cursor-text outline-none min-w-[13px] -mr-[1px]"
+				style="width: 12px;"
+				bind:this={inputElement}
+				bind:value
 				on:focus={onFocus}
 				on:blur={onBlur}
 				on:input={onInput}
 			/>
+			<div class="virtual-dom absolute inline-block opacity-0 pl-[1px]" bind:this={virtualDom}>
+				{value}
+			</div>
 		{/if}
 		<span class="text-fuchsia-500/90 text-xs leading-none">
 			{half}

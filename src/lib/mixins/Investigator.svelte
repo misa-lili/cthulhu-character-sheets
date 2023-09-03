@@ -3,6 +3,7 @@
 	import { sheet, isOwner } from '$lib/store'
 	import Fieldset from '$lib/components/Fieldset.svelte'
 	import Text from '$lib/components/Text.svelte'
+	import Number from '$lib/components/Number.svelte'
 </script>
 
 <Fieldset legend={$t('investigator')}>
@@ -12,6 +13,6 @@
 		<Text key={$t('birthplace')} bind:value={$sheet.birthplace} readonly={!$isOwner} />
 		<Text key={$t('residence')} bind:value={$sheet.residence} readonly={!$isOwner} />
 		<Text key={$t('sex')} bind:value={$sheet.sex} readonly={!$isOwner} />
-		<Text key={$t('age')} bind:value={$sheet.age} readonly={!$isOwner} />
+		<Number key={$t('age')} bind:value={$sheet.age} readonly={!$isOwner} />
 	</div>
 </Fieldset>

@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { autoWidth } from '$lib/directives/autoWidth'
+	import { tabEnter } from '$lib/directives/tabEnter'
+
 	export let key: string = ''
 	export let value: number | null = null
 	export let readonly: boolean = false
@@ -6,6 +9,7 @@
 	export let placeholder: string = ''
 	export let textSize: string = 'text-xs'
 	export let textPosition: string = 'text-left'
+	export let isAutoWidth = false
 
 	$: half = Math.floor(Number(value) / 2)
 		.toString()
@@ -22,6 +26,8 @@
 	{/if}
 	<div class="flex w-full">
 		<input
+			use:tabEnter
+			use:autoWidth={isAutoWidth}
 			tabindex={readonly ? -1 : 0}
 			class={`flex-grow ${textSize} ${textPosition} ${readonly ? 'bg-black/5' : 'bg-transparent'}`}
 			type="number"
@@ -61,7 +67,7 @@
 		line-height: var(--line-height, 1);
 		width: var(--width, 100%);
 		height: var(--height, 24px);
-		padding-left: var(--padding-left, 0.45rem);
+		padding-left: var(--padding-left, 10px);
 		padding-right: var(--padding-right, 0.45rem);
 	}
 

@@ -41,8 +41,10 @@
 
 	function addSkill() {
 		if (!$isOwner) return
+		const name = window.prompt($t('Skill name?'))
+		if (!name) return
 		const skill: Skill = {
-			name: '_____',
+			name,
 			initValue: 0,
 			isEditable: true,
 			isSuccess: false,

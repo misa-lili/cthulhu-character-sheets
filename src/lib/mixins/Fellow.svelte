@@ -55,14 +55,15 @@
 					{#each $sheet.fellowInvestigators as fellow, idx}
 						<tr>
 							<td>
-								<Span
+								<Text
+									isAutoWidth
 									bind:value={fellow.character}
 									readonly={!$isOwner}
 									on:input={(event) => editFellow(event, idx)}
 								/>
 							</td>
 							<td>
-								<Span bind:value={fellow.player} readonly={!$isOwner} />
+								<Text isAutoWidth bind:value={fellow.player} readonly={!$isOwner} />
 							</td>
 						</tr>
 					{/each}

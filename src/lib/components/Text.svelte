@@ -1,8 +1,14 @@
 <script lang="ts">
+	import { autoWidth } from '$lib/directives/autoWidth'
+	import { tabEnter } from '$lib/directives/tabEnter'
+
 	export let key = ''
 	export let value = ''
 	export let readonly = false
 	export let pointer = false
+	export let isAutoWidth = false
+
+	let virtualDom: HTMLElement
 </script>
 
 <div class="flex flex-col w-full text-xs">
@@ -10,6 +16,8 @@
 		<label class="pl-0.5 pt-1.5 overflow-visible leading-none text-xs">{key}</label>
 	{/if}
 	<input
+		use:tabEnter
+		use:autoWidth={isAutoWidth}
 		tabindex={readonly ? -1 : 0}
 		type="text"
 		bind:value

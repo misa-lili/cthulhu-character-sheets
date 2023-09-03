@@ -61,7 +61,6 @@
 		if (isGuest) return
 		if (id === 'new') return
 		isEmmiting = true
-		console.log('emit')
 		setTimeout(() => {
 			socket.emit('edit sheet', { uuid, id, sheet: $sheet })
 			isEmmiting = false

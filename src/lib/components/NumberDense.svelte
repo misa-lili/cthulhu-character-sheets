@@ -18,16 +18,9 @@
 	function onFocus() {
 		if (readonly) return
 		inputElement.select()
-
-		// let range = new Range()
-		// range.setStart(inputElement, 0)
-		// range.setEnd(inputElement, 2)
-		// window.getSelection().removeAllRanges()
-		// window.getSelection().addRange(range)
 	}
 
 	function onBlur() {
-		if (readonly) return
 		if (value == 0 || value == null) value = '00'
 		value = Number(value).toString().padStart(2, '0')
 	}
@@ -58,9 +51,9 @@
 		{:else}
 			<input
 				use:tabEnter
-				use:autoWidth
+				use:autoWidth={{ type: 'number' }}
 				type="number"
-				class="cursor-pointer focus:cursor-text outline-none min-w-[13px] -mr-[1px]"
+				class="cursor-pointer focus:cursor-text outline-none min-w-[13px]"
 				style="width: 12px;"
 				bind:this={inputElement}
 				bind:value

@@ -17,18 +17,21 @@ export function autoWidth(
 	document.body.appendChild(virtualDiv)
 
 	function updateWidth(): void {
-		virtualDiv.textContent = node.value || node.placeholder
-		node.style.width = `${virtualDiv.clientWidth + 2}px` // 잘리는 것을 피하기 위해 +2
+		virtualDiv.textContent =
+			(node.type === 'number' ? Number(node.value).toString() : node.value) || node.placeholder
+		node.style.width = `${virtualDiv.clientWidth}px` // 잘리는 것을 피하기 위해 +2
 	}
 
 	// 초기 너비 업데이트 및 입력 변경시 업데이트
 	updateWidth()
 	node.addEventListener('input', updateWidth)
+	node.addEventListener('blur', updateWidth)
 
 	return {
 		destroy() {
 			// 디렉티브가 파괴될 때 이벤트 리스너 및 가상 DOM 정리
 			node.removeEventListener('input', updateWidth)
+			node.removeEventListener('blur', updateWidth)
 			document.body.removeChild(virtualDiv)
 		},
 	}

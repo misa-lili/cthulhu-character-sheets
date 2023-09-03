@@ -54,10 +54,18 @@
 
 	$sheet = data.message
 
+	let isEmmiting = false
+	let emitInterval = 1000
 	function emitSheet() {
+		if (isEmmiting) return
 		if (isGuest) return
 		if (id === 'new') return
-		socket.emit('edit sheet', { uuid, id, sheet: $sheet })
+		isEmmiting = true
+		console.log('emit')
+		setTimeout(() => {
+			socket.emit('edit sheet', { uuid, id, sheet: $sheet })
+			isEmmiting = false
+		}, emitInterval)
 	}
 
 	$: isGuest = !$isOwner

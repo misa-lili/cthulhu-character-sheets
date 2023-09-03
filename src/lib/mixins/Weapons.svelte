@@ -81,22 +81,16 @@
 							<Text bind:value={weapon.damage} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
-							<Number bind:value={weapon.range} readonly={!$isOwner} isAutoWidth />
+							<Text bind:value={weapon.range} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
-							<Number bind:value={weapon.numberOfAttacks} readonly={!$isOwner} isAutoWidth />
+							<Text bind:value={weapon.numberOfAttacks} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
-							<Number bind:value={weapon.ammo} readonly={!$isOwner} isAutoWidth />
+							<Text bind:value={weapon.ammo} readonly={!$isOwner} isAutoWidth />
 						</td>
 						<td>
-							<Checkbox
-								--width="1rem"
-								--height="1rem"
-								textSize="text-xs"
-								bind:value={weapon.malfunction}
-								disabled={!$isOwner}
-							/>
+							<Text bind:value={weapon.malfunction} readonly={!$isOwner} isAutoWidth />
 						</td>
 					</tr>
 				{/each}

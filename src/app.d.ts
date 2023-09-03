@@ -22,10 +22,10 @@ declare global {
 		isEditable: boolean
 		skill: number | null
 		damage: string
-		numberOfAttacks: number | null
-		range: number | null
-		ammo: number | null
-		malfunction: boolean
+		numberOfAttacks: string
+		range: string
+		ammo: string
+		malfunction: string
 	}
 
 	interface Sheet {

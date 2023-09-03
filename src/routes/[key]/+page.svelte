@@ -37,6 +37,13 @@
 		if (!isNew) window.localStorage.setItem('id', id)
 
 		document.addEventListener('input', emitSheet)
+
+		window.addEventListener('keydown', (e) => {
+			if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+				e.preventDefault()
+				save()
+			}
+		})
 	})
 
 	const socket = io()

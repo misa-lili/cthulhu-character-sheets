@@ -109,7 +109,7 @@
 						<span class="cursor-pointer underline italic" on:click={addSkill($t(key) + ' ')}>
 							+{$t(key)}
 						</span>
-					{:else if set.type === 'common'}
+					{:else}
 						<span class="cursor-not-allowed">
 							{$t(key)}
 						</span>

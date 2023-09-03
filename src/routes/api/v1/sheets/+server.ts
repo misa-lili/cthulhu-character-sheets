@@ -41,10 +41,11 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 	}
 }
 
-export const PUT: RequestHandler = async ({ url }) => {
+export const PUT: RequestHandler = async ({ url, request }) => {
 	try {
-		const key = url.searchParams.get('key') || ''
-		const value = url.searchParams.get('value') || ''
+		const body = await request.json()
+		const key = body.key || ''
+		const value = body.value || ''
 		await put('sheets', key, value)
 		return json({ ok: true, status: 200 })
 	} catch (error) {

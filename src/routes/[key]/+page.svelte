@@ -168,7 +168,10 @@
 			} else return alert($t('Failed to save.'))
 		} else {
 			const value = compress($sheet)
-			const response = await fetch(`/api/v1/sheets?key=${id}&value=${value}`, { method: 'PUT' })
+			const response = await fetch(`/api/v1/sheets`, {
+				method: 'PUT',
+				body: JSON.stringify({ key: id, value }),
+			})
 			const body = await response.json()
 			if (body.ok) {
 				return alert($t('Saved!'))
